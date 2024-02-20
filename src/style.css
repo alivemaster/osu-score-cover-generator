@@ -1,0 +1,40 @@
+:root {
+    font-size: 16pt;
+    font-weight: 400;
+    font-family: 'Quicksand', sans-serif;
+    color-scheme: dark;
+    text-align: center;
+}
+
+.app {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    width: fit-content;
+    margin: 1rem auto 1rem auto;
+}
+
+.preview {
+    display: flex;
+    overflow: auto;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1rem;
+}
+
+.settings {
+    width: 20rem;
+}
+
+header {
+    display: flex;
+    padding: .5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    justify-content: space-between;
+}
+
+footer {
+    font-size: .75rem;
+}

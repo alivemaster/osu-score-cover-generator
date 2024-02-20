@@ -1,0 +1,1 @@
+# osu-score-cover-generator
