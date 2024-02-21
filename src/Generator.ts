@@ -139,23 +139,33 @@ export default class Generator {
             comment: 'Comment'
         }
     }
-    public async init() {
-        const preview = this._preview
-        await preview.init()
-        preview.scale = 0.65 * screen.width / 1920
-        preview.draw(this._scoreData)
-    }
     get preview() {
-        return this._preview
+        const preview = this._preview
+        const data = this._scoreData
+        const container = document.createElement("div")
+        container.className = "preview"
+        container.append(preview.canvas)
+        //
+        const previewResize = () => {
+            preview.scale = container.clientWidth / 1920
+            preview.draw(data)
+        }
+        window.addEventListener("resize", () => previewResize())
+        //
+        preview.init().then(() => previewResize())
+        return container
     }
     get settings() {
-        return [
+        const container = document.createElement("div")
+        container.className = "settings"
+        container.append(
             this.playerSettings(),
             this.scoreSettings(),
             this.beatmapSettings(),
             this.commentSettings(),
             this.exportSettings()
-        ]
+        )
+        return container
     }
     private playerSettings = () => {
         const preview = this._preview
