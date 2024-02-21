@@ -360,7 +360,7 @@ export default class Render {
                 ctx.fillStyle = 'hsl(190 85% 50%)'
                 break
             case 'approved':
-                ctx.fillStyle = 'hsl(90 85% 55%)'
+                ctx.fillStyle = 'hsl(90 80% 50%)'
                 break
             case 'loved':
                 ctx.fillStyle = 'hsl(330 85% 60%)'
