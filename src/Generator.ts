@@ -251,6 +251,7 @@ export default class Generator {
             label.htmlFor = "enable-pp"
             const numInput = document.createElement("input")
             numInput.type = "number"
+            numInput.disabled = !checkbox.checked
             numInput.value = data.score.pp.value
             const settings = [checkbox, numInput]
             settings.forEach((e) => {
@@ -330,6 +331,7 @@ export default class Generator {
             label.htmlFor = "enable-rank"
             const numInput = document.createElement("input")
             numInput.type = "number"
+            numInput.disabled = !checkbox.checked
             numInput.value = data.score.rank.value
             const settings = [checkbox, numInput]
             settings.forEach((e) => {
@@ -486,6 +488,7 @@ export default class Generator {
                 label.htmlFor = `enable-${item.type}`
                 const numInput = document.createElement("input")
                 numInput.type = item.type === 'time' ? "string" : "number"
+                numInput.disabled = !checkbox.checked
                 numInput.value = item.value
                 const settings = [checkbox, numInput]
                 settings.forEach((e) => {
