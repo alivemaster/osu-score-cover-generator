@@ -690,27 +690,30 @@ export default class Generator {
             const downloadBtn = document.createElement("button")
             downloadBtn.name = "download-image"
             downloadBtn.innerHTML = 'Download'
-            downloadBtn.addEventListener("click", () => {
-                exportCover(data, Number(scale)).then((blob) => {
+            downloadBtn.addEventListener("click", async () => {
+                try {
+                    const blob = await exportCover(data, Number(scale))
                     const url = URL.createObjectURL(blob)
                     const a = document.createElement("a")
                     a.href = url
                     a.download = `${fileName()}.png`
                     a.click()
                     URL.revokeObjectURL(url)
-                })
-                    .catch((e) => console.log(`Download failed! ${e}`))
+                } catch (err) {
+                    console.log(`Download failed! ${err}`)
+                }
             })
             const copyBtn = document.createElement("button")
             copyBtn.name = "copy-image"
             copyBtn.innerHTML = 'Copy'
-            copyBtn.addEventListener("click", () => {
-                exportCover(data, Number(scale)).then((blob) => {
+            copyBtn.addEventListener("click", async () => {
+                try {
+                    const blob = await exportCover(data, Number(scale))
                     const cp = [new ClipboardItem({ 'image/png': blob })]
-                    navigator.clipboard
-                        .write(cp)
-                        .catch((e) => console.log(`Copy failed! ${e}`))
-                })
+                    navigator.clipboard.write(cp)
+                } catch (err) {
+                    console.log(`Copy failed! ${err}`)
+                }
             })
             const container = document.createElement("div")
             container.id = "export-buttons"
