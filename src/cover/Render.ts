@@ -62,22 +62,22 @@ export default class Render {
     }
     set scale(scale: number) {
         this._scale = scale
-        this.resize(scale)
+        this.resize()
     }
     set ratio(ratio: '16by9' | '16by10' | '4by3') {
         const size = this._size
-        const scale = this._scale
         size.width = 1920
         size.height = ratio === '16by9' ? 1080 :
             ratio === '16by10' ? 1200 :
                 1440
-        this.resize(scale)
+        this.resize()
         this.arrange(size)
     }
-    private resize(scale: number) {
+    private resize() {
         const canvas = this._canvas
         const ctx = this._ctx
         const size = this._size
+        const scale = this._scale
         canvas.width = size.width * scale
         canvas.height = size.height * scale
         ctx.scale(scale, scale)
