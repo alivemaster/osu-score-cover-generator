@@ -24,3 +24,7 @@
     height: fit-content;
     border-radius: 1em;
 }
+
+.settings {
+    flex-shrink: 0;
+}
