@@ -665,6 +665,27 @@ export default class Generator {
                     )
                 })
             }
+            const fileName = () => {
+                const username = data.user.userName
+                const beatmapTitle = '-' + data.beatmap.title
+                const diffName = '[' + data.beatmap.difficulty.name + ']'
+                const mods = () => {
+                    let str = ''
+                    data.beatmap.mods.forEach((mod) => {
+                        if (mod.enabled) str += mod.type.toUpperCase()
+                    })
+                    if (str !== '') str = '-' + str
+                    return str
+                }
+                const scoreStatus = '-' + (data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value : '') + data.score.status.type.toUpperCase()
+                const accuracy = '-' + data.score.accuracy + '%'
+                const pp = () => {
+                    if (data.score.pp.enabled)
+                        return '-' + data.score.pp.value + 'PP'
+                    else return ''
+                }
+                return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + ratio + '-' + scale + 'x'
+            }
             //
             const downloadBtn = document.createElement("button")
             downloadBtn.name = "download-image"
@@ -674,7 +695,7 @@ export default class Generator {
                     const url = URL.createObjectURL(blob)
                     const a = document.createElement("a")
                     a.href = url
-                    a.download = `${data.user.userName}-${data.beatmap.title}[${data.beatmap.difficulty.name}]-${data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value : ''}${data.score.status.type}-${data.score.accuracy}%${data.score.pp.enabled ? '-' + data.score.pp.value + 'pp' : ''}.png`
+                    a.download = `${fileName()}.png`
                     a.click()
                     URL.revokeObjectURL(url)
                 })
