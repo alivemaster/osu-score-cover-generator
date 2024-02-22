@@ -254,6 +254,8 @@ export default class Render {
         ctx.roundRect(cursor.x, cursor.y, layout.playerCard.width, layout.playerCard.height, 48)
         ctx.clip()
         ctx.filter = `blur(${50 * scale}px)`
+        cursor.x = 0
+        cursor.y = 0
         fillImg(ctx, data.beatmap.background, cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
         ctx.beginPath()
         ctx.rect(cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
