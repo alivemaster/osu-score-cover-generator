@@ -19,12 +19,12 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@fontsource/montserrat": "^5.0.16",
-    "@fontsource/noto-sans-jp": "^5.0.17",
-    "@fontsource/noto-sans-kr": "^5.0.17",
-    "@fontsource/noto-sans-sc": "^5.0.17",
-    "@fontsource/noto-sans-tc": "^5.0.17",
-    "@fontsource/quicksand": "^5.0.16",
+    "@fontsource-variable/montserrat": "^5.0.17",
+    "@fontsource-variable/noto-sans-jp": "^5.0.17",
+    "@fontsource-variable/noto-sans-kr": "^5.0.4",
+    "@fontsource-variable/noto-sans-sc": "^5.0.4",
+    "@fontsource-variable/noto-sans-tc": "^5.0.4",
+    "@fontsource-variable/quicksand": "^5.0.16",
     "@types/color": "^3.0.6",
     "color": "^4.2.3"
   }

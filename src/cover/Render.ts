@@ -277,7 +277,7 @@ export default class Render {
         ctx.save()
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'left'
-        ctx.font = "700 72px 'Quicksand'"
+        ctx.font = "700 72px 'Quicksand Variable'"
         ctx.fillStyle = 'hsl(0 0% 100%)'
         cursor.x = layout.userName.x
         cursor.y = layout.userName.y + layout.userName.height / 2 + 4
@@ -299,7 +299,7 @@ export default class Render {
         const ppStr = data.score.pp.value + 'PP'
         const scoreStatusStr = data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value + 'X' : data.score.status.type.toUpperCase()
         ctx.save()
-        ctx.font = "700 192px 'Montserrat'"
+        ctx.font = "700 192px 'Montserrat Variable'"
         cursor.y = layout.scoreDetails.y + layout.scoreDetails.height / 4 + 12
         if (data.score.pp.enabled) {
             cursor.x = layout.scoreDetails.x
@@ -332,7 +332,7 @@ export default class Render {
         const accStr = data.score.accuracy + '%'
         const comboStr = data.score.maxCombo.value + 'x'
         ctx.save()
-        ctx.font = "700 108px 'Montserrat'"
+        ctx.font = "700 108px 'Montserrat Variable'"
         ctx.textAlign = 'left'
         ctx.fillStyle = 'hsl(0 0% 100%)'
         layout.scoreDetails.gap = data.score.rank.enabled ? (layout.scoreDetails.width - ctx.measureText(rankStr + accStr + comboStr).width) / 2 : layout.scoreDetails.width - ctx.measureText(accStr + comboStr).width
@@ -378,7 +378,7 @@ export default class Render {
         fillImg(ctx, assets.beatmapStateIcons[data.beatmap.state], cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
         // beatmap stats
         ctx.save()
-        ctx.font = "700 48px 'Quicksand'"
+        ctx.font = "700 48px 'Quicksand Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         cursor.x = layout.beatmapStatsList.x + layout.beatmapStatsList.width
@@ -440,7 +440,7 @@ export default class Render {
         ctx.restore()
         // title
         ctx.save()
-        ctx.font = "700 96px 'Quicksand'"
+        ctx.font = "700 96px 'Quicksand Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         cursor.x = layout.title.x + layout.title.width / 2
@@ -453,7 +453,7 @@ export default class Render {
         const starStr = data.beatmap.difficulty.star + '*'
         let diffStr = data.beatmap.difficulty.name
         ctx.save()
-        ctx.font = "700 64px 'Quicksand'"
+        ctx.font = "700 64px 'Quicksand Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'left'
         if (ctx.measureText(starStr + diffStr).width > 564)
@@ -480,7 +480,7 @@ export default class Render {
         ctx.restore()
         // mods
         ctx.save()
-        ctx.font = "700 54px 'Montserrat'"
+        ctx.font = "700 54px 'Montserrat Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         const modList: string[] = []
@@ -557,7 +557,7 @@ export default class Render {
         else modList.reverse().forEach((item) => drawModIcon(item))
         // comment
         ctx.save()
-        ctx.font = "400 72px 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR'"
+        ctx.font = "400 72px 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         cursor.x = layout.comment.width / 2
