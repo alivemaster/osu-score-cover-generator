@@ -592,6 +592,7 @@ export default class Generator {
         //
         let scale = 1
         let ratio = '16by10'
+        let type = 'png'
         const scaleSettings = () => {
             const label = document.createElement("label")
             label.append('scale')
@@ -645,8 +646,43 @@ export default class Generator {
             container.append(label, select)
             return container
         }
+        const imageTypeSettings = () => {
+            const label = document.createElement("label")
+            label.append('type')
+            label.htmlFor = "image-type"
+            const select = document.createElement("select")
+            select.name = "image-type"
+            const options = [
+                {
+                    name: 'png',
+                    value: 'png'
+                },
+                {
+                    name: 'jpg',
+                    value: 'jpeg'
+                },
+                {
+                    name: 'webp',
+                    value: 'webp'
+                },
+            ]
+            options.forEach((item) => {
+                const option = document.createElement("option")
+                option.value = item.value
+                if (item.value === 'png') option.selected = true
+                option.append(item.name)
+                select.append(option)
+            })
+            select.addEventListener("change", () => {
+                type = select.value
+            })
+            const container = document.createElement("div")
+            container.id = "imae-type-settings"
+            container.append(label, select)
+            return container
+        }
         const exportButtons = () => {
-            const exportCover = async (data: ScoreData, scale: number): Promise<Blob> => {
+            const exportCover = async (data: ScoreData, scale: number, type: string): Promise<Blob> => {
                 const cover = new Render()
                 await cover.init()
                 cover.ratio = ratio as typeof preview.ratio
@@ -657,11 +693,11 @@ export default class Generator {
                         if (blob) {
                             resolve(blob)
                         } else {
-                            reject(() => {
-                                console.log()
-                            })
+                            reject()
                         }
-                    }
+                    },
+                        `image/${type}`,
+                        1
                     )
                 })
             }
@@ -692,11 +728,11 @@ export default class Generator {
             downloadBtn.innerHTML = 'Download'
             downloadBtn.addEventListener("click", async () => {
                 try {
-                    const blob = await exportCover(data, Number(scale))
+                    const blob = await exportCover(data, Number(scale), type)
                     const url = URL.createObjectURL(blob)
                     const a = document.createElement("a")
                     a.href = url
-                    a.download = `${fileName()}.png`
+                    a.download = fileName()
                     a.click()
                     URL.revokeObjectURL(url)
                 } catch (err) {
@@ -708,8 +744,8 @@ export default class Generator {
             copyBtn.innerHTML = 'Copy'
             copyBtn.addEventListener("click", async () => {
                 try {
-                    const blob = await exportCover(data, Number(scale))
-                    const cp = [new ClipboardItem({ 'image/png': blob })]
+                    const blob = await exportCover(data, Number(scale), "png")
+                    const cp = [new ClipboardItem({ [blob.type]: blob })]
                     navigator.clipboard.write(cp)
                 } catch (err) {
                     console.log(`Copy failed! ${err}`)
@@ -720,7 +756,7 @@ export default class Generator {
             container.append(downloadBtn, copyBtn)
             return container
         }
-        const exportSettings = new Panel('Export', scaleSettings(), aspectRatioSettings(), exportButtons())
+        const exportSettings = new Panel('Export', scaleSettings(), aspectRatioSettings(), imageTypeSettings(), exportButtons())
         return exportSettings.panel
     }
 } 
