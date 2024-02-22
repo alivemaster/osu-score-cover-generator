@@ -4,6 +4,7 @@ import Render from "../../cover/Render.ts"
 import loadImgFile from "../../utils/loadImgFile.ts"
 import countryCodeToFlagIcon from "../../utils/countryCodeToFlagIcon.ts"
 import countryList from "../../assets/countries.json" with {type: 'json'}
+import classes from "./Generator.module.css"
 
 export default class Generator {
     static instance: Generator = new Generator()
@@ -143,7 +144,7 @@ export default class Generator {
         const preview = this._preview
         const data = this._scoreData
         const container = document.createElement("div")
-        container.className = "preview"
+        container.className = classes.preview
         container.append(preview.canvas)
         //
         const previewResize = () => {
@@ -157,7 +158,7 @@ export default class Generator {
     }
     get settings() {
         const container = document.createElement("div")
-        container.className = "settings"
+        container.className = classes.settings
         container.append(
             this.playerSettings(),
             this.scoreSettings(),

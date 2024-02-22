@@ -11,21 +11,9 @@
         font-size: 1.5em;
     }
 
-    footer {
-        font-size: 1em;
-    }
-
     .app {
         flex-direction: row;
         justify-content: center;
-    }
-
-    .preview {
-        width: 72em;
-    }
-
-    .settings {
-        width: 24em;
     }
 }
 
@@ -34,21 +22,9 @@
         font-size: .75em;
     }
 
-    footer {
-        font-size: .5em;
-    }
-
     .app {
         flex-direction: column;
         align-items: center;
-    }
-
-    .preview {
-        width: 100%;
-    }
-
-    .settings {
-        width: 100%;
     }
 }
 
@@ -59,16 +35,13 @@ header {
     justify-content: space-between;
 }
 
+footer {
+    font-size: 1em;
+}
+
 .app {
     display: flex;
     gap: 1em;
     width: 100%;
     margin: 1em auto 1em auto;
-}
-
-.preview {
-    display: flex;
-    overflow: auto;
-    height: fit-content;
-    border-radius: 1em;
 }
