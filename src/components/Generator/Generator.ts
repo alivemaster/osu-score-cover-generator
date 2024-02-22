@@ -3,7 +3,7 @@ import ScoreData from "../../cover/ScoreData.ts"
 import Render from "../../cover/Render.ts"
 import loadImgFile from "../../utils/loadImgFile.ts"
 import countryCodeToFlagIcon from "../../utils/countryCodeToFlagIcon.ts"
-import countryList from "../../assets/countries.json" with {type: 'json'}
+import countryList from "../../assets/countries.json"
 import classes from "./Generator.module.css"
 
 export default class Generator {
@@ -214,7 +214,14 @@ export default class Generator {
             label.htmlFor = "flag"
             const select = document.createElement("select")
             select.name = "flag"
-            const options = countryList
+            // const options = countryList
+            const options = [
+                {
+                    "name": "None",
+                    "code": ""
+                },
+                ...countryList
+            ]
             options.forEach((item) => {
                 const option = document.createElement("option")
                 option.value = item.code
