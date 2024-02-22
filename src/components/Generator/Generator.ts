@@ -1,9 +1,9 @@
-import Panel from "./components/Panel/Panel.ts"
-import ScoreData from "./cover/ScoreData.ts"
-import Render from "./cover/Render.ts"
-import loadImgFile from "./utils/loadImgFile.ts"
-import countryCodeToFlagIcon from "./utils/countryCodeToFlagIcon.ts"
-import countryList from "./assets/countries.json" with {type: 'json'}
+import Panel from "../Panel/Panel.ts"
+import ScoreData from "../../cover/ScoreData.ts"
+import Render from "../../cover/Render.ts"
+import loadImgFile from "../../utils/loadImgFile.ts"
+import countryCodeToFlagIcon from "../../utils/countryCodeToFlagIcon.ts"
+import countryList from "../../assets/countries.json" with {type: 'json'}
 
 export default class Generator {
     static instance: Generator = new Generator()
