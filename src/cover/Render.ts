@@ -440,7 +440,7 @@ export default class Render {
         ctx.restore()
         // title
         ctx.save()
-        ctx.font = "700 96px 'Quicksand Variable'"
+        ctx.font = "700 96px 'Quicksand Variable', 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         cursor.x = layout.title.x + layout.title.width / 2
