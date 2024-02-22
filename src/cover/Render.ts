@@ -30,7 +30,6 @@ export default class Render {
     }
     public async init() {
         this.ratio = '16by10'
-        this.arrange(this._size)
         // fonts
         await loadFonts()
         // assets
