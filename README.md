@@ -6,5 +6,6 @@ Generate cover for osu score videos. [osu-score-cover-generator.vercel.app](http
 
 ## TODOS
 
-- [ ]  UI
+- [ ]  Polish UI with web frameworks
+- [ ]  i18n
 - [ ]  Fetch data from osu api?
