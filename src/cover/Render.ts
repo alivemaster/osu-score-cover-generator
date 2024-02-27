@@ -2,7 +2,6 @@ import CoverAssets from "./CoverAssets.ts"
 import CoverLayout from "./CoverLayout.ts"
 import ScoreData from "./ScoreData.ts"
 import diffSpectrum from "./diffSpectrum.ts"
-import loadFonts from "./loadFonts.ts"
 import fillImg from "../utils/fillImg.ts"
 import shrinkText from "../utils/shrinkText.ts"
 import rankedIcon from "../assets/beatmapstate-icons/ranked.svg"
@@ -31,7 +30,18 @@ export default class Render {
     public async init() {
         this.ratio = '16by10'
         // fonts
-        await loadFonts()
+        const fonts = [
+            "0px 'Montserrat Variable'",
+            "0px 'Quicksand Variable', 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'",
+            "0px 'Quicksand Variable', 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
+        ]
+        fonts.forEach(async (font) => {
+            try {
+                await document.fonts.load(font)
+            } catch (err) {
+                console.log(`${font} failed to load! ${err}`)
+            }
+        })
         // assets
         const loadImg = async (src: string) => {
             const img = new Image()
