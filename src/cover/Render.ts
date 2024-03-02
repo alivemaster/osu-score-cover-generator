@@ -26,9 +26,10 @@ export default class Render {
         this._scale = 1
         this._layout = {} as CoverLayout
         this._assets = {} as CoverAssets
+        this.resize()
+        this.arrange(this._size)
     }
     public async init() {
-        this.ratio = '16by10'
         // fonts
         const fonts = [
             "0px 'Montserrat Variable'",
