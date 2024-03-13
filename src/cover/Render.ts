@@ -100,7 +100,6 @@ export default class Render {
             width: size.width,
             height: (size.height - 200) / 2,
             paddingH: 48,
-            paddingV: 48,
             gap: 24
         }
         layout.playerCard = {
@@ -140,9 +139,9 @@ export default class Render {
         }
         layout.scoreDetails = {
             x: layout.playerCard.x + layout.playerCard.width + layout.topBar.gap!,
-            y: layout.topBar.paddingV!,
+            y: 0,
             width: layout.topBar.width - layout.playerCard.width - layout.topBar.paddingH! * 2 - layout.topBar.gap!,
-            height: layout.topBar.height - layout.topBar.paddingV! * 2,
+            height: layout.topBar.height,
             gap: 0
         }
         layout.beatmap = {
