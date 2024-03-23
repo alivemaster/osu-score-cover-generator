@@ -308,7 +308,7 @@ export default class Render {
         ctx.textBaseline = 'middle'
         // pp & status
         const ppStr = data.score.pp.value + 'PP'
-        const scoreStatusStr = data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value + 'X' : data.score.status.type.toUpperCase()
+        const scoreStatusStr = data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value + 'X' : data.score.status.type === 'fail' ? 'F' : data.score.status.type.toUpperCase()
         ctx.save()
         ctx.font = "700 192px 'Montserrat Variable'"
         cursor.y = layout.scoreDetails.y + layout.scoreDetails.height / 4 + 12
@@ -328,7 +328,7 @@ export default class Render {
                 ctx.fillStyle = 'hsl(54 100% 60%)'
                 break
             case 'fail':
-                ctx.fillStyle = 'hsl(0 0% 60%)'
+                ctx.fillStyle = 'hsl(0 0% 75%)'
                 break
             case 'miss':
                 ctx.fillStyle = 'hsl(0 100% 60%)'
