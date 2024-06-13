@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "stylelint-config-standard-vue",
+        "stylelint-config-recess-order"
+    ],
+    "defaultSeverity": "warning",
+    "rules": {
+        "alpha-value-notation": "number",
+        "color-function-notation": "modern",
+        "hue-degree-notation": "number",
+        "number-max-precision": 5,
+        "font-family-name-quotes": "always-unless-keyword"
+    }
+}

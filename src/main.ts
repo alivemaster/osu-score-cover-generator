@@ -1,4 +1,4 @@
-import Generator from "./components/Generator/Generator"
+import Generator from "./components/legacy/Generator/Generator"
 import "./style.css"
 import '@fontsource-variable/quicksand'
 import '@fontsource-variable/montserrat'
