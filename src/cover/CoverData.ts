@@ -1,4 +1,4 @@
-export default interface ScoreData {
+export default interface CoverData {
     user: {
         avatar: HTMLImageElement
         userName: string

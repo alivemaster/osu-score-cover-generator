@@ -5,12 +5,12 @@ const props = defineProps<{
 }>()
 </script>
 <template>
-    <div class="wrapper">
+    <div class="flex">
         <slot></slot>
     </div>
 </template>
 <style scoped>
-.wrapper {
+.flex {
     /* box */
     display: flex;
     flex-direction: v-bind("props.direction");

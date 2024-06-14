@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import Wrapper from './KamuiWrapper.vue'
+import Flex from './Flex.vue'
 const emit = defineEmits<{
     (e: 'click'): void
 }>()
 </script>
 <template>
     <button class="button" @click="() => emit('click')">
-        <Wrapper direction="row" gap=".375rem" class="button-box">
+        <Flex direction="row" gap=".375rem" class="button-box">
             <slot></slot>
-        </Wrapper>
+        </Flex>
     </button>
 </template>
 <style scoped>

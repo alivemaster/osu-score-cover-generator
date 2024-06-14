@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import KamuiButton from './KamuiButton.vue'
+import Button from './Button.vue'
 const props = defineProps<{
     options: {
         name: string
@@ -15,7 +15,7 @@ const listShown = ref<boolean>(false)
 </script>
 <template>
     <div class="dropdown">
-        <KamuiButton @click="() => listShown = !listShown">{{ current }}</KamuiButton>
+        <Button @click="() => listShown = !listShown">{{ current }}</Button>
         <Transition name="dropdown-list">
             <ul class="dropdown-list" v-if="listShown">
                 <li class="dropdown-item" v-for="option in props.options" :key="'dropdown-item-' + option.value.toLowerCase()" @click="() => {

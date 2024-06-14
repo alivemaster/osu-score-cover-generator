@@ -1,7 +1,7 @@
 import CoverAssets from "./CoverAssets.ts"
 import CoverLayout from "./CoverLayout.ts"
-import ScoreData from "./ScoreData.ts"
-import diffSpectrum from "./diffSpectrum.ts"
+import ScoreData from "./CoverData.ts"
+import diffSpectrum from "./utils/diffSpectrum.ts"
 import fillImg from "./utils/fillImg.ts"
 import shrinkText from "./utils/shrinkText.ts"
 import rankedIcon from "../assets/beatmapstate-icons/ranked.svg"
@@ -12,7 +12,7 @@ import defaultBackground from "../assets/defaults/background-alpha.png"
 import defaultAvatar from "../assets/defaults/avatar.png"
 import defaultFlag from "../assets/defaults/flag.svg"
 
-export default class Render {
+export default class CoverRender {
     private _canvas: HTMLCanvasElement
     private _ctx: CanvasRenderingContext2D
     private _size: { width: number, height: number }

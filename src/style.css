@@ -1,47 +1,24 @@
 :root {
-    font-size: 16px;
-    font-weight: 400;
+    /* color varibles dark */
+    --bg1: hsl(220 5 10);
+    --bg2: hsl(220 7 12);
+    --bg3: hsl(220 8 14);
+    --fg1: hsl(0 0 20);
+    --fg2: hsl(0 0 50);
+    --fg3: hsl(0 0 100);
+    --glass-dark: hsl(0 0 0 / 0.15);
+    --glass-light: hsl(0 0 100 / 0.01);
+    --glass-lighter: hsl(0 0 100 / 0.05);
+    --stroke: hsl(0 0 100 / 0.1);
+    --stroke-lighter: hsl(0 0 100 / 0.2);
+    --button: hsl(220 10 20);
+
+    /* typo */
     font-family: 'Quicksand Variable', sans-serif;
-    color-scheme: dark;
-    text-align: center;
+    font-size: 16px;
 }
 
-@media screen and (orientation: landscape) {
-    header {
-        font-size: 1.5em;
-    }
-
-    .app {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
-
-@media screen and (orientation: portrait) {
-    header {
-        font-size: .75em;
-    }
-
-    .app {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-header {
-    display: flex;
-    padding: .5em;
-    font-weight: 500;
-    justify-content: space-between;
-}
-
-footer {
-    font-size: 1em;
-}
-
-.app {
-    display: flex;
-    gap: 1em;
-    width: 100%;
-    margin: 1em auto 1em auto;
+body {
+    /* visual */
+    background-color: var(--bg1);
 }

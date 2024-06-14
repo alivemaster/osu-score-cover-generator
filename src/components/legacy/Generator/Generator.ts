@@ -1,6 +1,6 @@
 import Panel from "../Panel/Panel.ts"
-import ScoreData from "../../../cover/ScoreData.ts"
-import Render from "../../../cover/Render.ts"
+import CoverData from "../../../cover/CoverData.ts"
+import CoverRender from "../../../cover/CoverRender.ts"
 import loadImgFile from "../../../cover/utils/loadImgFile.ts"
 import countryCodeToFlagIcon from "../../../cover/utils/countryCodeToFlagIcon.ts"
 import countryList from "../../../assets/countries.json"
@@ -8,11 +8,11 @@ import classes from "./Generator.module.css"
 
 export default class Generator {
     static instance: Generator = new Generator()
-    private _preview: Render
-    private _scoreData: ScoreData
+    private _preview: CoverRender
+    private _coverData: CoverData
     private constructor() {
-        this._preview = new Render()
-        this._scoreData =
+        this._preview = new CoverRender()
+        this._coverData =
         {
             user: {
                 avatar: new Image(),
@@ -142,7 +142,7 @@ export default class Generator {
     }
     get preview() {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         const container = document.createElement("div")
         container.className = classes.preview
         container.append(preview.canvas)
@@ -170,7 +170,7 @@ export default class Generator {
     }
     private playerSettings = () => {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         //
         const usernameSettings = () => {
             const label = document.createElement("label")
@@ -247,7 +247,7 @@ export default class Generator {
     }
     private scoreSettings = () => {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         //
         const ppSettings = () => {
             const checkbox = document.createElement("input")
@@ -411,7 +411,7 @@ export default class Generator {
     }
     private beatmapSettings = () => {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         //
         const titleSettings = () => {
             const label = document.createElement("label")
@@ -574,7 +574,7 @@ export default class Generator {
     }
     private commentSettings = () => {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         //
         const textArea = document.createElement("textarea")
         textArea.name = "comment"
@@ -588,7 +588,7 @@ export default class Generator {
     }
     private exportSettings = () => {
         const preview = this._preview
-        const data = this._scoreData
+        const data = this._coverData
         //
         let scale = 1
         let ratio = '16by10'
@@ -682,8 +682,8 @@ export default class Generator {
             return container
         }
         const exportButtons = () => {
-            const exportCover = async (data: ScoreData, scale: number, type: string): Promise<Blob> => {
-                const cover = new Render()
+            const exportCover = async (data: CoverData, scale: number, type: string): Promise<Blob> => {
+                const cover = new CoverRender()
                 await cover.init()
                 cover.ratio = ratio as typeof preview.ratio
                 cover.scale = scale
