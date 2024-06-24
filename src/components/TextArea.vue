@@ -30,6 +30,9 @@ const value = defineModel<string>('value')
     font-weight: 500;
     color: var(--fg3);
 
+    /* props */
+    resize: none;
+
     /* visual */
     background-color: var(--glass-light);
     border-color: var(--stroke);
