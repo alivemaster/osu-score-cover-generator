@@ -9,11 +9,11 @@ export default async (code: string) => {
             return point
         })
     const fileName = codePoints[0] + '-' + codePoints[1]
-    const img = new Image()
-    img.crossOrigin = "anonymous"
-    img.src = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/' + fileName + '.svg'
+    const flagImg = new Image()
+    flagImg.crossOrigin = "anonymous"
+    flagImg.src = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/' + fileName + '.svg'
     return new Promise<HTMLImageElement>((resolve, reject) => {
-        img.onload = () => resolve(img)
-        img.onerror = () => reject(new Error())
+        flagImg.onload = () => resolve(flagImg)
+        flagImg.onerror = () => reject(new Error())
     })
 }

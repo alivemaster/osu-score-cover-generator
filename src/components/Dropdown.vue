@@ -1,28 +1,36 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Button from './Button.vue'
 const props = defineProps<{
     options: {
         name: string
         value: string
-    }[]
+    }[],
+    selected: string
 }>()
 const emit = defineEmits<{
-    (e: 'change', value: string): void
+    (e: 'update:selected', value: string): void
 }>()
-const current = ref<string>(props.options[0].name)
-const listShown = ref<boolean>(false)
+const selectedOptionName = computed(() => {
+    let name = '--'
+    props.options.forEach((item) => {
+        if (item.value === props.selected)
+            name = item.name
+    })
+    return name
+})
+const expanded = ref<boolean>(false)
 </script>
 <template>
     <div class="dropdown">
-        <Button @click="() => listShown = !listShown">{{ current }}</Button>
+        <Button @click="() => expanded = !expanded">{{ selectedOptionName }}</Button>
         <Transition name="dropdown-list">
-            <ul class="dropdown-list" v-if="listShown">
-                <li class="dropdown-item" v-for="option in props.options" :key="'dropdown-item-' + option.value.toLowerCase()" @click="() => {
-                    current = option.name
-                    emit('change', option.value)
-                    listShown = !listShown
-                }">
+            <ul class="dropdown-list" v-if="expanded">
+                <li class="dropdown-item" v-for="option in props.options"
+                    :key="'dropdown-item-' + option.value.toLowerCase()" @click="() => {
+                        emit('update:selected', option.value)
+                        expanded = false
+                    }">
                     {{ option.name }}
                 </li>
             </ul>
@@ -39,11 +47,15 @@ const listShown = ref<boolean>(false)
     /* box */
     position: absolute;
     z-index: 1;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: .375rem;
+    max-width: 18rem;
+    max-height: 15rem;
     padding: .375rem;
     margin-top: .375rem;
+    overflow-y: auto;
 
     /* visual */
     background-color: var(--bg3);
@@ -55,7 +67,7 @@ const listShown = ref<boolean>(false)
 
 .dropdown-item {
     /* box */
-    padding: .375rem;
+    padding: .375rem .75rem;
 
     /* typo */
     font-size: 1rem;

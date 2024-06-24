@@ -1,34 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 interface Props {
     enabled?: boolean
-    number?: boolean
+    width?: string
+    height?: string
     placeholder?: string
-    // pattern?: RegExp
 }
 const props = withDefaults(defineProps<Props>(), {
     enabled: true,
-    number: false,
+    width: '100%',
+    height: '8rem',
     placeholder: '',
-})
-const inputType = computed(() => {
-    if (props.number)
-        return 'number'
-    else
-        return 'text'
 })
 const value = defineModel<string>('value')
 </script>
 <template>
-    <input class="text-input" :disabled="!props.enabled" :type="inputType" :placeholder="props.placeholder"
-        v-model="value">
+    <textarea class="text-area" :disabled="!props.enabled" :placeholder="props.placeholder" v-model="value"></textarea>
 </template>
 <style scoped>
-.text-input {
+.text-area {
     /* box */
     box-sizing: border-box;
-    width: 100%;
-    height: 2rem;
+    width: v-bind("props.width");
+    height: v-bind("props.height");
     padding: .375rem .75rem;
 
     /* typo */
@@ -46,14 +39,14 @@ const value = defineModel<string>('value')
     transition: .15s ease-out;
 }
 
-.text-input:focus {
+.text-area:focus {
     /* visual */
     background-color: var(--glass-dark);
     border-color: var(--stroke-lighter);
     outline: none;
 }
 
-.text-input:disabled {
+.text-area:disabled {
     /* typo */
     color: var(--fg1);
 
@@ -61,18 +54,18 @@ const value = defineModel<string>('value')
     background-color: var(--glass-dark);
 }
 
-.text-input:enabled:hover {
+.text-area:enabled:hover {
     /* visual */
     border-color: var(--stroke-lighter);
 }
 
 
-.text-input::placeholder {
+.text-area::placeholder {
     /* typo */
     color: var(--fg2);
 }
 
-.text-input:disabled::placeholder {
+.text-area:disabled::placeholder {
     /* typo */
     color: var(--fg1);
 }

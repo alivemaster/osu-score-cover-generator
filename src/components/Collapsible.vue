@@ -20,9 +20,10 @@ const expanded = ref<boolean>(true)
 <style scoped>
 .collapsible {
     /* box */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 35rem;
+    width: 27rem;
     max-height: fit-content;
     overflow: hidden;
 

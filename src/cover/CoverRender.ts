@@ -1,6 +1,6 @@
 import CoverAssets from "./CoverAssets.ts"
 import CoverLayout from "./CoverLayout.ts"
-import ScoreData from "./CoverData.ts"
+import CoverData from "./CoverData.ts"
 import diffSpectrum from "./utils/diffSpectrum.ts"
 import fillImg from "./utils/fillImg.ts"
 import shrinkText from "./utils/shrinkText.ts"
@@ -33,8 +33,8 @@ export default class CoverRender {
         // fonts
         const fonts = [
             "0px 'Montserrat Variable'",
-            "0px 'Quicksand Variable', 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'",
-            "0px 'Quicksand Variable', 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
+            "0px 'Quicksand Variable'",
+            "0px 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
         ]
         fonts.forEach(async (font) => {
             try {
@@ -219,7 +219,7 @@ export default class CoverRender {
             height: 200
         }
     }
-    public draw(data: ScoreData) {
+    public draw(data: CoverData) {
         const ctx = this._ctx
         const size = this._size
         const scale = this._scale

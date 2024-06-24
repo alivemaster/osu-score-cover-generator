@@ -20,8 +20,8 @@
 
 .preview {
     display: flex;
-    overflow: hidden;
     height: fit-content;
+    overflow: hidden;
     border-radius: 1em;
 }
 

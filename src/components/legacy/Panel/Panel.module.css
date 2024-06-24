@@ -1,8 +1,8 @@
 .panel {
-    overflow: hidden;
-    margin-bottom: 1em;
-    border-radius: 1em;
     width: 100%;
+    margin-bottom: 1em;
+    overflow: hidden;
+    border-radius: 1em;
 }
 
 .panel-header {
@@ -10,8 +10,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 1em;
-    background: hsl(0 0% 20%);
     cursor: pointer;
+    background: hsl(0 0% 20%);
 }
 
 .panel-title {
@@ -22,17 +22,17 @@
 .panel-status {
     font-size: 1em;
     font-weight: 700;
-    color: hsl(0, 0%, 30%);
+    color: hsl(0 0% 30%);
 }
 
 .panel-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: .25em;
-    overflow: hidden;
+    align-items: flex-start;
     height: fit-content;
     padding: 1em;
+    overflow: hidden;
     background: hsl(0 0% 15%);
 }
 
@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: left;
     gap: .25em;
+    align-items: left;
     width: 100%;
 }

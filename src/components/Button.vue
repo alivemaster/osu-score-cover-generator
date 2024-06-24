@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import Flex from './Flex.vue'
+interface Props {
+    enabled?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+    enabled: true
+})
 const emit = defineEmits<{
     (e: 'click'): void
 }>()
 </script>
 <template>
-    <button class="button" @click="() => emit('click')">
-        <Flex direction="row" gap=".375rem" class="button-box">
+    <button class="button" @click="() => {
+        if (props.enabled)
+            emit('click')
+    }">
+        <span class="button-box" :class="{ disabled: !props.enabled }">
             <slot></slot>
-        </Flex>
+        </span>
     </button>
 </template>
 <style scoped>
 .button {
     /* box */
-    width: fit-content;
-    height: fit-content;
     padding: 0;
     overflow: hidden;
 
@@ -27,6 +33,11 @@ const emit = defineEmits<{
 
 .button-box {
     /* box */
+    box-sizing: border-box;
+    display: flex;
+    gap: .375rem;
+    width: fit-content;
+    height: 2rem;
     padding: .375rem .75rem;
 
     /* typo */
@@ -34,6 +45,10 @@ const emit = defineEmits<{
     font-size: 1rem;
     font-weight: 500;
     color: var(--fg3);
+
+    /* interaction */
+    cursor: pointer;
+    user-select: none;
 
     /* visual */
     transition: background-color .2s ease-in;
@@ -48,5 +63,16 @@ const emit = defineEmits<{
     /* visual */
     background-color: var(--glass-dark);
     transition-duration: .05s;
+}
+
+.button-box.disabled {
+    /* typo */
+    color: var(--fg2);
+
+    /* interaction */
+    cursor: default;
+
+    /* visual */
+    background-color: var(--glass-dark);
 }
 </style>
