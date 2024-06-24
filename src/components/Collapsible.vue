@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-const props = defineProps<{
-    title: string
-}>()
+interface Props {
+    title?: string
+    width?: string
+}
+const props = withDefaults(defineProps<Props>(), {
+    title: 'Title',
+    width: '100%'
+})
 const expanded = ref<boolean>(true)
 </script>
 <template>
@@ -23,7 +28,7 @@ const expanded = ref<boolean>(true)
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 27rem;
+    width: v-bind("props.width");
     max-height: fit-content;
     overflow: hidden;
 

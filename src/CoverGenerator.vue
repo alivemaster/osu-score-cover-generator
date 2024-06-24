@@ -226,207 +226,215 @@ watch(
 )
 </script>
 <template>
-    <div id="cover-generator">
-        <div id="cover-preview"></div>
-        <div id="cover-settings">
-            <Collapsible title="Player" id="cover-settings-user">
-                <Flex gap=".75rem">
-                    <Flex width="fit-content" :column="true">
-                        <PropTitle>Avatar</PropTitle>
-                        <DragDrop width="6.375rem" height="6.375rem"></DragDrop>
-                    </Flex>
-                    <Flex :column="true" gap=".75rem">
-                        <Flex :column="true">
-                            <PropTitle>Username</PropTitle>
-                            <TextInput placeholder="alivemaster" v-model:value="coverData.user.userName">
-                            </TextInput>
-                        </Flex>
-                        <Flex :column="true">
-                            <PropTitle>Flag</PropTitle>
-                            <Dropdown :options="dropDownOptions.flag" selected=""></Dropdown>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Collapsible>
-            <Collapsible title="Score" id="cover-settings-score">
-                <Flex :column="true" gap=".75rem">
-                    <Flex :column="true">
-                        <Flex gap="auto">
-                            <PropTitle>PP</PropTitle>
-                            <Switch v-model:checked="coverData.score.pp.enabled"></Switch>
-                        </Flex>
-                        <TextInput :enabled="coverData.score.pp.enabled" :number="true" placeholder="0"
-                            v-model:value="coverData.score.pp.value">
-                        </TextInput>
-                    </Flex>
-                    <Flex :column="true">
-                        <PropTitle>Score Status</PropTitle>
-                        <Flex>
-                            <Dropdown :options="dropDownOptions.scoreStatus"
-                                v-model:selected="coverData.score.status.type">
-                            </Dropdown>
-                            <TextInput
-                                :enabled="coverData.score.status.type === 'miss' || coverData.score.status.type === 'sb'"
-                                :number="true" placeholder="0" v-model:value="coverData.score.status.value">
-                            </TextInput>
-                        </Flex>
-                    </Flex>
-                    <Flex gap=".75rem">
-                        <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>Rank</PropTitle>
-                                <Switch v-model:checked="coverData.score.rank.enabled"></Switch>
-                            </Flex>
-                            <TextInput :enabled="coverData.score.rank.enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.score.rank.value">
-                            </TextInput>
-                        </Flex>
-                        <Flex :column="true">
-                            <PropTitle>Accuracy</PropTitle>
-                            <TextInput :number="true" placeholder="0" v-model:value="coverData.score.accuracy">
-                            </TextInput>
-                        </Flex>
-                    </Flex>
+    <div class="cover-generator">
+        <div class="cover-preview" id="cover-preview"></div>
+        <div class="cover-settings">
+            <div class="cover-settings-half">
+                <Collapsible title="Player" id="cover-settings-user">
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
-                            <PropTitle>Perfect</PropTitle>
-                            <Switch size="large" v-model:checked="coverData.score.maxCombo.perfect"></Switch>
+                            <PropTitle>Avatar</PropTitle>
+                            <DragDrop width="6.375rem" height="6.375rem"></DragDrop>
                         </Flex>
-                        <Flex :column="true">
-                            <PropTitle>Max Combo</PropTitle>
-                            <TextInput :number="true" placeholder="0" v-model:value="coverData.score.maxCombo.value">
-                            </TextInput>
+                        <Flex :column="true" gap=".75rem">
+                            <Flex :column="true">
+                                <PropTitle>Username</PropTitle>
+                                <TextInput placeholder="alivemaster" v-model:value="coverData.user.userName">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>Flag</PropTitle>
+                                <Dropdown :options="dropDownOptions.flag" selected=""></Dropdown>
+                            </Flex>
                         </Flex>
                     </Flex>
-                </Flex>
-            </Collapsible>
-            <Collapsible title="Beatmap" id="cover-settings-beatmap">
-                <Flex :column="true" gap=".75rem">
-                    <Flex :column="true">
-                        <PropTitle>Title</PropTitle>
-                        <TextInput placeholder="No Title" v-model:value="coverData.beatmap.title">
-                        </TextInput>
-                    </Flex>
-                    <Flex :column="true">
-                        <PropTitle>Background</PropTitle>
-                        <DragDrop width="100%"></DragDrop>
-                    </Flex>
-                    <Flex :column="true">
-                        <PropTitle>Beatmap State</PropTitle>
-                        <Dropdown :options="dropDownOptions.beatmapState" v-model:selected="coverData.beatmap.state">
-                        </Dropdown>
-                    </Flex>
-                </Flex>
-            </Collapsible>
-            <Collapsible title="Difficulty" id="cover-settings-difficulty">
-                <Flex :column="true" gap=".75rem">
-                    <Flex gap=".75rem">
+                </Collapsible>
+                <Collapsible title="Score" id="cover-settings-score">
+                    <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
                             <Flex gap="auto">
-                                <PropTitle>Time</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[0].enabled"></Switch>
+                                <PropTitle>PP</PropTitle>
+                                <Switch v-model:checked="coverData.score.pp.enabled"></Switch>
                             </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[0].enabled" placeholder="00:00"
-                                v-model:value="coverData.beatmap.stats[0].value">
+                            <TextInput :enabled="coverData.score.pp.enabled" :number="true" placeholder="0"
+                                v-model:value="coverData.score.pp.value">
                             </TextInput>
                         </Flex>
                         <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>BPM</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[1].enabled"></Switch>
+                            <PropTitle>Score Status</PropTitle>
+                            <Flex>
+                                <Dropdown :options="dropDownOptions.scoreStatus"
+                                    v-model:selected="coverData.score.status.type">
+                                </Dropdown>
+                                <TextInput
+                                    :enabled="coverData.score.status.type === 'miss' || coverData.score.status.type === 'sb'"
+                                    :number="true" placeholder="0" v-model:value="coverData.score.status.value">
+                                </TextInput>
                             </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[1].enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.beatmap.stats[1].value">
-                            </TextInput>
+                        </Flex>
+                        <Flex gap=".75rem">
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>Rank</PropTitle>
+                                    <Switch v-model:checked="coverData.score.rank.enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.score.rank.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.score.rank.value">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>Accuracy</PropTitle>
+                                <TextInput :number="true" placeholder="0" v-model:value="coverData.score.accuracy">
+                                </TextInput>
+                            </Flex>
+                        </Flex>
+                        <Flex gap=".75rem">
+                            <Flex width="fit-content" :column="true">
+                                <PropTitle>Perfect</PropTitle>
+                                <Switch size="large" v-model:checked="coverData.score.maxCombo.perfect"></Switch>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>Max Combo</PropTitle>
+                                <TextInput :number="true" placeholder="0"
+                                    v-model:value="coverData.score.maxCombo.value">
+                                </TextInput>
+                            </Flex>
                         </Flex>
                     </Flex>
-                    <Flex gap=".75rem">
+                </Collapsible>
+                <Collapsible title="Beatmap" id="cover-settings-beatmap">
+                    <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>AR</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[2].enabled"></Switch>
-                            </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[2].enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.beatmap.stats[2].value">
+                            <PropTitle>Title</PropTitle>
+                            <TextInput placeholder="No Title" v-model:value="coverData.beatmap.title">
                             </TextInput>
                         </Flex>
                         <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>CS</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[3].enabled"></Switch>
-                            </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[3].enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.beatmap.stats[3].value">
-                            </TextInput>
+                            <PropTitle>Background</PropTitle>
+                            <DragDrop width="100%"></DragDrop>
                         </Flex>
                         <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>OD</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[4].enabled"></Switch>
-                            </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[4].enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.beatmap.stats[4].value">
-                            </TextInput>
-                        </Flex>
-                        <Flex :column="true">
-                            <Flex gap="auto">
-                                <PropTitle>HP</PropTitle>
-                                <Switch v-model:checked="coverData.beatmap.stats[5].enabled"></Switch>
-                            </Flex>
-                            <TextInput :enabled="coverData.beatmap.stats[5].enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.beatmap.stats[5].value">
-                            </TextInput>
-                        </Flex>
-                    </Flex>
-                    <Flex gap=".75rem">
-                        <Flex :column="true">
-                            <PropTitle>Star</PropTitle>
-                            <TextInput :number="true" v-model:value="coverData.beatmap.difficulty.star" placeholder="0">
-                            </TextInput>
-                        </Flex>
-                        <Flex :column="true">
-                            <PropTitle>Diff Name</PropTitle>
-                            <TextInput v-model:value="coverData.beatmap.difficulty.name" placeholder="Easy">
-                            </TextInput>
-                        </Flex>
-                    </Flex>
-                    <Flex :column="true">
-                        <PropTitle>Mods</PropTitle>
-                        <Flex :wrap="true">
-                            <ModSelect v-for="mod in coverData.beatmap.mods" :type="mod.type"
-                                v-model:checked="mod.enabled"></ModSelect>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Collapsible>
-            <Collapsible title="Comment" id="cover-settings-comment">
-                <TextArea placeholder="WYSI" v-model:value="coverData.comment"></TextArea>
-            </Collapsible>
-            <Collapsible title="Export" id="cover-settings-export">
-                <Flex :column="true" gap=".75rem">
-                    <Flex gap=".75rem">
-                        <Flex :column="true">
-                            <PropTitle>Scale</PropTitle>
-                            <TextInput :number="true" placeholder="1">
-                            </TextInput>
-                        </Flex>
-                        <Flex :column="true" width="fit-content">
-                            <PropTitle>Type</PropTitle>
-                            <Dropdown :options="dropDownOptions.exportType" selected="png">
+                            <PropTitle>Beatmap State</PropTitle>
+                            <Dropdown :options="dropDownOptions.beatmapState"
+                                v-model:selected="coverData.beatmap.state">
                             </Dropdown>
                         </Flex>
                     </Flex>
-                    <Flex>
-                        <Button>Download</Button>
-                        <Button>Copy</Button>
+                </Collapsible>
+            </div>
+            <div class="cover-settings-half">
+                <Collapsible title="Difficulty" id="cover-settings-difficulty">
+                    <Flex :column="true" gap=".75rem">
+                        <Flex gap=".75rem">
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>Time</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[0].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[0].enabled" placeholder="00:00"
+                                    v-model:value="coverData.beatmap.stats[0].value">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>BPM</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[1].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[1].enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats[1].value">
+                                </TextInput>
+                            </Flex>
+                        </Flex>
+                        <Flex gap=".75rem">
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>AR</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[2].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[2].enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats[2].value">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>CS</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[3].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[3].enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats[3].value">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>OD</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[4].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[4].enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats[4].value">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <Flex gap="auto">
+                                    <PropTitle>HP</PropTitle>
+                                    <Switch v-model:checked="coverData.beatmap.stats[5].enabled"></Switch>
+                                </Flex>
+                                <TextInput :enabled="coverData.beatmap.stats[5].enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats[5].value">
+                                </TextInput>
+                            </Flex>
+                        </Flex>
+                        <Flex gap=".75rem">
+                            <Flex :column="true">
+                                <PropTitle>Star</PropTitle>
+                                <TextInput :number="true" v-model:value="coverData.beatmap.difficulty.star"
+                                    placeholder="0">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>Diff Name</PropTitle>
+                                <TextInput v-model:value="coverData.beatmap.difficulty.name" placeholder="Easy">
+                                </TextInput>
+                            </Flex>
+                        </Flex>
+                        <Flex :column="true">
+                            <PropTitle>Mods</PropTitle>
+                            <Flex :wrap="true">
+                                <ModSelect v-for="mod in coverData.beatmap.mods" :type="mod.type"
+                                    v-model:checked="mod.enabled">
+                                </ModSelect>
+                            </Flex>
+                        </Flex>
                     </Flex>
-                </Flex>
-            </Collapsible>
+                </Collapsible>
+                <Collapsible title="Comment" id="cover-settings-comment">
+                    <TextArea placeholder="WYSI" v-model:value="coverData.comment"></TextArea>
+                </Collapsible>
+                <Collapsible title="Export" id="cover-settings-export">
+                    <Flex :column="true" gap=".75rem">
+                        <Flex gap=".75rem">
+                            <Flex :column="true">
+                                <PropTitle>Scale</PropTitle>
+                                <TextInput :number="true" placeholder="1">
+                                </TextInput>
+                            </Flex>
+                            <Flex :column="true" width="fit-content">
+                                <PropTitle>Type</PropTitle>
+                                <Dropdown :options="dropDownOptions.exportType" selected="png">
+                                </Dropdown>
+                            </Flex>
+                        </Flex>
+                        <Flex>
+                            <Button>Download</Button>
+                            <Button>Copy</Button>
+                        </Flex>
+                    </Flex>
+                </Collapsible>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
-#cover-generator {
+.cover-generator {
     /* box */
     display: flex;
     flex-direction: row;
@@ -434,7 +442,7 @@ watch(
     margin: 0 3rem;
 }
 
-#cover-preview {
+.cover-preview {
     /* box */
     display: flex;
     width: 100%;
@@ -445,12 +453,42 @@ watch(
     border-radius: 1.5rem;
 }
 
-#cover-settings {
+.cover-settings {
+    /* box */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 1.5rem;
+    width: 27rem;
+    height: fit-content;
+}
+
+.cover-settings-half {
     /* box */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
+}
+
+@media screen and (width < 1080px) {
+    .cover-generator {
+        /* box */
+        flex-direction: column;
+        margin: 0 .25rem;
+    }
+
+    .cover-settings {
+        /* box */
+        width: 100%;
+    }
+}
+
+@media screen and (720px < width < 1080px) {
+    .cover-settings {
+        /* box */
+        flex-direction: row;
+    }
 }
 </style>
