@@ -438,8 +438,8 @@ watch(
     /* box */
     display: flex;
     flex-direction: row;
-    gap: 1.5rem;
-    margin: 0 3rem;
+    gap: 1rem;
+    margin: 0 1rem;
 }
 
 .cover-preview {
@@ -455,10 +455,11 @@ watch(
 
 .cover-settings {
     /* box */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 27rem;
     height: fit-content;
 }
@@ -467,7 +468,7 @@ watch(
     /* box */
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
     height: fit-content;
 }
@@ -476,12 +477,19 @@ watch(
     .cover-generator {
         /* box */
         flex-direction: column;
-        margin: 0 .25rem;
+        margin: 0;
     }
+
+    .cover-preview {
+        /* visual */
+        border-radius: 0;
+    }
+
 
     .cover-settings {
         /* box */
         width: 100%;
+        padding: 0 .25rem;
     }
 }
 
