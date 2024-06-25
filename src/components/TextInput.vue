@@ -37,6 +37,9 @@ const value = defineModel<string>('value')
     font-weight: 500;
     color: var(--fg3);
 
+    /* props */
+    appearance: textfield;
+
     /* visual */
     background-color: var(--glass-light);
     border-color: var(--stroke);
@@ -75,5 +78,11 @@ const value = defineModel<string>('value')
 .text-input:disabled::placeholder {
     /* typo */
     color: var(--fg1);
+}
+
+.text-input::-webkit-inner-spin-button,
+.text-input::-webkit-outer-spin-button {
+    /* props */
+    appearance: none;
 }
 </style>
