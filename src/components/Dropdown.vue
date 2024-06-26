@@ -23,7 +23,15 @@ const expanded = ref<boolean>(false)
 </script>
 <template>
     <div class="dropdown">
-        <Button @click="() => expanded = !expanded">{{ selectedOptionName }}</Button>
+        <Button @click="() => expanded = !expanded">
+            {{ selectedOptionName }}
+            <span class="dropdown-icon" :class="{ rotated: expanded }">
+                <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6L8 10L12 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </span>
+        </Button>
         <Transition name="dropdown-list">
             <ul class="dropdown-list" v-if="expanded">
                 <li class="dropdown-item" v-for="option in props.options"
@@ -41,6 +49,20 @@ const expanded = ref<boolean>(false)
 .dropdown {
     /* box */
     display: block;
+}
+
+.dropdown-icon {
+    /* box */
+    width: 1rem;
+    height: 1rem;
+
+    /* visual */
+    transition: rotate .3s ease-out;
+}
+
+.dropdown-icon.rotated{
+    /* visual */
+    rotate: 180deg;
 }
 
 .dropdown-list {

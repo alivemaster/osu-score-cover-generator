@@ -14,6 +14,12 @@ const expanded = ref<boolean>(true)
     <div class="collapsible">
         <div class="collapsible-header" @click="() => expanded = !expanded">
             <h2 class="collapsible-title">{{ props.title }}</h2>
+            <span class="collapsible-icon" :class="{ rotated: expanded }">
+                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 8.99997L12 15L18 8.99997" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </span>
         </div>
         <Transition name="collapsible-container">
             <div class="collapsible-container" v-if="expanded">
@@ -40,10 +46,11 @@ const expanded = ref<boolean>(true)
 
 .collapsible-header {
     /* box */
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     width: 100%;
     height: 4.5rem;
     padding-inline: 1.5rem;
@@ -67,8 +74,23 @@ const expanded = ref<boolean>(true)
     color: #FFF;
 }
 
+.collapsible-icon {
+    /* box */
+    width: 1.5rem;
+    height: 1.5rem;
+
+    /* visual */
+    transition: rotate .3s ease-out;
+}
+
+.collapsible-icon.rotated{
+    /* visual */
+    rotate: 180deg;
+}
+
 .collapsible-container {
     /* box */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     padding: 24px;

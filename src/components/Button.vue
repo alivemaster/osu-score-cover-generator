@@ -35,7 +35,10 @@ const emit = defineEmits<{
     /* box */
     box-sizing: border-box;
     display: flex;
+    flex-direction: row;
     gap: .375rem;
+    align-items: center;
+    justify-content: flex-start;
     width: fit-content;
     height: 2rem;
     padding: .375rem .75rem;
