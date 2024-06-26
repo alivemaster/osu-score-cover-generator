@@ -241,18 +241,18 @@ const checked = defineModel<boolean>('checked')
 
 .mod-select.v2 {
     /* typo */
-    color: hsl(0 0 7);
+    color: hsl(0 0 10);
 
     /* visual */
-    background-color: hsl(0 0 15);
+    background-color: hsl(0 0 35);
 }
 
 .mod-select.v2.checked {
     /* typo */
-    color: hsl(0 0 10);
+    color: hsl(0 0 0);
 
     /* visual */
-    background-color: hsl(0 0 20);
+    background-color: hsl(0 0 75);
 }
 
 .mod-select-input {
