@@ -114,100 +114,81 @@ const coverData: CoverData = reactive({
         background: new Image(),
         title: 'Song Title',
         state: 'ranked',
-        stats: [
-            {
-                type: 'time',
-                value: '0:00',
-                enabled: false
+        stats: {
+            time: {
+                enabled: false,
+                value: '0:00'
             },
-            {
-                type: 'bpm',
-                value: '0',
-                enabled: false
+            bpm: {
+                enabled: false,
+                value: '0'
             },
-            {
-                type: 'ar',
-                value: '0',
-                enabled: true
+            ar: {
+                enabled: true,
+                value: '0'
             },
-            {
-                type: 'cs',
-                value: '0',
-                enabled: true
+            cs: {
+                enabled: true,
+                value: '0'
             },
-            {
-                type: 'od',
-                value: '0',
-                enabled: false
+            od: {
+                enabled: false,
+                value: '0'
             },
-            {
-                type: 'hp',
-                value: '0',
-                enabled: false
-            },
-        ],
+            hp: {
+                enabled: false,
+                value: '0'
+            }
+        },
         difficulty: {
             star: '0',
             name: 'Easy'
         },
-        mods: [
-            {
-                type: 'ez',
+        mods: {
+            ez: {
                 enabled: false
             },
-            {
-                type: 'nf',
+            nf: {
                 enabled: false
             },
-            {
-                type: 'ht',
+            ht: {
                 enabled: false
             },
-            {
-                type: 'hd',
+            hd: {
                 enabled: false
             },
-            {
-                type: 'hr',
+            hr: {
                 enabled: false
             },
-            {
-                type: 'dt',
+            dt: {
                 enabled: false
             },
-            {
-                type: 'nc',
+            nc: {
                 enabled: false
             },
-            {
-                type: 'fl',
+            fl: {
                 enabled: false
             },
-            {
-                type: 'sd',
+            sd: {
                 enabled: false
             },
-            {
-                type: 'pf',
+            pf: {
                 enabled: false
             },
-            {
-                type: 'rx',
+            rx: {
                 enabled: false
             },
+            ap:
             {
-                type: 'ap',
                 enabled: false
             },
-            {
-                type: 'so',
+            so: {
                 enabled: false
             },
-            {
-                type: 'v2',
+            v2: {
                 enabled: false
-            },
-        ]
+            }
+        }
     },
     comment: 'Comment'
 })
@@ -329,19 +310,19 @@ watch(
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>Time</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[0].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.time.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[0].enabled" placeholder="00:00"
-                                    v-model:value="coverData.beatmap.stats[0].value">
+                                <TextInput :enabled="coverData.beatmap.stats.time.enabled" placeholder="00:00"
+                                    v-model:value="coverData.beatmap.stats.time.value">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>BPM</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[1].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.bpm.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[1].enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats[1].value">
+                                <TextInput :enabled="coverData.beatmap.stats.bpm.enabled" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.bpm.value">
                                 </TextInput>
                             </Flex>
                         </Flex>
@@ -349,37 +330,37 @@ watch(
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>AR</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[2].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.ar.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[2].enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats[2].value">
+                                <TextInput :enabled="coverData.beatmap.stats.ar.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats.ar.value">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>CS</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[3].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.cs.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[3].enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats[3].value">
+                                <TextInput :enabled="coverData.beatmap.stats.cs.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats.cs.value">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>OD</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[4].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.od.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[4].enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats[4].value">
+                                <TextInput :enabled="coverData.beatmap.stats.od.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats.od.value">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>HP</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats[5].enabled"></Switch>
+                                    <Switch v-model:checked="coverData.beatmap.stats.hp.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats[5].enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats[5].value">
+                                <TextInput :enabled="coverData.beatmap.stats.hp.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats.hp.value">
                                 </TextInput>
                             </Flex>
                         </Flex>
@@ -399,8 +380,8 @@ watch(
                         <Flex :column="true">
                             <PropTitle>Mods</PropTitle>
                             <Flex :wrap="true">
-                                <ModSelect v-for="mod in coverData.beatmap.mods" :type="mod.type"
-                                    v-model:checked="mod.enabled">
+                                <ModSelect v-for="(item, key) in coverData.beatmap.mods" :type="key"
+                                    v-model:checked="item.enabled">
                                 </ModSelect>
                             </Flex>
                         </Flex>

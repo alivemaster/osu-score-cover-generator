@@ -27,100 +27,12 @@ export default interface CoverData {
         background: HTMLImageElement
         title: string
         state: 'ranked' | 'approved' | 'loved' | 'unranked'
-        stats: [
-            {
-                type: 'time'
-                value: string
-                enabled: boolean
-            },
-            {
-                type: 'bpm'
-                value: string
-                enabled: boolean
-            },
-            {
-                type: 'ar'
-                value: string
-                enabled: boolean
-            },
-            {
-                type: 'cs'
-                value: string
-                enabled: boolean
-            },
-            {
-                type: 'od'
-                value: string
-                enabled: boolean
-            },
-            {
-                type: 'hp'
-                value: string
-                enabled: boolean
-            },
-        ]
+        stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', { enabled: boolean, value: string }>
         difficulty: {
             star: string
             name: string
         }
-        mods: [
-            {
-                type: 'ez'
-                enabled: boolean
-            },
-            {
-                type: 'nf'
-                enabled: boolean
-            },
-            {
-                type: 'ht'
-                enabled: boolean
-            },
-            {
-                type: 'hd'
-                enabled: boolean
-            },
-            {
-                type: 'hr'
-                enabled: boolean
-            },
-            {
-                type: 'dt'
-                enabled: boolean
-            },
-            {
-                type: 'nc'
-                enabled: boolean
-            },
-            {
-                type: 'fl'
-                enabled: boolean
-            },
-            {
-                type: 'sd'
-                enabled: boolean
-            },
-            {
-                type: 'pf'
-                enabled: boolean
-            },
-            {
-                type: 'rx'
-                enabled: boolean
-            },
-            {
-                type: 'ap'
-                enabled: boolean
-            },
-            {
-                type: 'so'
-                enabled: boolean
-            },
-            {
-                type: 'v2'
-                enabled: boolean
-            },
-        ]
+        mods: Record<'ez' | 'nf' | 'ht' | 'hd' | 'hr' | 'dt' | 'nc' | 'fl' | 'sd' | 'pf' | 'rx' | 'ap' | 'so' | 'v2', { enabled: boolean }>
     }
     comment: string
 }

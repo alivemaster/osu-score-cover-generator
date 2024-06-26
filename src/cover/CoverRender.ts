@@ -355,7 +355,8 @@ export default class CoverRender {
         }
         ctx.fillText(accStr, cursor.x, cursor.y)
         cursor.x += ctx.measureText(accStr).width + layout.scoreDetails.gap
-        if (data.score.maxCombo.perfect) ctx.fillStyle = 'hsl(96 100% 70%)'
+        if (data.score.maxCombo.perfect)
+            ctx.fillStyle = 'hsl(96 100% 70%)'
         ctx.fillText(comboStr, cursor.x, cursor.y)
         ctx.restore()
         //
@@ -394,10 +395,12 @@ export default class CoverRender {
         ctx.textAlign = 'center'
         cursor.x = layout.beatmapStatsList.x + layout.beatmapStatsList.width
         const beatmapStatsEnabled: { type: string, value: string }[] = []
-        data.beatmap.stats.forEach((item) => {
+        const beatmapStatsKeys = ['time', 'bpm', 'ar', 'cs', 'od', 'hp']
+        beatmapStatsKeys.forEach((key) => {
+            const item = data.beatmap.stats[key as keyof typeof data.beatmap.stats]
             if (item.enabled)
                 beatmapStatsEnabled.push({
-                    type: item.type,
+                    type: key,
                     value: item.value
                 })
         })
@@ -494,12 +497,14 @@ export default class CoverRender {
         ctx.font = "700 54px 'Montserrat Variable'"
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
-        const modList: string[] = []
-        data.beatmap.mods.forEach((item) => {
+        const modsEnabled: string[] = []
+        const modsKeys = ['ez', 'nf', 'ht', 'hd', 'hr', 'dt', 'nc', 'fl', 'sd', 'pf', 'rx', 'ap', 'so', 'v2']
+        modsKeys.forEach((key) => {
+            const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
             if (item.enabled)
-                modList.push(item.type)
+                modsEnabled.push(key)
         })
-        layout.modList.gap = modList.length > 7 ? (layout.modList.width - layout.modItem.width * modList.length) / (modList.length - 1) : 12
+        layout.modList.gap = modsEnabled.length > 7 ? (layout.modList.width - layout.modItem.width * modsEnabled.length) / (modsEnabled.length - 1) : 12
         cursor.x = layout.modList.x + layout.modList.width
         const drawModIcon = (mod: string) => {
             cursor.x -= layout.modItem.width
@@ -563,9 +568,10 @@ export default class CoverRender {
             ctx.fillText(mod.toUpperCase(), cursor.x, cursor.y)
             cursor.x -= layout.modItem.width / 2 + layout.modList.gap!
         }
-        if (modList.length === 0)
+        if (modsEnabled.length === 0)
             drawModIcon('nm')
-        else modList.reverse().forEach((item) => drawModIcon(item))
+        else
+            modsEnabled.reverse().forEach((item) => drawModIcon(item))
         // comment
         ctx.save()
         ctx.font = "400 72px 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
