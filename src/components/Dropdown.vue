@@ -60,7 +60,7 @@ const expanded = ref<boolean>(false)
     transition: rotate .3s ease-out;
 }
 
-.dropdown-icon.rotated{
+.dropdown-icon.rotated {
     /* visual */
     rotate: 180deg;
 }
@@ -78,6 +78,10 @@ const expanded = ref<boolean>(false)
     padding: .375rem;
     margin-top: .375rem;
     overflow-y: auto;
+
+    /* scrollbar */
+    scrollbar-color: hsl(0 0 60) hsl(0 0 0 / 0);
+    scrollbar-width: thin;
 
     /* visual */
     background-color: var(--bg3);
