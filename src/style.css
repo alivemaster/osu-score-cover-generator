@@ -19,6 +19,9 @@
 }
 
 body {
+    /* box */
+    margin: 0;
+
     /* visual */
     background-color: var(--bg1);
 }
