@@ -9,10 +9,12 @@ const props = withDefaults(defineProps<Props>(), {
     width: '100%'
 })
 const expanded = ref<boolean>(true)
+const headerHovered = ref<boolean>(false)
 </script>
 <template>
-    <div class="collapsible">
-        <div class="collapsible-header" @click="() => expanded = !expanded">
+    <div class="collapsible" :class="{ hover: headerHovered }">
+        <div class="collapsible-header" @click="() => expanded = !expanded" @mouseenter="() => headerHovered = true"
+            @mouseleave="() => headerHovered = false">
             <h2 class="collapsible-title">{{ props.title }}</h2>
             <span class="collapsible-icon" :class="{ rotated: expanded }">
                 <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,6 +44,13 @@ const expanded = ref<boolean>(true)
     background-color: var(--bg2);
     border: .03125rem solid var(--stroke);
     border-radius: 1.5rem;
+    transition: border-color .15s ease-out, filter .15s ease-out;
+}
+
+.collapsible.hover {
+    /* visual */
+    filter: var(--hover-shadow);
+    border-color: var(--stroke-lighter);
 }
 
 .collapsible-header {
@@ -61,7 +70,6 @@ const expanded = ref<boolean>(true)
 
     /* visual */
     background-color: var(--bg3);
-    transition: background-color .2s ease-in;
 }
 
 .collapsible-title {
@@ -83,7 +91,7 @@ const expanded = ref<boolean>(true)
     transition: rotate .3s ease-out;
 }
 
-.collapsible-icon.rotated{
+.collapsible-icon.rotated {
     /* visual */
     rotate: 180deg;
 }

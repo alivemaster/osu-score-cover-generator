@@ -52,6 +52,7 @@ const value = defineModel<string>('value')
 .text-input:focus {
     /* visual */
     background-color: var(--glass-dark);
+    filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
     outline: none;
 }
@@ -66,6 +67,7 @@ const value = defineModel<string>('value')
 
 .text-input:enabled:hover {
     /* visual */
+    filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
 }
 

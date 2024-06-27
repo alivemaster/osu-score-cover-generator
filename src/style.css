@@ -6,12 +6,15 @@
     --fg1: hsl(0 0 20);
     --fg2: hsl(0 0 50);
     --fg3: hsl(0 0 100);
-    --glass-dark: hsl(0 0 0 / 0.15);
-    --glass-light: hsl(0 0 100 / 0.01);
-    --glass-lighter: hsl(0 0 100 / 0.05);
-    --stroke: hsl(0 0 100 / 0.1);
-    --stroke-lighter: hsl(0 0 100 / 0.2);
+    --glass-dark: hsl(0 0 0 / .15);
+    --glass-light: hsl(0 0 100 / .01);
+    --glass-lighter: hsl(0 0 100 / .05);
+    --stroke: hsl(0 0 100 / .1);
+    --stroke-lighter: hsl(0 0 100 / .2);
     --button: hsl(220 10 20);
+
+    /* filter varibles */
+    --hover-shadow: drop-shadow(0 .25rem .5rem hsl(0 0 0 / .2));
 
     /* typo */
     font-family: 'Quicksand Variable', sans-serif;

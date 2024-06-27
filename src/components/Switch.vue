@@ -57,6 +57,7 @@ const checked = defineModel<boolean>('checked')
 
 .switch:hover {
     /* visual */
+    filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
 }
 
