@@ -395,7 +395,7 @@ export default class CoverRender {
         ctx.textAlign = 'center'
         cursor.x = layout.beatmapStatsList.x + layout.beatmapStatsList.width
         const beatmapStatsEnabled: { type: string, value: string }[] = []
-        const beatmapStatsKeys = ['time', 'bpm', 'ar', 'cs', 'od', 'hp']
+        const beatmapStatsKeys = Object.keys(data.beatmap.stats)
         beatmapStatsKeys.forEach((key) => {
             const item = data.beatmap.stats[key as keyof typeof data.beatmap.stats]
             if (item.enabled)
@@ -498,7 +498,7 @@ export default class CoverRender {
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center'
         const modsEnabled: string[] = []
-        const modsKeys = ['ez', 'nf', 'ht', 'hd', 'hr', 'dt', 'nc', 'fl', 'sd', 'pf', 'rx', 'ap', 'so', 'v2']
+        const modsKeys = Object.keys(data.beatmap.mods)
         modsKeys.forEach((key) => {
             const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
             if (item.enabled)
