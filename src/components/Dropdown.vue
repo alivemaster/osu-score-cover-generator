@@ -101,6 +101,7 @@ onUnmounted(() => {
 
     /* visual */
     background-color: var(--bg3);
+    filter: var(--drop-shadow);
     border-color: var(--stroke);
     border-style: solid;
     border-width: .03125rem;

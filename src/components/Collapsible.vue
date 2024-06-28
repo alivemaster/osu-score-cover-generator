@@ -52,7 +52,6 @@ const toggleOpen = () => {
 
 .collapsible.header-hover {
     /* visual */
-    filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
 }
 

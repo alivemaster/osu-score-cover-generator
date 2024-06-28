@@ -27,14 +27,10 @@ const emit = defineEmits<{
 
     /* visual */
     background-color: var(--button);
+    filter: var(--drop-shadow);
     border: none;
     border-radius: .75rem;
     transition: filter .15s ease-out;;
-}
-
-.button:hover {
-    /* visual */
-    filter: var(--hover-shadow);
 }
 
 .button-box {
@@ -83,5 +79,6 @@ const emit = defineEmits<{
 
     /* visual */
     background-color: var(--glass-dark);
+    filter: none;
 }
 </style>

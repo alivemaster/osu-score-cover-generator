@@ -14,7 +14,7 @@
     --button: hsl(220 10 20);
 
     /* filter varibles */
-    --hover-shadow: drop-shadow(0 .25rem .5rem hsl(0 0 0 / .2));
+    --drop-shadow: drop-shadow(0 .25rem .5rem hsl(0 0 0 / .15));
 
     /* typo */
     font-family: 'Quicksand Variable', sans-serif;

@@ -38,7 +38,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 .drag-drop:hover {
     /* visual */
-    filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
 }
 
