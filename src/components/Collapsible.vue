@@ -8,15 +8,18 @@ const props = withDefaults(defineProps<Props>(), {
     title: 'Title',
     width: '100%'
 })
-const expanded = ref<boolean>(true)
-const headerHovered = ref<boolean>(false)
+const isOpen = ref<boolean>(true)
+const isHeaderHovered = ref<boolean>(false)
+const toggleContents = () => {
+    isOpen.value = !isOpen.value
+}
 </script>
 <template>
-    <div class="collapsible" :class="{ hover: headerHovered }">
-        <div class="collapsible-header" @click="() => expanded = !expanded" @mouseenter="() => headerHovered = true"
-            @mouseleave="() => headerHovered = false">
+    <div class="collapsible" :class="{ hover: isHeaderHovered }">
+        <div class="collapsible-header" @click="toggleContents" @mouseenter="() => isHeaderHovered = true"
+            @mouseleave="() => isHeaderHovered = false">
             <h2 class="collapsible-title">{{ props.title }}</h2>
-            <span class="collapsible-icon" :class="{ rotated: expanded }">
+            <span class="collapsible-icon" :class="{ rotated: isOpen }">
                 <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 8.99997L12 15L18 8.99997" stroke="white" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -24,7 +27,7 @@ const headerHovered = ref<boolean>(false)
             </span>
         </div>
         <Transition name="collapsible-container">
-            <div class="collapsible-container" v-if="expanded">
+            <div class="collapsible-container" v-if="isOpen">
                 <slot></slot>
             </div>
         </Transition>

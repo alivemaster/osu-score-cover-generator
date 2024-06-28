@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Button from './Button.vue'
 const props = defineProps<{
     options: {
@@ -14,18 +14,36 @@ const emit = defineEmits<{
 const selectedOptionName = computed(() => {
     let name = '--'
     props.options.forEach((item) => {
-        if (item.value === props.selected)
+        if (item.value === props.selected) {
             name = item.name
+            return
+        }
     })
     return name
 })
-const expanded = ref<boolean>(false)
+const isOpen = ref<boolean>(false)
+const toggleContents = () => {
+    isOpen.value = !isOpen.value
+}
+const outsideClickHandler = (event: MouseEvent) => {
+    if (isOpen.value) {
+        const dropdownElement = (event.target as HTMLElement).closest('.dropdown')
+        if (!dropdownElement)
+            isOpen.value = false
+    }
+}
+onMounted(() => {
+    document.addEventListener("click", outsideClickHandler)
+})
+onUnmounted(() => {
+    document.removeEventListener("click", outsideClickHandler)
+})
 </script>
 <template>
     <div class="dropdown">
-        <Button @click="() => expanded = !expanded">
+        <Button @click="toggleContents">
             {{ selectedOptionName }}
-            <span class="dropdown-icon" :class="{ rotated: expanded }">
+            <span class="dropdown-icon" :class="{ rotated: isOpen }">
                 <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 6L8 10L12 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -33,11 +51,11 @@ const expanded = ref<boolean>(false)
             </span>
         </Button>
         <Transition name="dropdown-list">
-            <ul class="dropdown-list" v-if="expanded">
+            <ul class="dropdown-list" v-if="isOpen">
                 <li class="dropdown-item" v-for="option in props.options"
                     :key="'dropdown-item-' + option.value.toLowerCase()" @click="() => {
                         emit('update:selected', option.value)
-                        expanded = false
+                        isOpen = false
                     }">
                     {{ option.name }}
                 </li>
