@@ -22,15 +22,13 @@ const selectedOptionName = computed(() => {
     return name
 })
 const isOpen = ref<boolean>(false)
-const toggleContents = () => {
+const toggleOpen = () => {
     isOpen.value = !isOpen.value
 }
 const outsideClickHandler = (event: MouseEvent) => {
-    if (isOpen.value) {
-        const dropdownElement = (event.target as HTMLElement).closest('.dropdown')
-        if (!dropdownElement)
-            isOpen.value = false
-    }
+    const dropdownElement = (event.target as HTMLElement).closest('.dropdown')
+    if (isOpen.value && !dropdownElement)
+        toggleOpen()
 }
 onMounted(() => {
     document.addEventListener("click", outsideClickHandler)
@@ -41,7 +39,7 @@ onUnmounted(() => {
 </script>
 <template>
     <div class="dropdown">
-        <Button @click="toggleContents">
+        <Button @click="toggleOpen">
             {{ selectedOptionName }}
             <span class="dropdown-icon" :class="{ rotated: isOpen }">
                 <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

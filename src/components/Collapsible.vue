@@ -9,15 +9,15 @@ const props = withDefaults(defineProps<Props>(), {
     width: '100%'
 })
 const isOpen = ref<boolean>(true)
-const isHeaderHovered = ref<boolean>(false)
-const toggleContents = () => {
+const isHeaderHover = ref<boolean>(false)
+const toggleOpen = () => {
     isOpen.value = !isOpen.value
 }
 </script>
 <template>
-    <div class="collapsible" :class="{ hover: isHeaderHovered }">
-        <div class="collapsible-header" @click="toggleContents" @mouseenter="() => isHeaderHovered = true"
-            @mouseleave="() => isHeaderHovered = false">
+    <div class="collapsible" :class="{ 'header-hover': isHeaderHover }">
+        <div class="collapsible-header" @click="toggleOpen" @mouseenter="() => isHeaderHover = true"
+            @mouseleave="() => isHeaderHover = false">
             <h2 class="collapsible-title">{{ props.title }}</h2>
             <span class="collapsible-icon" :class="{ rotated: isOpen }">
                 <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@ const toggleContents = () => {
     transition: border-color .15s ease-out, filter .15s ease-out;
 }
 
-.collapsible.hover {
+.collapsible.header-hover {
     /* visual */
     filter: var(--hover-shadow);
     border-color: var(--stroke-lighter);
