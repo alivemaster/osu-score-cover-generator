@@ -9,10 +9,43 @@ const props = withDefaults(defineProps<Props>(), {
     width: '5rem',
     height: '5rem'
 })
+const emit = defineEmits<{
+    (e: 'change', file: File): void
+}>()
+const fileChangeHandler = (ev: Event) => {
+    const fileList = (ev.currentTarget as HTMLInputElement).files
+    if (fileList && fileList[0]) {
+        const file = fileList[0]
+        emit('change', file)
+        console.log(`file changed! ${file.name}`)
+    }
+}
+const dropHandler = (ev: DragEvent) => {
+    ev.preventDefault()
+    const dataTransfer = ev.dataTransfer
+    if (dataTransfer) {
+        const items = dataTransfer.items
+        if (items) {
+            const firstItem = items[0]
+            if (firstItem.kind === 'file') {
+                const file = firstItem.getAsFile()
+                emit('change', file!)
+                console.log(`file dropped! ${file!.name}`)
+            }
+        } else {
+            const files = dataTransfer.files
+            const firstFile = files[0]
+            emit('change', firstFile)
+        }
+    }
+}
+const dragOverHandler = (ev: DragEvent) => {
+    ev.preventDefault()
+}
 </script>
 <template>
-    <label class="drag-drop" :class="[{ disabled: !props.enabled }]">
-        <input class="drag-drop-input" type="file" :disabled="!props.enabled">
+    <label class="drag-drop" :class="[{ disabled: !props.enabled }]" @drop="dropHandler" @dragover="dragOverHandler">
+        <input class="drag-drop-input" type="file" :disabled="!props.enabled" @change="fileChangeHandler">
     </label>
 </template>
 <style scoped>

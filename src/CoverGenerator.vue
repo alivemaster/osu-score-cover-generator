@@ -13,6 +13,7 @@ import TextArea from './components/TextArea.vue'
 import DragDrop from './components/DragDrop.vue'
 import Dropdown from './components/Dropdown.vue'
 import ModSelect from './components/ModSelect.vue'
+import loadImgFile from './cover/utils/loadImgFile'
 
 // Dropdown Options
 const dropDownOptions = {
@@ -215,7 +216,9 @@ watch(
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
                             <PropTitle>Avatar</PropTitle>
-                            <DragDrop width="6.375rem" height="6.375rem"></DragDrop>
+                            <DragDrop width="6.375rem" height="6.375rem" @change="async (file) => {
+                                coverData.user.avatar = await loadImgFile(file)
+                            }"></DragDrop>
                         </Flex>
                         <Flex :column="true" gap=".75rem">
                             <Flex :column="true">
@@ -292,7 +295,9 @@ watch(
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Background</PropTitle>
-                            <DragDrop width="100%"></DragDrop>
+                            <DragDrop width="100%" @change="async (file) => {
+                                coverData.beatmap.background = await loadImgFile(file)
+                            }"></DragDrop>
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Beatmap State</PropTitle>
@@ -321,8 +326,8 @@ watch(
                                     <PropTitle>BPM</PropTitle>
                                     <Switch v-model:checked="coverData.beatmap.stats.bpm.enabled"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.bpm.enabled" :number="true"
-                                    placeholder="0" v-model:value="coverData.beatmap.stats.bpm.value">
+                                <TextInput :enabled="coverData.beatmap.stats.bpm.enabled" :number="true" placeholder="0"
+                                    v-model:value="coverData.beatmap.stats.bpm.value">
                                 </TextInput>
                             </Flex>
                         </Flex>
