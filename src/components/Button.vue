@@ -32,7 +32,6 @@ const clickHandler = () => {
     border: none;
     border-radius: .75rem;
     transition: filter .15s ease-out;
-    ;
 }
 
 .button-box {

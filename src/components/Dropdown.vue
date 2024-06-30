@@ -40,7 +40,9 @@ onUnmounted(() => {
 <template>
     <div class="dropdown">
         <Button @click="toggleOpen">
-            {{ selectedOptionName }}
+            <span class="dropdown-selected">
+                {{ selectedOptionName }}
+            </span>
             <span class="dropdown-icon" :class="{ rotated: isOpen }">
                 <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 6L8 10L12 6" stroke="white" stroke-width="1.5" stroke-linecap="round"
@@ -65,6 +67,16 @@ onUnmounted(() => {
 .dropdown {
     /* box */
     display: block;
+}
+
+.dropdown-selected {
+    /* box */
+    max-width: 12rem;
+    overflow: hidden;
+
+    /* typo */
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dropdown-icon {
@@ -126,6 +138,13 @@ onUnmounted(() => {
     /* visual */
     cursor: pointer;
     background-color: var(--glass-lighter);
+}
+
+@media screen and (width < 960px) {
+    .dropdown-selected {
+        /* box */
+        max-width: 8rem;
+    }
 }
 
 .dropdown-list-enter-from,
