@@ -1,13 +1,22 @@
 export default interface CoverAssets {
-    beatmapStateIcons: {
-        ranked: HTMLImageElement
-        approved: HTMLImageElement
-        loved: HTMLImageElement
-        unranked: HTMLImageElement
-    }
-    defaults: {
-        background: HTMLImageElement
+    user: {
         avatar: HTMLImageElement
         flag: HTMLImageElement
+        defaults: {
+            avatar: HTMLImageElement
+            flag: HTMLImageElement
+        }
+    }
+    beatmap: {
+        background: HTMLImageElement
+        stateIcons: {
+            ranked: HTMLImageElement
+            approved: HTMLImageElement
+            loved: HTMLImageElement
+            unranked: HTMLImageElement
+        }
+        defaults: {
+            background: HTMLImageElement
+        }
     }
 }

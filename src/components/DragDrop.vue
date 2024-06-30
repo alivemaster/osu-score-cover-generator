@@ -17,7 +17,6 @@ const fileChangeHandler = (ev: Event) => {
     if (fileList && fileList[0]) {
         const file = fileList[0]
         emit('change', file)
-        console.log(`file changed! ${file.name}`)
     }
 }
 const dropHandler = (ev: DragEvent) => {
@@ -30,7 +29,6 @@ const dropHandler = (ev: DragEvent) => {
             if (firstItem.kind === 'file') {
                 const file = firstItem.getAsFile()
                 emit('change', file!)
-                console.log(`file dropped! ${file!.name}`)
             }
         } else {
             const files = dataTransfer.files

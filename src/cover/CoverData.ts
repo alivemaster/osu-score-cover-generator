@@ -1,8 +1,7 @@
 export default interface CoverData {
     user: {
-        avatar: HTMLImageElement
         userName: string
-        flag: HTMLImageElement
+        flag: string
     }
     score: {
         pp: {
@@ -24,7 +23,6 @@ export default interface CoverData {
         }
     }
     beatmap: {
-        background: HTMLImageElement
         title: string
         state: 'ranked' | 'approved' | 'loved' | 'unranked'
         stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', { enabled: boolean, value: string }>

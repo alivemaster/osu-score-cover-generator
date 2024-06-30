@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { reactive, onMounted, watch } from 'vue'
+import { reactive, onMounted, watchEffect } from 'vue'
 import CoverData from './cover/CoverData'
+import CoverAssets from './cover/CoverAssets'
 import CoverRender from './cover/CoverRender'
+import initCoverAssets from './cover/utils/initCoverAssets'
+import loadImgFile from './utils/loadImgFile'
+import loadImgUrl from './utils/loadImgUrl'
 import countryList from './assets/countries.json'
 import Flex from './components/Flex.vue'
 import Collapsible from './components/Collapsible.vue'
@@ -13,7 +17,6 @@ import TextArea from './components/TextArea.vue'
 import DragDrop from './components/DragDrop.vue'
 import Dropdown from './components/Dropdown.vue'
 import ModSelect from './components/ModSelect.vue'
-import loadImgFile from './cover/utils/loadImgFile'
 
 // Dropdown Options
 const dropDownOptions = {
@@ -88,9 +91,10 @@ countryList.forEach((item) => {
 // Cover
 const coverData: CoverData = reactive({
     user: {
-        avatar: new Image(),
+        // avatar: new Image(),
         userName: 'player',
-        flag: new Image()
+        // flag: new Image()
+        flag: ''
     },
     score: {
         pp: {
@@ -112,7 +116,7 @@ const coverData: CoverData = reactive({
         },
     },
     beatmap: {
-        background: new Image(),
+        // background: new Image(),
         title: 'Song Title',
         state: 'ranked',
         stats: {
@@ -193,19 +197,59 @@ const coverData: CoverData = reactive({
     },
     comment: 'Comment'
 })
+const coverAssets: CoverAssets = reactive({
+    user: {
+        avatar: new Image(),
+        flag: new Image(),
+        defaults: {
+            avatar: new Image(),
+            flag: new Image()
+        }
+    },
+    beatmap: {
+        background: new Image(),
+        stateIcons: {
+            ranked: new Image(),
+            approved: new Image(),
+            loved: new Image(),
+            unranked: new Image()
+        },
+        defaults: {
+            background: new Image()
+        }
+    }
+})
 const coverPreview = new CoverRender()
-onMounted(() => {
+const flagIcon = async (code: string) => {
+    if (code === '')
+        return new Image()
+    else {
+        const codePoints = code
+            .split('')
+            .map((char) => {
+                const offset = 127397
+                const emojiCode = offset + char.charCodeAt(0)
+                const emoji = String.fromCharCode(emojiCode)
+                const point = '1' + emoji.codePointAt(0)!.toString(16)
+                return point
+            })
+        const fileName = codePoints[0] + '-' + codePoints[1]
+        const fileSrc = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/' + fileName + '.svg'
+        return loadImgUrl(fileSrc)
+    }
+}
+// vue methods
+onMounted(async () => {
     const previewCv = coverPreview.canvas
     previewCv.style.width = '100%'
     previewCv.style.height = '100%'
     const previewDiv = document.getElementById("cover-preview") as HTMLDivElement
     previewDiv.append(previewCv)
-    coverPreview.init().then(() => coverPreview.draw(coverData))
+    await initCoverAssets(coverAssets)
+    coverPreview.draw(coverData, coverAssets)
 })
-watch(
-    coverData,
-    (data) => coverPreview.draw(data)
-)
+watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.flag))
+watchEffect(() => coverPreview.draw(coverData, coverAssets))
 </script>
 <template>
     <div class="cover-generator">
@@ -217,7 +261,7 @@ watch(
                         <Flex width="fit-content" :column="true">
                             <PropTitle>Avatar</PropTitle>
                             <DragDrop width="6.375rem" height="6.375rem" @change="async (file) => {
-                                coverData.user.avatar = await loadImgFile(file)
+                                coverAssets.user.avatar = await loadImgFile(file)
                             }"></DragDrop>
                         </Flex>
                         <Flex :column="true" gap=".75rem">
@@ -228,7 +272,8 @@ watch(
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>Flag</PropTitle>
-                                <Dropdown :options="dropDownOptions.flag" selected=""></Dropdown>
+                                <Dropdown :options="dropDownOptions.flag" v-model:selected="coverData.user.flag">
+                                </Dropdown>
                             </Flex>
                         </Flex>
                     </Flex>
@@ -296,7 +341,7 @@ watch(
                         <Flex :column="true">
                             <PropTitle>Background</PropTitle>
                             <DragDrop width="100%" @change="async (file) => {
-                                coverData.beatmap.background = await loadImgFile(file)
+                                coverAssets.beatmap.background = await loadImgFile(file)
                             }"></DragDrop>
                         </Flex>
                         <Flex :column="true">

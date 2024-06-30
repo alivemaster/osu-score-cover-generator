@@ -4,13 +4,6 @@ import CoverData from "./CoverData.ts"
 import diffSpectrum from "./utils/diffSpectrum.ts"
 import fillImg from "./utils/fillImg.ts"
 import shrinkText from "./utils/shrinkText.ts"
-import rankedIcon from "../assets/cover/beatmapstate-icons/ranked.svg"
-import approvedIcon from "../assets/cover/beatmapstate-icons/approved.svg"
-import lovedIcon from "../assets/cover/beatmapstate-icons/loved.svg"
-import unrankedIcon from "../assets/cover/beatmapstate-icons/unranked.svg"
-import defaultBackground from "../assets/cover/defaults/background-alpha.png"
-import defaultAvatar from "../assets/cover/defaults/avatar.png"
-import defaultFlag from "../assets/cover/defaults/flag.svg"
 
 export default class CoverRender {
     private _canvas: HTMLCanvasElement
@@ -18,54 +11,14 @@ export default class CoverRender {
     private _size: { width: number, height: number }
     private _scale: number
     private _layout: CoverLayout
-    private _assets: CoverAssets
     constructor() {
         this._canvas = document.createElement("canvas")
         this._ctx = this.canvas.getContext("2d")!
         this._size = { width: 1920, height: 1200 }
         this._scale = 1
         this._layout = {} as CoverLayout
-        this._assets = {} as CoverAssets
         this.resize()
         this.arrange(this._size)
-    }
-    public async init() {
-        // fonts
-        const fonts = [
-            "0px 'Montserrat Variable'",
-            "0px 'Quicksand Variable'",
-            "0px 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
-        ]
-        fonts.forEach(async (font) => {
-            try {
-                await document.fonts.load(font)
-            } catch (err) {
-                console.log(`${font} failed to load! ${err}`)
-            }
-        })
-        // assets
-        const loadImg = async (src: string) => {
-            const img = new Image()
-            img.crossOrigin = "anonymous"
-            img.src = src
-            return new Promise<HTMLImageElement>((resolve, reject) => {
-                img.onload = () => resolve(img)
-                img.onerror = () => reject(new Error())
-            })
-        }
-        this._assets = {
-            beatmapStateIcons: {
-                ranked: await loadImg(rankedIcon),
-                approved: await loadImg(approvedIcon),
-                loved: await loadImg(lovedIcon),
-                unranked: await loadImg(unrankedIcon)
-            },
-            defaults: {
-                background: await loadImg(defaultBackground),
-                avatar: await loadImg(defaultAvatar),
-                flag: await loadImg(defaultFlag)
-            }
-        }
     }
     get canvas() {
         return this._canvas
@@ -219,12 +172,11 @@ export default class CoverRender {
             height: 200
         }
     }
-    public draw(data: CoverData) {
+    public draw(data: CoverData, assets: CoverAssets) {
         const ctx = this._ctx
         const size = this._size
         const scale = this._scale
         const layout = this._layout
-        const assets = this._assets
         const cursor = {
             x: 0,
             y: 0
@@ -232,12 +184,11 @@ export default class CoverRender {
         ctx.clearRect(0, 0, size.width, size.height)
         ctx.fillStyle = 'hsl(0 0% 0%)'
         // bg
-        if (!data.beatmap.background.src)
-            data.beatmap.background = assets.defaults.background
+        const backgroundImg = assets.beatmap.background.src ? assets.beatmap.background : assets.beatmap.defaults.background
         ctx.save()
         ctx.fillRect(cursor.x, cursor.y, size.width, size.height)
         ctx.filter = `blur(${30 * scale}px)`
-        fillImg(ctx, data.beatmap.background, cursor.x - 30, cursor.y - 30, size.width + 60, size.height + 60)
+        fillImg(ctx, backgroundImg, cursor.x - 30, cursor.y - 30, size.width + 60, size.height + 60)
         ctx.filter = 'blur(0)'
         ctx.fillStyle = 'hsl(0 0% 0% / 65%)'
         ctx.fillRect(cursor.x, cursor.y, size.width, size.height)
@@ -251,7 +202,7 @@ export default class CoverRender {
         ctx.shadowColor = 'hsl(0 0% 0% / 35%)'
         ctx.fill()
         ctx.clip()
-        fillImg(ctx, data.beatmap.background, cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
+        fillImg(ctx, backgroundImg, cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
         ctx.fillStyle = 'hsl(0 0% 0% / 35%)'
         ctx.fill()
         ctx.restore()
@@ -265,7 +216,7 @@ export default class CoverRender {
         ctx.filter = `blur(${50 * scale}px)`
         cursor.x = 0
         cursor.y = 0
-        fillImg(ctx, data.beatmap.background, cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
+        fillImg(ctx, backgroundImg, cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
         ctx.beginPath()
         ctx.rect(cursor.x - 50, cursor.y - 50, layout.topBar.width + 100, layout.topBar.height + 100)
         ctx.fillStyle = 'hsl(0 0% 0% / 35%)'
@@ -274,15 +225,14 @@ export default class CoverRender {
         ctx.fill()
         ctx.restore()
         // avatar
-        if (!data.user.avatar.src)
-            data.user.avatar = assets.defaults.avatar
+        const avatarImg = assets.user.avatar.src ? assets.user.avatar : assets.user.defaults.avatar
         ctx.save()
         cursor.x = layout.avatar.x
         cursor.y = layout.avatar.y
         ctx.beginPath()
         ctx.roundRect(cursor.x, cursor.y, layout.avatar.width, layout.avatar.height, 48)
         ctx.clip()
-        fillImg(ctx, data.user.avatar, cursor.x, cursor.y, layout.avatar.width, layout.avatar.height)
+        fillImg(ctx, avatarImg, cursor.x, cursor.y, layout.avatar.width, layout.avatar.height)
         ctx.restore()
         // username
         ctx.save()
@@ -295,11 +245,10 @@ export default class CoverRender {
         ctx.fillText(shrinkText(ctx, data.user.userName, 360), cursor.x, cursor.y)
         ctx.restore()
         // flag
-        if (!data.user.flag.src)
-            data.user.flag = assets.defaults.flag
+        const flagImg = assets.user.flag.src ? assets.user.flag : assets.user.defaults.flag
         cursor.x = layout.playerInfo.x + layout.playerInfo.paddingH!
         cursor.y = layout.playerInfo.y + layout.playerInfo.height - layout.playerInfo.paddingV! - 62
-        ctx.drawImage(data.user.flag, cursor.x, cursor.y, 72, 72)
+        ctx.drawImage(flagImg, cursor.x, cursor.y, 72, 72)
         // scoreDetails
         ctx.save()
         ctx.shadowBlur = 15 * scale
@@ -362,6 +311,7 @@ export default class CoverRender {
         //
         ctx.restore()
         // beatmap state
+        const beatmapStateIcon = assets.beatmap.stateIcons[data.beatmap.state]
         ctx.save()
         cursor.x = layout.beatmapState.x + layout.beatmapState.width / 2
         cursor.y = layout.beatmapState.y + layout.beatmapState.height / 2
@@ -387,7 +337,7 @@ export default class CoverRender {
         ctx.restore()
         cursor.x = layout.beatmapState.x
         cursor.y = layout.beatmapState.y
-        fillImg(ctx, assets.beatmapStateIcons[data.beatmap.state], cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
+        fillImg(ctx, beatmapStateIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
         // beatmap stats
         ctx.save()
         ctx.font = "700 48px 'Quicksand Variable'"
