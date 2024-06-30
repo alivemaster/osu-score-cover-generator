@@ -19,6 +19,9 @@
     /* typo */
     font-family: 'Quicksand Variable', sans-serif;
     font-size: 16px;
+
+    /* visual */
+    color-scheme: dark;
 }
 
 body {
