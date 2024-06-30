@@ -47,7 +47,7 @@ const toggleOpen = () => {
     background-color: var(--bg2);
     border: .03125rem solid var(--stroke);
     border-radius: 1.5rem;
-    transition: border-color .15s ease-out, filter .15s ease-out;
+    transition: border-color .15s ease-out;
 }
 
 .collapsible.header-hover {

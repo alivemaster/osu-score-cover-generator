@@ -8,12 +8,13 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
     (e: 'click'): void
 }>()
+const clickHandler = () => {
+    if (props.enabled)
+        emit('click')
+}
 </script>
 <template>
-    <button class="button" @click="() => {
-        if (props.enabled)
-            emit('click')
-    }">
+    <button class="button" @click="clickHandler">
         <span class="button-box" :class="{ disabled: !props.enabled }">
             <slot></slot>
         </span>
@@ -30,7 +31,8 @@ const emit = defineEmits<{
     filter: var(--drop-shadow);
     border: none;
     border-radius: .75rem;
-    transition: filter .15s ease-out;;
+    transition: filter .15s ease-out;
+    ;
 }
 
 .button-box {
