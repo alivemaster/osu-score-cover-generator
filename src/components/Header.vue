@@ -1,10 +1,11 @@
 <template>
     <header>
-        <span id="logo">
-            <img src="../assets/logo.svg" style="height: 6rem" alt="osu score cover generator">
-        </span>
-        <a id="github-link" href="https://github.com/alivemaster/osu-score-cover-generator" target="_blank">
-            <img src="../assets/github-mark-white.svg" style="height: 3rem" alt="github logo">
+        <h1 class="logo" id="logo">
+            <img class="logo-img" src="../assets/logo.svg" alt="osu score cover generator">
+        </h1>
+        <a class="header-link" id="github-link" href="https://github.com/alivemaster/osu-score-cover-generator"
+            target="_blank">
+            <img class="link-img" src="../assets/github-mark-white.svg" alt="github logo">
         </a>
     </header>
 </template>
@@ -16,15 +17,38 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 8rem;
     padding: 0 3rem;
+}
+
+header>* {
+    /* box */
+    margin: 0;
+}
+
+.logo-img {
+    /* box */
+    height: 6rem;
+}
+
+.link-img {
+    /* box */
+    height: 3rem;
 }
 
 @media screen and (width < 1080px) {
     header {
         /* box */
-        height: 5rem;
         padding: 0 1.5rem;
+    }
+
+    .logo-img {
+        /* box */
+        height: 4rem;
+    }
+
+    .link-img {
+        /* box */
+        height: 2rem;
     }
 }
 </style>
