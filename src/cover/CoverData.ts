@@ -1,7 +1,7 @@
 export default interface CoverData {
     user: {
         userName: string
-        flag: string
+        code: string
     }
     score: {
         pp: {

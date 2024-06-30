@@ -4,7 +4,7 @@ import rankedIcon from "../../assets/cover/beatmapstate-icons/ranked.svg"
 import approvedIcon from "../../assets/cover/beatmapstate-icons/approved.svg"
 import lovedIcon from "../../assets/cover/beatmapstate-icons/loved.svg"
 import unrankedIcon from "../../assets/cover/beatmapstate-icons/unranked.svg"
-import defaultBackground from "../../assets/cover/defaults/background-alpha.png"
+import defaultBackground from "../../assets/cover/defaults/background.png"
 import defaultAvatar from "../../assets/cover/defaults/avatar.png"
 import defaultFlag from "../../assets/cover/defaults/flag.svg"
 

@@ -3,7 +3,7 @@ import { reactive, onMounted, watchEffect } from 'vue'
 import CoverData from './cover/CoverData'
 import CoverAssets from './cover/CoverAssets'
 import CoverRender from './cover/CoverRender'
-import initCoverAssets from './cover/utils/initCoverAssets'
+import initAssets from './cover/utils/initAssets'
 import loadImgFile from './utils/loadImgFile'
 import loadImgUrl from './utils/loadImgUrl'
 import countryList from './assets/countries.json'
@@ -91,10 +91,8 @@ countryList.forEach((item) => {
 // Cover
 const coverData: CoverData = reactive({
     user: {
-        // avatar: new Image(),
         userName: 'player',
-        // flag: new Image()
-        flag: ''
+        code: ''
     },
     score: {
         pp: {
@@ -116,7 +114,6 @@ const coverData: CoverData = reactive({
         },
     },
     beatmap: {
-        // background: new Image(),
         title: 'Song Title',
         state: 'ranked',
         stats: {
@@ -245,10 +242,10 @@ onMounted(async () => {
     previewCv.style.height = '100%'
     const previewDiv = document.getElementById("cover-preview") as HTMLDivElement
     previewDiv.append(previewCv)
-    await initCoverAssets(coverAssets)
+    await initAssets(coverAssets)
     coverPreview.draw(coverData, coverAssets)
 })
-watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.flag))
+watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
 watchEffect(() => coverPreview.draw(coverData, coverAssets))
 </script>
 <template>
@@ -272,7 +269,7 @@ watchEffect(() => coverPreview.draw(coverData, coverAssets))
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>Flag</PropTitle>
-                                <Dropdown :options="dropDownOptions.flag" v-model:selected="coverData.user.flag">
+                                <Dropdown :options="dropDownOptions.flag" v-model:selected="coverData.user.code">
                                 </Dropdown>
                             </Flex>
                         </Flex>
