@@ -1,7 +1,7 @@
 <template>
     <header>
         <h1 class="logo" id="logo">
-            <img class="logo-img" src="../assets/logo.svg" alt="osu score cover generator">
+            <img class="logo-img" src="../assets/logo.svg" alt="osu! score cover generator">
         </h1>
         <a class="header-link" id="github-link" href="https://github.com/alivemaster/osu-score-cover-generator"
             target="_blank">
@@ -17,38 +17,39 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 3rem;
+    padding: 1rem 3rem;
 }
 
 header>* {
     /* box */
+    height: fit-content;
     margin: 0;
 }
 
 .logo-img {
     /* box */
-    height: 6rem;
+    height: 4rem;
 }
 
 .link-img {
     /* box */
-    height: 3rem;
+    height: 2rem;
 }
 
 @media screen and (width < 1080px) {
     header {
         /* box */
-        padding: 0 1.5rem;
+        padding: .5rem 1.5rem;
     }
 
     .logo-img {
         /* box */
-        height: 4rem;
+        height: 2rem;
     }
 
     .link-img {
         /* box */
-        height: 2rem;
+        height: 1.5rem;
     }
 }
 </style>

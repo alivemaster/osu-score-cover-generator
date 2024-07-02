@@ -1,12 +1,14 @@
 <template>
     <footer>
         <span class="footer-info">
-            <h4>osu! score cover generator</h4>
-            <p>by alivemaster</p>
+            <p>Made with ❤️ by alivemaster</p>
+            <p style="color: hsl(0 0 65)">aka <a href="https://osu.ppy.sh/users/10324621" target="_blank">sb233asdf</a>
+            </p>
         </span>
         <span class="footer-disclaimer">
             <p>This webpage is not affiliated with "osu!" or "ppy".</p>
-            <p>Flag icons are taken from Twemoji. Twemoji by Twitter are licenced under CC-BY 4.0.</p>
+            <p>Flag icons are taken from Twemoji. Twemoji by Twitter are licenced under <a
+                    href="https://creativecommons.org/licenses/by/4.0/deed.en">CC-BY 4.0</a>.</p>
         </span>
     </footer>
 </template>
@@ -24,12 +26,6 @@ footer {
 .footer-info {
     /* box */
     text-align: start;
-}
-
-.footer-info>h4 {
-    /* typo */
-    font-size: 1.5rem;
-    font-weight: 700;
 }
 
 .footer-info>p {

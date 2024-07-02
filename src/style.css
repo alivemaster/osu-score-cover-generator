@@ -24,10 +24,22 @@
     color-scheme: dark;
 }
 
+*::selection {
+    /* visual */
+    background-color: hsl(0 0 100 / .20);
+}
+
 body {
     /* box */
     margin: 0;
 
     /* visual */
     background-color: var(--bg1);
+}
+
+a,
+a:active,
+a:visited {
+    /* typo */
+    color: inherit;
 }
