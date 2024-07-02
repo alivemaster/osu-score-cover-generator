@@ -1,6 +1,7 @@
-import CoverAssets from "./CoverAssets.ts"
-import CoverLayout from "./CoverLayout.ts"
 import CoverData from "./CoverData.ts"
+import CoverAssets from "./CoverAssets.ts"
+import RenderOptions from "./RenderOptions.ts"
+import CoverLayout from "./CoverLayout.ts"
 import diffSpectrum from "./utils/diffSpectrum.ts"
 import fillImg from "./utils/fillImg.ts"
 import shrinkText from "./utils/shrinkText.ts"
@@ -9,44 +10,51 @@ export default class CoverRender {
     private _canvas: HTMLCanvasElement
     private _ctx: CanvasRenderingContext2D
     private _size: { width: number, height: number }
-    private _scale: number
+    private _renderOptions: RenderOptions
     private _layout: CoverLayout
     constructor() {
         this._canvas = document.createElement("canvas")
         this._ctx = this.canvas.getContext("2d")!
         this._size = { width: 1920, height: 1200 }
-        this._scale = 1
+        this._renderOptions = {
+            ratio: '16by10',
+            scale: '1',
+            type: 'png'
+        }
         this._layout = {} as CoverLayout
-        this.resize()
-        this.arrange(this._size)
+        this.arrange()
     }
     get canvas() {
         return this._canvas
     }
-    set scale(scale: number) {
-        this._scale = scale
-        this.resize()
+    get renderOptions() {
+        const arrange = () => this.arrange()
+        const renderOptionsProxy = new Proxy(this._renderOptions, {
+            set: (target: RenderOptions, prop: keyof RenderOptions, value: string) => {
+                target[prop] = value
+                arrange()
+                return true
+            }
+        });
+        return renderOptionsProxy
     }
-    set ratio(ratio: '16by9' | '16by10' | '4by3') {
-        const size = this._size
-        size.width = 1920
-        size.height = ratio === '16by9' ? 1080 :
-            ratio === '16by10' ? 1200 :
-                1440
-        this.resize()
-        this.arrange(size)
-    }
-    private resize() {
+    private arrange() {
         const canvas = this._canvas
         const ctx = this._ctx
         const size = this._size
-        const scale = this._scale
+        const options = this._renderOptions
+        const layout = this._layout
+        // Aspect Ratio
+        size.width = 1920
+        size.height = options.ratio === '16by9' ? 1080 :
+            options.ratio === '16by10' ? 1200 :
+                1440
+        // Scale
+        const scale = Number(options.scale)
         canvas.width = size.width * scale
         canvas.height = size.height * scale
         ctx.scale(scale, scale)
-    }
-    private arrange(size: { width: number, height: number }) {
-        const layout = this._layout
+        // Layout
         layout.topBar = {
             x: 0,
             y: 0,
@@ -175,7 +183,7 @@ export default class CoverRender {
     public draw(data: CoverData, assets: CoverAssets) {
         const ctx = this._ctx
         const size = this._size
-        const scale = this._scale
+        const scale = Number(this._renderOptions.scale)
         const layout = this._layout
         const cursor = {
             x: 0,

@@ -28,8 +28,8 @@ footer {
 
 .footer-info>h4 {
     /* typo */
-    font-weight: 700;
     font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .footer-info>p {
@@ -51,10 +51,10 @@ footer {
 @media screen and (width < 1080px) {
     footer {
         /* box */
-        padding: 1.5rem 1rem;
-        gap: 1rem;
         flex-direction: column;
+        gap: 1rem;
         justify-content: center;
+        padding: 1.5rem 1rem;
     }
 
     .footer-info,

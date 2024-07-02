@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, onMounted, watchEffect, watch } from 'vue'
+import { reactive, onMounted, watchEffect } from 'vue'
 import CoverData from './cover/CoverData'
 import CoverAssets from './cover/CoverAssets'
+import RenderOptions from './cover/RenderOptions'
 import CoverRender from './cover/CoverRender'
 import initAssets from './cover/utils/initAssets'
 import flagIcon from './cover/utils/flagIcon'
@@ -97,11 +98,11 @@ const dropDownOptions = {
     ]
 }
 countryList.forEach((item) => {
-    const newFlagOption = {
+    const newOption = {
         name: item.name,
         value: item.code
     }
-    dropDownOptions.countryCode.push(newFlagOption)
+    dropDownOptions.countryCode.push(newOption)
 })
 // Cover
 const coverData: CoverData = reactive({
@@ -231,12 +232,12 @@ const coverAssets: CoverAssets = reactive({
         }
     }
 })
-const coverPreview = new CoverRender()
-const renderOptions = reactive({
+const renderOptions: RenderOptions = reactive({
     ratio: '16by10',
     scale: '1',
     type: 'png'
 })
+const coverPreview = new CoverRender()
 // Cover methods
 const changeAvatar = async (file: File) => {
     coverAssets.user.avatar = await loadImgFile(file)
@@ -273,7 +274,7 @@ const downloadCover = async () => {
         return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + options.ratio + '-' + options.scale + 'x'
     }
     try {
-        const blob = await exportCover(data, assets, options.ratio, Number(options.scale), options.type)
+        const blob = await exportCover(data, assets, options)
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
@@ -289,12 +290,17 @@ const copyCover = async () => {
     const assets = coverAssets
     const options = renderOptions
     try {
-        const blob = await exportCover(data, assets, options.ratio, Number(options.scale), 'png')
+        const blob = await exportCover(data, assets, options, 'png')
         const cp = [new ClipboardItem({ [blob.type]: blob })]
         navigator.clipboard.write(cp)
     } catch (err) {
         console.log(`Copy failed! ${err}`)
     }
+}
+const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOptions) => {
+    const previewOptions = coverPreview.renderOptions
+    previewOptions.ratio = options.ratio
+    coverPreview.draw(data, assets)
 }
 // vue methods
 onMounted(async () => {
@@ -307,14 +313,7 @@ onMounted(async () => {
     coverPreview.draw(coverData, coverAssets)
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
-watchEffect(() => coverPreview.draw(coverData, coverAssets))
-watch(
-    renderOptions,
-    (options) => {
-        coverPreview.ratio = options.ratio as typeof coverPreview.ratio
-        coverPreview.draw(coverData, coverAssets)
-    }
-)
+watchEffect(() => refreshPreview(coverData, coverAssets, renderOptions))
 </script>
 <template>
     <div class="cover-generator">

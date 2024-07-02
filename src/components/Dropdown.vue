@@ -75,8 +75,8 @@ onUnmounted(() => {
     overflow: hidden;
 
     /* typo */
-    text-wrap: nowrap;
     text-overflow: ellipsis;
+    text-wrap: nowrap;
 }
 
 .dropdown-icon {
