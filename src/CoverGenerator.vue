@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { reactive, onMounted, watchEffect } from 'vue'
+import { reactive, onMounted, watchEffect, watch } from 'vue'
 import CoverData from './cover/CoverData'
 import CoverAssets from './cover/CoverAssets'
 import CoverRender from './cover/CoverRender'
 import initAssets from './cover/utils/initAssets'
+import exportCover from './cover/utils/exportCover'
 import loadImgFile from './utils/loadImgFile'
 import loadImgUrl from './utils/loadImgUrl'
 import countryList from './assets/countries.json'
@@ -20,7 +21,7 @@ import ModSelect from './components/ModSelect.vue'
 
 // Dropdown Options
 const dropDownOptions = {
-    flag: [
+    countryCode: [
         {
             name: "None",
             value: ""
@@ -66,6 +67,20 @@ const dropDownOptions = {
             value: 'unranked'
         }
     ],
+    aspectRatio: [
+        {
+            name: '16:9',
+            value: '16by9'
+        },
+        {
+            name: '16:10',
+            value: '16by10'
+        },
+        {
+            name: '4:3',
+            value: '4by3'
+        }
+    ],
     exportType: [
         {
             name: 'png',
@@ -86,7 +101,7 @@ countryList.forEach((item) => {
         name: item.name,
         value: item.code
     }
-    dropDownOptions.flag.push(newFlagOption)
+    dropDownOptions.countryCode.push(newFlagOption)
 })
 // Cover
 const coverData: CoverData = reactive({
@@ -217,6 +232,12 @@ const coverAssets: CoverAssets = reactive({
     }
 })
 const coverPreview = new CoverRender()
+const renderOptions = reactive({
+    ratio: '16by10',
+    scale: '1',
+    type: 'png'
+})
+// Cover methods
 const flagIcon = async (code: string) => {
     if (code === '')
         return new Image()
@@ -235,6 +256,64 @@ const flagIcon = async (code: string) => {
         return loadImgUrl(fileSrc)
     }
 }
+const changeAvatar = async (file: File) => {
+    coverAssets.user.avatar = await loadImgFile(file)
+}
+const changeBeatmapBackground = async (file: File) => {
+    coverAssets.beatmap.background = await loadImgFile(file)
+}
+const downloadCover = async () => {
+    const data = coverData
+    const assets = coverAssets
+    const options = renderOptions
+    const fileName = () => {
+        const username = data.user.userName
+        const beatmapTitle = '-' + data.beatmap.title
+        const diffName = '[' + data.beatmap.difficulty.name + ']'
+        const mods = () => {
+            let str = ''
+            const modsKeys = Object.keys(data.beatmap.mods)
+            modsKeys.forEach((key) => {
+                const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
+                if (item.enabled)
+                    str += key.toUpperCase
+            })
+            if (str !== '') str = '-' + str
+            return str
+        }
+        const scoreStatus = '-' + (data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value : '') + data.score.status.type.toUpperCase()
+        const accuracy = '-' + data.score.accuracy + '%'
+        const pp = () => {
+            if (data.score.pp.enabled)
+                return '-' + data.score.pp.value + 'PP'
+            else return ''
+        }
+        return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + options.ratio + '-' + options.scale + 'x'
+    }
+    try {
+        const blob = await exportCover(data, assets, options.ratio, Number(options.scale), options.type)
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = fileName()
+        a.click()
+        URL.revokeObjectURL(url)
+    } catch (err) {
+        console.log(`Download failed! ${err}`)
+    }
+}
+const copyCover = async () => {
+    const data = coverData
+    const assets = coverAssets
+    const options = renderOptions
+    try {
+        const blob = await exportCover(data, assets, options.ratio, Number(options.scale), 'png')
+        const cp = [new ClipboardItem({ [blob.type]: blob })]
+        navigator.clipboard.write(cp)
+    } catch (err) {
+        console.log(`Copy failed! ${err}`)
+    }
+}
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -247,6 +326,13 @@ onMounted(async () => {
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
 watchEffect(() => coverPreview.draw(coverData, coverAssets))
+watch(
+    renderOptions,
+    (options) => {
+        coverPreview.ratio = options.ratio as typeof coverPreview.ratio
+        coverPreview.draw(coverData, coverAssets)
+    }
+)
 </script>
 <template>
     <div class="cover-generator">
@@ -257,9 +343,7 @@ watchEffect(() => coverPreview.draw(coverData, coverAssets))
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
                             <PropTitle>Avatar</PropTitle>
-                            <DragDrop width="6.375rem" height="6.375rem" @change="async (file) => {
-                                coverAssets.user.avatar = await loadImgFile(file)
-                            }"></DragDrop>
+                            <DragDrop width="6.375rem" height="6.375rem" @change="changeAvatar"></DragDrop>
                         </Flex>
                         <Flex :column="true" gap=".75rem">
                             <Flex :column="true">
@@ -269,7 +353,7 @@ watchEffect(() => coverPreview.draw(coverData, coverAssets))
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>Flag</PropTitle>
-                                <Dropdown :options="dropDownOptions.flag" v-model:selected="coverData.user.code">
+                                <Dropdown :options="dropDownOptions.countryCode" v-model:selected="coverData.user.code">
                                 </Dropdown>
                             </Flex>
                         </Flex>
@@ -337,9 +421,7 @@ watchEffect(() => coverPreview.draw(coverData, coverAssets))
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Background</PropTitle>
-                            <DragDrop width="100%" @change="async (file) => {
-                                coverAssets.beatmap.background = await loadImgFile(file)
-                            }"></DragDrop>
+                            <DragDrop width="100%" @change="changeBeatmapBackground"></DragDrop>
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Beatmap State</PropTitle>
@@ -435,25 +517,30 @@ watchEffect(() => coverPreview.draw(coverData, coverAssets))
                     </Flex>
                 </Collapsible>
                 <Collapsible title="Comment" id="cover-settings-comment">
-                    <TextArea placeholder="WYSI" v-model:value="coverData.comment"></TextArea>
+                    <TextArea v-model:value="coverData.comment" placeholder="WYSI"></TextArea>
                 </Collapsible>
                 <Collapsible title="Export" id="cover-settings-export">
                     <Flex :column="true" gap=".75rem">
+                        <Flex :column="true">
+                            <PropTitle>Aspect Ratio</PropTitle>
+                            <Dropdown :options="dropDownOptions.aspectRatio" v-model:selected="renderOptions.ratio">
+                            </Dropdown>
+                        </Flex>
                         <Flex gap=".75rem">
                             <Flex :column="true">
                                 <PropTitle>Scale</PropTitle>
-                                <TextInput :number="true" placeholder="1">
+                                <TextInput :number="true" v-model:value="renderOptions.scale" placeholder="1">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true" width="fit-content">
                                 <PropTitle>Type</PropTitle>
-                                <Dropdown :options="dropDownOptions.exportType" selected="png">
+                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="renderOptions.type">
                                 </Dropdown>
                             </Flex>
                         </Flex>
                         <Flex>
-                            <Button>Download</Button>
-                            <Button>Copy</Button>
+                            <Button @click="downloadCover">Download</Button>
+                            <Button @click="copyCover">Copy</Button>
                         </Flex>
                     </Flex>
                 </Collapsible>
