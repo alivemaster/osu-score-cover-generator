@@ -276,7 +276,7 @@ const downloadCover = async () => {
             modsKeys.forEach((key) => {
                 const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
                 if (item.enabled)
-                    str += key.toUpperCase
+                    str += key.toUpperCase()
             })
             if (str !== '') str = '-' + str
             return str
