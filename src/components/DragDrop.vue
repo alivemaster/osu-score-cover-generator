@@ -42,15 +42,18 @@ const dragOverHandler = (ev: DragEvent) => {
 }
 </script>
 <template>
-    <label class="drag-drop" :class="[{ disabled: !props.enabled }]" @drop="dropHandler" @dragover="dragOverHandler">
-        <input class="drag-drop-input" type="file" :disabled="!props.enabled" @change="fileChangeHandler">
+    <label class="dragdrop" :class="[{ disabled: !props.enabled }]" @drop="dropHandler" @dragover="dragOverHandler">
+        <input class="dragdrop-input" type="file" :disabled="!props.enabled" @change="fileChangeHandler">
+        <span class="dragdrop-icon"></span>
     </label>
 </template>
 <style scoped>
-.drag-drop {
+.dragdrop {
     /* box */
     box-sizing: border-box;
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: v-bind("props.width");
     height: v-bind("props.height");
 
@@ -67,17 +70,26 @@ const dragOverHandler = (ev: DragEvent) => {
     transition: .15s ease-out;
 }
 
-.drag-drop:hover {
+.dragdrop:hover {
     /* visual */
     border-color: var(--stroke-lighter);
 }
 
-.drag-drop.disabled {
+.dragdrop.disabled {
     /* visual */
     background-color: var(--glass-dark);
 }
 
-.drag-drop-input {
+.dragdrop-icon {
+    /* box */
+    width: 1.5rem;
+    height: 1.5rem;
+
+    /* visual */
+    background: url('../assets/plus.svg') center/contain no-repeat;
+}
+
+.dragdrop-input {
     /* box */
     display: none;
 }

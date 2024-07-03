@@ -19,12 +19,7 @@ const toggleOpen = () => {
         <div class="collapsible-header" @click="toggleOpen" @mouseenter="() => isHeaderHover = true"
             @mouseleave="() => isHeaderHover = false">
             <h2 class="collapsible-title">{{ props.title }}</h2>
-            <span class="collapsible-icon" :class="{ rotated: isOpen }">
-                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 8.99997L12 15L18 8.99997" stroke="white" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </span>
+            <span class="collapsible-icon" :class="{ rotated: isOpen }"></span>
         </div>
         <Transition name="collapsible-container">
             <div class="collapsible-container" v-if="isOpen">
@@ -90,6 +85,7 @@ const toggleOpen = () => {
     height: 1.5rem;
 
     /* visual */
+    background: url('../assets/arrow-large.svg') center/contain no-repeat;
     transition: rotate .3s ease-out;
 }
 
