@@ -1,7 +1,7 @@
 import CoverData from "../CoverData"
 import RenderOptions from "../RenderOptions"
 
-export default (data: CoverData, options: RenderOptions) => {
+export default (data: CoverData, options: RenderOptions, type: string) => {
     const username = data.user.userName
     const beatmapTitle = '-' + data.beatmap.title
     const diffName = '[' + data.beatmap.difficulty.name + ']'
@@ -23,5 +23,6 @@ export default (data: CoverData, options: RenderOptions) => {
             return '-' + data.score.pp.value + 'PP'
         else return ''
     }
-    return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + options.ratio + '-' + options.scale + 'x'
+    const ext = type === 'jpeg' ? '.jpg' : '.' + type
+    return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + options.ratio + '-' + options.scale + 'x' + ext
 }

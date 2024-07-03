@@ -257,7 +257,7 @@ const downloadCover = async () => {
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
-        a.download = fileName(data, options.render)
+        a.download = fileName(data, options.render, options.type)
         a.click()
         URL.revokeObjectURL(url)
     } catch (err) {
