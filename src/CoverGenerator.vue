@@ -6,6 +6,7 @@ import RenderOptions from './cover/RenderOptions'
 import CoverRender from './cover/CoverRender'
 import initAssets from './cover/utils/initAssets'
 import flagIcon from './cover/utils/flagIcon'
+import fileName from './cover/utils/fileName'
 import exportCover from './cover/utils/exportCover'
 import loadImgFile from './utils/loadImgFile'
 import countryList from './assets/countries.json'
@@ -232,9 +233,11 @@ const coverAssets: CoverAssets = reactive({
         }
     }
 })
-const renderOptions: RenderOptions = reactive({
-    ratio: '16by10',
-    scale: '1',
+const exportOptions: { render: RenderOptions, type: string } = reactive({
+    render: {
+        ratio: '16by10',
+        scale: '1'
+    },
     type: 'png'
 })
 const coverPreview = new CoverRender()
@@ -248,37 +251,13 @@ const changeBeatmapBackground = async (file: File) => {
 const downloadCover = async () => {
     const data = coverData
     const assets = coverAssets
-    const options = renderOptions
-    const fileName = () => {
-        const username = data.user.userName
-        const beatmapTitle = '-' + data.beatmap.title
-        const diffName = '[' + data.beatmap.difficulty.name + ']'
-        const mods = () => {
-            let str = ''
-            const modsKeys = Object.keys(data.beatmap.mods)
-            modsKeys.forEach((key) => {
-                const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
-                if (item.enabled)
-                    str += key.toUpperCase()
-            })
-            if (str !== '') str = '-' + str
-            return str
-        }
-        const scoreStatus = '-' + (data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value : '') + data.score.status.type.toUpperCase()
-        const accuracy = '-' + data.score.accuracy + '%'
-        const pp = () => {
-            if (data.score.pp.enabled)
-                return '-' + data.score.pp.value + 'PP'
-            else return ''
-        }
-        return username + beatmapTitle + diffName + mods() + scoreStatus + accuracy + pp() + '-' + options.ratio + '-' + options.scale + 'x'
-    }
+    const options = exportOptions
     try {
-        const blob = await exportCover(data, assets, options)
+        const blob = await exportCover(data, assets, options.render, options.type)
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
-        a.download = fileName()
+        a.download = fileName(data, options.render)
         a.click()
         URL.revokeObjectURL(url)
     } catch (err) {
@@ -288,9 +267,9 @@ const downloadCover = async () => {
 const copyCover = async () => {
     const data = coverData
     const assets = coverAssets
-    const options = renderOptions
+    const options = exportOptions
     try {
-        const blob = await exportCover(data, assets, options, 'png')
+        const blob = await exportCover(data, assets, options.render, 'png')
         const cp = [new ClipboardItem({ [blob.type]: blob })]
         navigator.clipboard.write(cp)
     } catch (err) {
@@ -313,7 +292,7 @@ onMounted(async () => {
     coverPreview.draw(coverData, coverAssets)
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
-watchEffect(() => refreshPreview(coverData, coverAssets, renderOptions))
+watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
 </script>
 <template>
     <div class="cover-generator">
@@ -504,18 +483,19 @@ watchEffect(() => refreshPreview(coverData, coverAssets, renderOptions))
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
                             <PropTitle>Aspect Ratio</PropTitle>
-                            <Dropdown :options="dropDownOptions.aspectRatio" v-model:selected="renderOptions.ratio">
+                            <Dropdown :options="dropDownOptions.aspectRatio"
+                                v-model:selected="exportOptions.render.ratio">
                             </Dropdown>
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex :column="true">
                                 <PropTitle>Scale</PropTitle>
-                                <TextInput :number="true" v-model:value="renderOptions.scale" placeholder="1">
+                                <TextInput :number="true" v-model:value="exportOptions.render.scale" placeholder="1">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true" width="fit-content">
                                 <PropTitle>Type</PropTitle>
-                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="renderOptions.type">
+                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="exportOptions.type">
                                 </Dropdown>
                             </Flex>
                         </Flex>

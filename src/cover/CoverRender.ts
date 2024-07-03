@@ -18,8 +18,7 @@ export default class CoverRender {
         this._size = { width: 1920, height: 1200 }
         this._renderOptions = {
             ratio: '16by10',
-            scale: '1',
-            type: 'png'
+            scale: '1'
         }
         this._layout = {} as CoverLayout
         this.arrange()
