@@ -7,7 +7,7 @@
         </span>
         <span class="footer-disclaimer">
             <p>This webpage is not affiliated with "osu!" or "ppy".</p>
-            <p>Flag icons are taken from Twemoji. Twemoji by Twitter are licenced under <a
+            <p>Flag icons are taken from Twemoji. Twemoji by Twitter is licenced under <a
                     href="https://creativecommons.org/licenses/by/4.0/deed.en">CC-BY 4.0</a>.</p>
         </span>
     </footer>
