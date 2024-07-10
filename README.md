@@ -2,8 +2,6 @@
 
 Generate cover for osu score videos. [osu-score-cover-generator.vercel.app](https://osu-score-cover-generator.vercel.app/)
 
-[Figma draft](https://www.figma.com/file/sRFfKpYs9CwzzU62lW6osQ/)
-
 ## TODOS
 
 - [x]  Polish UI with web frameworks
