@@ -1,6 +1,6 @@
 # osu! score cover generator
 
-Generate cover for osu score videos. [osu-score-cover-generator.vercel.app](https://osu-score-cover-generator.vercel.app/)
+Generate cover for osu score videos. [a.yasunaori.be/osu-score-cover-generator](https://a.yasunaori.be/osu-score-cover-generator/)
 
 ## TODOS
 
