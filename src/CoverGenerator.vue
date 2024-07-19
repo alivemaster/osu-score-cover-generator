@@ -469,7 +469,7 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                         <Flex :column="true">
                             <PropTitle>Mods</PropTitle>
                             <Flex :wrap="true">
-                                <ModSelect v-for="(item, key) in coverData.beatmap.mods" :type="key"
+                                <ModSelect v-for="(item, key) in coverData.beatmap.mods" :type="key" :key="key"
                                     v-model:checked="item.enabled">
                                 </ModSelect>
                             </Flex>
