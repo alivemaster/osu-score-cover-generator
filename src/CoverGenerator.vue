@@ -8,6 +8,8 @@ import initAssets from './cover/utils/initAssets'
 import flagIcon from './cover/utils/flagIcon'
 import fileName from './cover/utils/fileName'
 import exportCover from './cover/utils/exportCover'
+import loadUserData from './cover/utils/loadUserData'
+import loadBeatmapData from './cover/utils/loadBeatmapData'
 import loadImgFile from './utils/loadImgFile'
 import countryList from './assets/countries.json'
 import Flex from './components/Flex.vue'
@@ -51,7 +53,7 @@ const dropDownOptions = {
             value: 'sb'
         },
     ],
-    beatmapState: [
+    beatmapStatus: [
         {
             name: 'Ranked',
             value: 'ranked'
@@ -109,7 +111,9 @@ countryList.forEach((item) => {
 const coverData: CoverData = reactive({
     user: {
         userName: 'player',
-        code: ''
+        code: '',
+        globalRank: '0',
+        countryRank: '0'
     },
     score: {
         pp: {
@@ -132,7 +136,10 @@ const coverData: CoverData = reactive({
     },
     beatmap: {
         title: 'Song Title',
-        state: 'ranked',
+        artist: 'Artist',
+        creator: 'Mapper',
+        mode: 'osu',
+        status: 'ranked',
         stats: {
             time: {
                 enabled: false,
@@ -222,7 +229,7 @@ const coverAssets: CoverAssets = reactive({
     },
     beatmap: {
         background: new Image(),
-        stateIcons: {
+        statusIcons: {
             ranked: new Image(),
             approved: new Image(),
             loved: new Image(),
@@ -281,6 +288,15 @@ const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOpt
     previewOptions.ratio = options.ratio
     coverPreview.draw(data, assets)
 }
+// Data fetching methods
+const changeUserData = async (id: string) => {
+    if (id && id !== '0')
+        loadUserData(coverData, coverAssets, id)
+}
+const changeBeatmapData = async (id: string) => {
+    if (id && id !== '0')
+        await loadBeatmapData(coverData, coverAssets, id, false)
+}
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -299,6 +315,18 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
         <div class="cover-preview" id="cover-preview"></div>
         <div class="cover-settings">
             <div class="cover-settings-half">
+                <Collapsible title="Data Fetching" id="cover-settings-data-fetching">
+                    <Flex :column="true" gap=".75rem">
+                        <Flex :column="true">
+                            <PropTitle>User ID</PropTitle>
+                            <TextInput :number="true" placeholder="0" @change="changeUserData"></TextInput>
+                        </Flex>
+                        <Flex :column="true">
+                            <PropTitle>Beatmap ID</PropTitle>
+                            <TextInput :number="true" placeholder="0" @change="changeBeatmapData"></TextInput>
+                        </Flex>
+                    </Flex>
+                </Collapsible>
                 <Collapsible title="Player" id="cover-settings-user">
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
@@ -384,9 +412,9 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                             <DragDrop width="100%" @change="changeBeatmapBackground"></DragDrop>
                         </Flex>
                         <Flex :column="true">
-                            <PropTitle>Beatmap State</PropTitle>
-                            <Dropdown :options="dropDownOptions.beatmapState"
-                                v-model:selected="coverData.beatmap.state">
+                            <PropTitle>Beatmap Status</PropTitle>
+                            <Dropdown :options="dropDownOptions.beatmapStatus"
+                                v-model:selected="coverData.beatmap.status">
                             </Dropdown>
                         </Flex>
                     </Flex>

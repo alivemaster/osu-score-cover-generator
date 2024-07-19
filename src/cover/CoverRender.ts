@@ -317,14 +317,14 @@ export default class CoverRender {
         ctx.restore()
         //
         ctx.restore()
-        // beatmap state
-        const beatmapStateIcon = assets.beatmap.stateIcons[data.beatmap.state]
+        // beatmap status
+        const beatmapStatusIcon = assets.beatmap.statusIcons[data.beatmap.status]
         ctx.save()
         cursor.x = layout.beatmapState.x + layout.beatmapState.width / 2
         cursor.y = layout.beatmapState.y + layout.beatmapState.height / 2
         ctx.beginPath()
         ctx.ellipse(cursor.x, cursor.y, layout.beatmapState.width / 2, layout.beatmapState.height / 2, 0, 0, 360)
-        switch (data.beatmap.state) {
+        switch (data.beatmap.status) {
             case 'ranked':
                 ctx.fillStyle = 'hsl(190 85% 50%)'
                 break
@@ -344,7 +344,7 @@ export default class CoverRender {
         ctx.restore()
         cursor.x = layout.beatmapState.x
         cursor.y = layout.beatmapState.y
-        fillImg(ctx, beatmapStateIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
+        fillImg(ctx, beatmapStatusIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
         // beatmap stats
         ctx.save()
         ctx.font = "700 48px 'Quicksand Variable'"

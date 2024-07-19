@@ -9,7 +9,7 @@ export default interface CoverAssets {
     }
     beatmap: {
         background: HTMLImageElement
-        stateIcons: {
+        statusIcons: {
             ranked: HTMLImageElement
             approved: HTMLImageElement
             loved: HTMLImageElement

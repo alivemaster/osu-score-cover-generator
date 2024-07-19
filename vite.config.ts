@@ -22,5 +22,13 @@ export default defineConfig({
         })
       ]
     }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://sp.365246692.xyz',
+        changeOrigin: true
+      }
+    }
   }
 })
