@@ -24,7 +24,7 @@ const inputType = computed(() => {
 </script>
 <template>
     <input class="text-input" :disabled="!props.enabled" :type="inputType" :placeholder="props.placeholder"
-        v-model="value" @change="emit('change', $event.target.value)">
+        v-model="value" @change="(e) => emit('change', (e.target as HTMLInputElement).value)">
 </template>
 <style scoped>
 .text-input {
