@@ -3,7 +3,7 @@ import CoverAssets from "../CoverAssets"
 import loadImgUrl from "../../utils/loadImgUrl"
 
 export default async (data: CoverData, assets: CoverAssets, uid: string) => {
-    const url = 'https://sp.365246692.xyz/api/user?uid='
+    const url = 'https://sp.365246692.xyz/api/yasunaori/user?uid='
     try {
         const res = await fetch(url + uid)
         if (!res.ok) {
