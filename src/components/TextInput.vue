@@ -11,17 +11,20 @@ const props = withDefaults(defineProps<Props>(), {
     number: false,
     placeholder: '',
 })
+const emit = defineEmits<{
+    (e: 'change', value: string): void
+}>()
+const value = defineModel<string>('value')
 const inputType = computed(() => {
     if (props.number)
         return 'number'
     else
         return 'text'
 })
-const value = defineModel<string>('value')
 </script>
 <template>
     <input class="text-input" :disabled="!props.enabled" :type="inputType" :placeholder="props.placeholder"
-        v-model="value">
+        v-model="value" @change="emit('change', $event.target.value)">
 </template>
 <style scoped>
 .text-input {
