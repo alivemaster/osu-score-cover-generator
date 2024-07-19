@@ -318,13 +318,13 @@ export default class CoverRender {
         //
         ctx.restore()
         // beatmap state
-        const beatmapStateIcon = assets.beatmap.stateIcons[data.beatmap.state]
+        const beatmapStateIcon = assets.beatmap.statusIcons[data.beatmap.status]
         ctx.save()
         cursor.x = layout.beatmapState.x + layout.beatmapState.width / 2
         cursor.y = layout.beatmapState.y + layout.beatmapState.height / 2
         ctx.beginPath()
         ctx.ellipse(cursor.x, cursor.y, layout.beatmapState.width / 2, layout.beatmapState.height / 2, 0, 0, 360)
-        switch (data.beatmap.state) {
+        switch (data.beatmap.status) {
             case 'ranked':
                 ctx.fillStyle = 'hsl(190 85% 50%)'
                 break

@@ -109,7 +109,9 @@ countryList.forEach((item) => {
 const coverData: CoverData = reactive({
     user: {
         userName: 'player',
-        code: ''
+        code: '',
+        globalRank: '0',
+        countryRank: '0'
     },
     score: {
         pp: {
@@ -132,7 +134,10 @@ const coverData: CoverData = reactive({
     },
     beatmap: {
         title: 'Song Title',
-        state: 'ranked',
+        artist: 'Artist',
+        creator: 'Mapper',
+        mode: 'osu',
+        status: 'ranked',
         stats: {
             time: {
                 enabled: false,
@@ -222,7 +227,7 @@ const coverAssets: CoverAssets = reactive({
     },
     beatmap: {
         background: new Image(),
-        stateIcons: {
+        statusIcons: {
             ranked: new Image(),
             approved: new Image(),
             loved: new Image(),
@@ -386,7 +391,7 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                         <Flex :column="true">
                             <PropTitle>Beatmap State</PropTitle>
                             <Dropdown :options="dropDownOptions.beatmapState"
-                                v-model:selected="coverData.beatmap.state">
+                                v-model:selected="coverData.beatmap.status">
                             </Dropdown>
                         </Flex>
                     </Flex>
