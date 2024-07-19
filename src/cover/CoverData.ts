@@ -2,6 +2,8 @@ export default interface CoverData {
     user: {
         userName: string
         code: string
+        globalRank: string
+        countryRank: string
     }
     score: {
         pp: {
@@ -24,7 +26,10 @@ export default interface CoverData {
     }
     beatmap: {
         title: string
-        state: 'ranked' | 'approved' | 'loved' | 'unranked'
+        artist: string
+        creator: string
+        mode: 'osu' | 'taiko' | 'fruits' | 'mania'
+        status: 'ranked' | 'approved' | 'loved' | 'unranked'
         stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', { enabled: boolean, value: string }>
         difficulty: {
             star: string
