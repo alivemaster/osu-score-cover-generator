@@ -20,7 +20,8 @@
     "@fontsource-variable/quicksand": "^5.0.18",
     "@types/color": "^3.0.6",
     "color": "^4.2.3",
-    "vue": "^3.4.32"
+    "vue": "^3.4.32",
+    "vue-i18n": "9"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.10.3",

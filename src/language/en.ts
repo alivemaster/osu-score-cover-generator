@@ -1,0 +1,57 @@
+export default {
+  header: {
+    projectName: "osu! score cover generator",
+  },
+  countryCode: {
+    none: "None",
+  },
+  scoreStatus: {
+    FC: "Full Combo",
+    failed: "Failed",
+    miss: "Miss",
+    sliderBreak: "Slider Break",
+  },
+  beatmapState: {
+    ranked: "Ranked",
+    approved: "Approved / Qualified",
+    loved: "Loved",
+    unranked: "Pending / WIP / Graveyard / Not Submitted",
+  },
+  coverData: {
+    defaultUserName: "Player",
+    defaultTitle: "Title",
+    defaultArtist: "Artist",
+    defaultCreator: "Creator",
+    defaultComment: "Comment",
+  },
+  strings: {
+    avatar: "Avatar",
+    userName: "Username",
+    flag: "Flag",
+    scoreStatus: "Score Status",
+    rank: "Ranking",
+    accuracy: "Accuracy",
+    perfect: "Perfect",
+    maxCombo: "Maximum Combo",
+    mapTitle: "Title",
+    mapBkg: "Background",
+    mapState: "Map State",
+    mapTime: "Time",
+    mapStar: "Star Rating",
+    diffName: "Difficulty Name",
+    mods: "Mods",
+    aspectRatio: "Aspect Ratio",
+    exportScale: "Scale",
+    exportFormat: "Format",
+    buttonDownload: "Download",
+    buttonCopy: "Copy",
+  },
+  footer: {
+    credit1: "Made with ❤️ by alivemaster",
+    credit2: "aka",
+    disclaimer1: 'This webpage is not affiliated with "osu!" or "ppy".',
+    disclaimer2a:
+      "Flag icons are taken from Twemoji. Twemoji by Twitter is licenced under ",
+    disclaimer2b: ".",
+  },
+};
