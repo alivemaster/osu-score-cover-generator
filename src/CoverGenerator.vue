@@ -22,7 +22,7 @@ import Dropdown from './components/Dropdown.vue'
 import ModSelect from './components/ModSelect.vue'
 
 import { useI18n } from 'vue-i18n';
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
 // Dropdown Options
 const dropDownOptions = {
