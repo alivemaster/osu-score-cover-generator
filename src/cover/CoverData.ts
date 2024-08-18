@@ -6,18 +6,12 @@ export default interface CoverData {
         countryRank: string
     }
     score: {
-        pp: {
-            value: string
-            enabled: boolean
-        }
+        pp:string
         status: {
             type: 'ss' | 'fc' | 'fail' | 'miss' | 'sb'
             value: string
         }
-        rank: {
-            value: string
-            enabled: boolean
-        }
+        rank:string
         accuracy: string
         maxCombo: {
             value: string
@@ -30,7 +24,7 @@ export default interface CoverData {
         creator: string
         mode: 'osu' | 'taiko' | 'fruits' | 'mania'
         status: 'ranked' | 'approved' | 'loved' | 'unranked'
-        stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', { enabled: boolean, value: string }>
+        stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', string>
         difficulty: {
             star: string
             name: string

@@ -116,18 +116,20 @@ const coverData: CoverData = reactive({
         countryRank: '0'
     },
     score: {
-        pp: {
-            value: '0',
-            enabled: true
-        },
+        // pp: {
+        //     value: '0',
+        //     enabled: true
+        // },
+        pp: '0',
         status: {
             type: 'fc',
             value: '0'
         },
-        rank: {
-            value: '0',
-            enabled: true
-        },
+        // rank: {
+        //     value: '0',
+        //     enabled: true
+        // },
+        rank: '0',
         accuracy: '0',
         maxCombo: {
             value: '0',
@@ -140,31 +142,38 @@ const coverData: CoverData = reactive({
         creator: 'Mapper',
         mode: 'osu',
         status: 'ranked',
+        // stats: {
+        //     time: {
+        //         enabled: false,
+        //         value: '0:00'
+        //     },
+        //     bpm: {
+        //         enabled: false,
+        //         value: '0'
+        //     },
+        //     ar: {
+        //         enabled: true,
+        //         value: '0'
+        //     },
+        //     cs: {
+        //         enabled: true,
+        //         value: '0'
+        //     },
+        //     od: {
+        //         enabled: false,
+        //         value: '0'
+        //     },
+        //     hp: {
+        //         enabled: false,
+        //         value: '0'
+        //     }
         stats: {
-            time: {
-                enabled: false,
-                value: '0:00'
-            },
-            bpm: {
-                enabled: false,
-                value: '0'
-            },
-            ar: {
-                enabled: true,
-                value: '0'
-            },
-            cs: {
-                enabled: true,
-                value: '0'
-            },
-            od: {
-                enabled: false,
-                value: '0'
-            },
-            hp: {
-                enabled: false,
-                value: '0'
-            }
+            time: '0:00',
+            bpm: '0',
+            ar: '0',
+            cs: '0',
+            od: '0',
+            hp: '0'
         },
         difficulty: {
             star: '0',
@@ -240,12 +249,24 @@ const coverAssets: CoverAssets = reactive({
         }
     }
 })
-const exportOptions: { render: RenderOptions, type: string } = reactive({
+const coverOptions: { render: RenderOptions, exportType: string } = reactive({
     render: {
         ratio: '16by10',
-        scale: '1'
+        scale: '1',
+        show: {
+            pp: true,
+            rank: true,
+            beatmapStats: {
+                time: false,
+                bpm: false,
+                ar: true,
+                cs: true,
+                od: false,
+                hp: false
+            }
+        }
     },
-    type: 'png'
+    exportType: 'png'
 })
 const coverPreview = new CoverRender()
 // Cover methods
@@ -258,13 +279,13 @@ const changeBeatmapBackground = async (file: File) => {
 const downloadCover = async () => {
     const data = coverData
     const assets = coverAssets
-    const options = exportOptions
+    const options = coverOptions
     try {
-        const blob = await exportCover(data, assets, options.render, options.type)
+        const blob = await exportCover(data, assets, options.render, options.exportType)
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url
-        a.download = fileName(data, options.render, options.type)
+        a.download = fileName(data, options.render, options.exportType)
         a.click()
         URL.revokeObjectURL(url)
     } catch (err) {
@@ -274,7 +295,7 @@ const downloadCover = async () => {
 const copyCover = async () => {
     const data = coverData
     const assets = coverAssets
-    const options = exportOptions
+    const options = coverOptions
     try {
         const blob = await exportCover(data, assets, options.render, 'png')
         const cp = [new ClipboardItem({ [blob.type]: blob })]
@@ -286,6 +307,7 @@ const copyCover = async () => {
 const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOptions) => {
     const previewOptions = coverPreview.renderOptions
     previewOptions.ratio = options.ratio
+    previewOptions.show = options.show
     coverPreview.draw(data, assets)
 }
 // Data fetching methods
@@ -308,7 +330,7 @@ onMounted(async () => {
     coverPreview.draw(coverData, coverAssets)
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
-watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
+watchEffect(() => refreshPreview(coverData, coverAssets, coverOptions.render))
 </script>
 <template>
     <div class="cover-generator">
@@ -352,10 +374,10 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                         <Flex :column="true">
                             <Flex gap="auto">
                                 <PropTitle>PP</PropTitle>
-                                <Switch v-model:checked="coverData.score.pp.enabled"></Switch>
+                                <Switch v-model:checked="coverOptions.render.show.pp"></Switch>
                             </Flex>
-                            <TextInput :enabled="coverData.score.pp.enabled" :number="true" placeholder="0"
-                                v-model:value="coverData.score.pp.value">
+                            <TextInput :enabled="coverOptions.render.show.pp" :number="true" placeholder="0"
+                                v-model:value="coverData.score.pp">
                             </TextInput>
                         </Flex>
                         <Flex :column="true">
@@ -374,10 +396,10 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>Rank</PropTitle>
-                                    <Switch v-model:checked="coverData.score.rank.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.rank"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.score.rank.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.score.rank.value">
+                                <TextInput :enabled="coverOptions.render.show.rank" :number="true" placeholder="0"
+                                    v-model:value="coverData.score.rank">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
@@ -427,19 +449,19 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>Time</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.time.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.time"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.time.enabled" placeholder="00:00"
-                                    v-model:value="coverData.beatmap.stats.time.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.time" placeholder="00:00"
+                                    v-model:value="coverData.beatmap.stats.time">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>BPM</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.bpm.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.bpm"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.bpm.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats.bpm.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.bpm" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.bpm">
                                 </TextInput>
                             </Flex>
                         </Flex>
@@ -447,37 +469,37 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>AR</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.ar.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.ar"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.ar.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats.ar.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.ar" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.ar">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>CS</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.cs.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.cs"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.cs.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats.cs.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.cs" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.cs">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>OD</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.od.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.od"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.od.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats.od.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.od" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.od">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
                                 <Flex gap="auto">
                                     <PropTitle>HP</PropTitle>
-                                    <Switch v-model:checked="coverData.beatmap.stats.hp.enabled"></Switch>
+                                    <Switch v-model:checked="coverOptions.render.show.beatmapStats.hp"></Switch>
                                 </Flex>
-                                <TextInput :enabled="coverData.beatmap.stats.hp.enabled" :number="true" placeholder="0"
-                                    v-model:value="coverData.beatmap.stats.hp.value">
+                                <TextInput :enabled="coverOptions.render.show.beatmapStats.hp" :number="true"
+                                    placeholder="0" v-model:value="coverData.beatmap.stats.hp">
                                 </TextInput>
                             </Flex>
                         </Flex>
@@ -512,18 +534,18 @@ watchEffect(() => refreshPreview(coverData, coverAssets, exportOptions.render))
                         <Flex :column="true">
                             <PropTitle>Aspect Ratio</PropTitle>
                             <Dropdown :options="dropDownOptions.aspectRatio"
-                                v-model:selected="exportOptions.render.ratio">
+                                v-model:selected="coverOptions.render.ratio">
                             </Dropdown>
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex :column="true">
                                 <PropTitle>Scale</PropTitle>
-                                <TextInput :number="true" v-model:value="exportOptions.render.scale" placeholder="1">
+                                <TextInput :number="true" v-model:value="coverOptions.render.scale" placeholder="1">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true" width="fit-content">
                                 <PropTitle>Type</PropTitle>
-                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="exportOptions.type">
+                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="coverOptions.exportType">
                                 </Dropdown>
                             </Flex>
                         </Flex>
