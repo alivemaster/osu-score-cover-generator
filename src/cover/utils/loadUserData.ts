@@ -1,6 +1,7 @@
 import CoverData from "../CoverData"
 
 export default async (uid: string) => {
+    if (!uid || uid === '0') return
     const url = 'https://sp.365246692.xyz/api/yasunaori/user?uid='
     // const url = 'api/yasunaori/user?uid=' // dev proxy
     try {
