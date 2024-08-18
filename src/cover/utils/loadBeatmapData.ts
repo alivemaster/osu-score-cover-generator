@@ -11,16 +11,21 @@ export default async (data: CoverData, assets: CoverAssets, bid: string, unicode
         if (item.enabled)
             modOption += key
     })
+    const time = (length: string) => {
+        const num = Number(length)
+        const min = Math.floor(num / 60)
+        const sec = num % 60
+        return min + ':' + (sec < 10 ? '0' + sec : sec)
+    }
     try {
         const res = await fetch(url + bid + modOption)
         if (!res.ok) {
-            throw new Error('Response status: ' + res.status);
+            throw new Error('Response status: ' + res.status)
         }
         const json = await res.json()
         if (json.error)
             console.log(json.error)
         else {
-            console.log(json)
             data.beatmap.title = unicode ? json.title_unicode : json.title
             data.beatmap.artist = unicode ? json.artist_unicode : json.artist
             data.beatmap.creator = json.creator
@@ -31,12 +36,6 @@ export default async (data: CoverData, assets: CoverAssets, bid: string, unicode
                 data.beatmap.status = 'approved'
             else
                 data.beatmap.status = json.status
-            const time = (length: string) => {
-                const num = Number(length)
-                const min = Math.floor(num / 60)
-                const sec = num % 60
-                return min + ':' + (sec < 10 ? '0' + sec : sec)
-            }
             data.beatmap.stats.time.value = time(json.stats.length)
             data.beatmap.stats.bpm.value = json.stats.bpm
             data.beatmap.stats.ar.value = json.stats.ar

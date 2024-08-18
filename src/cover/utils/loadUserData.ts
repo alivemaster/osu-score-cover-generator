@@ -7,7 +7,7 @@ export default async (data: CoverData, assets: CoverAssets, uid: string) => {
     try {
         const res = await fetch(url + uid)
         if (!res.ok) {
-            throw new Error('Response status: ' + res.status);
+            throw new Error('Response status: ' + res.status)
         }
         const json = await res.json()
         if (json.error)
