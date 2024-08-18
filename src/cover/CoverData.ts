@@ -1,17 +1,18 @@
 export default interface CoverData {
     user: {
+        id: string
         userName: string
         code: string
         globalRank: string
         countryRank: string
     }
     score: {
-        pp:string
+        pp: string
         status: {
             type: 'ss' | 'fc' | 'fail' | 'miss' | 'sb'
             value: string
         }
-        rank:string
+        rank: string
         accuracy: string
         maxCombo: {
             value: string
@@ -19,6 +20,7 @@ export default interface CoverData {
         }
     }
     beatmap: {
+        id: string
         title: string
         artist: string
         creator: string

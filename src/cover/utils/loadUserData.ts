@@ -1,9 +1,8 @@
 import CoverData from "../CoverData"
-import CoverAssets from "../CoverAssets"
-import loadImgUrl from "../../utils/loadImgUrl"
 
-export default async (data: CoverData, assets: CoverAssets, uid: string) => {
+export default async (uid: string) => {
     const url = 'https://sp.365246692.xyz/api/yasunaori/user?uid='
+    // const url = 'api/yasunaori/user?uid=' // dev proxy
     try {
         const res = await fetch(url + uid)
         if (!res.ok) {
@@ -11,14 +10,18 @@ export default async (data: CoverData, assets: CoverAssets, uid: string) => {
         }
         const json = await res.json()
         if (json.error)
-            console.log(json.error)
+            throw new Error(json.error)
         else {
-            console.log(json)
-            data.user.userName = json.username
-            data.user.code = json.country_code
-            data.user.globalRank = json.global_rank.toString()
-            data.user.countryRank = json.country_rank.toString()
-            assets.user.avatar = await loadImgUrl(json.avatar_url)
+            const user: Partial<CoverData["user"]> = {
+                userName: json.username,
+                code: json.country_code,
+                globalRank: json.global_rank.toString(),
+                countryRank: json.country_rank.toString()
+            }
+            return {
+                user,
+                avatarUrl: json.avatar_url as string
+            }
         }
     } catch (err) {
         console.log(err)

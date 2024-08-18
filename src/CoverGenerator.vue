@@ -11,6 +11,7 @@ import exportCover from './cover/utils/exportCover'
 import loadUserData from './cover/utils/loadUserData'
 import loadBeatmapData from './cover/utils/loadBeatmapData'
 import loadImgFile from './utils/loadImgFile'
+import loadImgUrl from './utils/loadImgUrl'
 import countryList from './assets/countries.json'
 import Flex from './components/Flex.vue'
 import Collapsible from './components/Collapsible.vue'
@@ -110,25 +111,18 @@ countryList.forEach((item) => {
 // Cover
 const coverData: CoverData = reactive({
     user: {
+        id: '0',
         userName: 'player',
         code: '',
         globalRank: '0',
         countryRank: '0'
     },
     score: {
-        // pp: {
-        //     value: '0',
-        //     enabled: true
-        // },
         pp: '0',
         status: {
             type: 'fc',
             value: '0'
         },
-        // rank: {
-        //     value: '0',
-        //     enabled: true
-        // },
         rank: '0',
         accuracy: '0',
         maxCombo: {
@@ -137,36 +131,12 @@ const coverData: CoverData = reactive({
         },
     },
     beatmap: {
+        id: '0',
         title: 'Song Title',
         artist: 'Artist',
         creator: 'Mapper',
         mode: 'osu',
         status: 'ranked',
-        // stats: {
-        //     time: {
-        //         enabled: false,
-        //         value: '0:00'
-        //     },
-        //     bpm: {
-        //         enabled: false,
-        //         value: '0'
-        //     },
-        //     ar: {
-        //         enabled: true,
-        //         value: '0'
-        //     },
-        //     cs: {
-        //         enabled: true,
-        //         value: '0'
-        //     },
-        //     od: {
-        //         enabled: false,
-        //         value: '0'
-        //     },
-        //     hp: {
-        //         enabled: false,
-        //         value: '0'
-        //     }
         stats: {
             time: '0:00',
             bpm: '0',
@@ -310,15 +280,23 @@ const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOpt
     previewOptions.show = options.show
     coverPreview.draw(data, assets)
 }
-// Data fetching methods
-const changeUserData = async (id: string) => {
-    if (id && id !== '0')
-        loadUserData(coverData, coverAssets, id)
-}
-const changeBeatmapData = async (id: string) => {
-    if (id && id !== '0')
-        await loadBeatmapData(coverData, coverAssets, id, false)
-}
+// Data fetching
+watchEffect(async () => {
+    console.log('loading beatmap data...')
+    const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
+    if (newData) {
+        Object.assign(coverData.beatmap, newData.beatmap)
+        coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
+    }
+})
+watchEffect(async () => {
+    console.log('loading user data...')
+    const newData = await loadUserData(coverData.user.id)
+    if (newData) {
+        Object.assign(coverData.user, newData.user)
+        coverAssets.user.avatar = await loadImgUrl(newData.avatarUrl)
+    }
+})
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -341,11 +319,11 @@ watchEffect(() => refreshPreview(coverData, coverAssets, coverOptions.render))
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
                             <PropTitle>User ID</PropTitle>
-                            <TextInput :number="true" placeholder="0" @change="changeUserData"></TextInput>
+                            <TextInput :number="true" placeholder="0" v-model:value="coverData.user.id"></TextInput>
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Beatmap ID</PropTitle>
-                            <TextInput :number="true" placeholder="0" @change="changeBeatmapData"></TextInput>
+                            <TextInput :number="true" placeholder="0" v-model:value="coverData.beatmap.id"></TextInput>
                         </Flex>
                     </Flex>
                 </Collapsible>
@@ -545,7 +523,8 @@ watchEffect(() => refreshPreview(coverData, coverAssets, coverOptions.render))
                             </Flex>
                             <Flex :column="true" width="fit-content">
                                 <PropTitle>Type</PropTitle>
-                                <Dropdown :options="dropDownOptions.exportType" v-model:selected="coverOptions.exportType">
+                                <Dropdown :options="dropDownOptions.exportType"
+                                    v-model:selected="coverOptions.exportType">
                                 </Dropdown>
                             </Flex>
                         </Flex>
