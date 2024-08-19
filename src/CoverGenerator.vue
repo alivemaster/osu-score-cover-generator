@@ -111,27 +111,27 @@ countryList.forEach((item) => {
 // Cover
 const coverData: CoverData = reactive({
     user: {
-        id: '0',
+        id: 0,
         userName: 'player',
         code: '',
-        globalRank: '0',
-        countryRank: '0'
+        globalRank: 0,
+        countryRank: 0
     },
     score: {
-        pp: '0',
+        pp: 0,
         status: {
             type: 'fc',
-            value: '0'
+            value: 0
         },
-        rank: '0',
-        accuracy: '0',
+        rank: 0,
+        accuracy: 0,
         maxCombo: {
-            value: '0',
+            value: 0,
             perfect: false
         },
     },
     beatmap: {
-        id: '0',
+        id: 0,
         title: 'Song Title',
         artist: 'Artist',
         creator: 'Mapper',
@@ -139,14 +139,14 @@ const coverData: CoverData = reactive({
         status: 'ranked',
         stats: {
             time: '0:00',
-            bpm: '0',
-            ar: '0',
-            cs: '0',
-            od: '0',
-            hp: '0'
+            bpm: 0,
+            ar: 0,
+            cs: 0,
+            od: 0,
+            hp: 0
         },
         difficulty: {
-            star: '0',
+            star: 0,
             name: 'Easy'
         },
         mods: {

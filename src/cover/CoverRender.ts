@@ -371,7 +371,7 @@ export default class CoverRender {
             if (options.show.beatmapStats[key as keyof CoverData["beatmap"]["stats"]])
                 beatmapStatsEnabled.push({
                     type: key,
-                    value: value
+                    value: value.toString()
                 })
         })
         beatmapStatsEnabled.reverse().forEach((item) => {

@@ -1,7 +1,7 @@
 import CoverData from "../CoverData"
 
-export default async (uid: string) => {
-    if (!uid || uid === '0') return
+export default async (uid: number) => {
+    if (!uid || uid === 0) return
     const url = 'https://sp.365246692.xyz/api/yasunaori/user?uid='
     // const url = 'api/yasunaori/user?uid=' // dev proxy
     try {
@@ -16,8 +16,8 @@ export default async (uid: string) => {
             const user: Partial<CoverData["user"]> = {
                 userName: json.username,
                 code: json.country_code,
-                globalRank: json.global_rank.toString(),
-                countryRank: json.country_rank.toString()
+                globalRank: json.global_rank,
+                countryRank: json.country_rank
             }
             return {
                 user,

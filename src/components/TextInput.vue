@@ -12,9 +12,9 @@ const props = withDefaults(defineProps<Props>(), {
     placeholder: '',
 })
 const emit = defineEmits<{
-    (e: 'change', value: string): void
+    (e: 'change', value: string | number): void
 }>()
-const value = defineModel<string>('value')
+const value = defineModel<string | number>('value')
 const inputType = computed(() => {
     if (props.number)
         return 'number'

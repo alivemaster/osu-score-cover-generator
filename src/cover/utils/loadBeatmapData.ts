@@ -1,7 +1,7 @@
 import CoverData from "../CoverData"
 
-export default async (bid: string, mods: CoverData["beatmap"]["mods"], unicode: boolean) => {
-    if (!bid || bid === '0') return
+export default async (bid: number, mods: CoverData["beatmap"]["mods"], unicode: boolean) => {
+    if (!bid || bid === 0) return
     const url = 'https://sp.365246692.xyz/api/yasunaori/beatmap/'
     // const url = 'api/yasunaori/beatmap/' // dev proxy
     let modOption = '?mods='
@@ -38,14 +38,14 @@ export default async (bid: string, mods: CoverData["beatmap"]["mods"], unicode: 
                             json.status,
                     stats: {
                         time: time(json.stats.length),
-                        bpm: json.stats.bpm.toString(),
-                        ar: json.stats.ar.toString(),
-                        cs: json.stats.cs.toString(),
-                        od: json.stats.od.toString(),
-                        hp: json.stats.hp.toString()
+                        bpm: json.stats.bpm,
+                        ar: json.stats.ar,
+                        cs: json.stats.cs,
+                        od: json.stats.od,
+                        hp: json.stats.hp
                     },
                     difficulty: {
-                        star: json.difficulty.star.toFixed(2).toString(),
+                        star: json.difficulty.star.toFixed(2),
                         name: json.difficulty.name
                     }
                 }
