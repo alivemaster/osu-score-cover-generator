@@ -19,8 +19,8 @@ export default (data: CoverData, options: RenderOptions, type: string) => {
     const scoreStatus = '-' + (data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value : '') + data.score.status.type.toUpperCase()
     const accuracy = '-' + data.score.accuracy + '%'
     const pp = () => {
-        if (data.score.pp.enabled)
-            return '-' + data.score.pp.value + 'PP'
+        if (options.show.pp)
+            return '-' + data.score.pp + 'PP'
         else return ''
     }
     const ext = type === 'jpeg' ? '.jpg' : '.' + type
