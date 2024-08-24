@@ -274,12 +274,6 @@ const copyCover = async () => {
         console.log(`Copy failed! ${err}`)
     }
 }
-const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOptions) => {
-    const previewOptions = coverPreview.renderOptions
-    previewOptions.ratio = options.ratio
-    previewOptions.show = options.show
-    coverPreview.draw(data, assets)
-}
 // Data fetching
 const dataFetchingArgs = reactive({
     user: {
@@ -306,16 +300,6 @@ const setBeatmapData = async () => {
         coverData.beatmap.id = dataFetchingArgs.beatmap.id
     }
 }
-watchEffect(
-    // refresh beatmap star and stats when mod changes
-    async () => {
-        const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
-        if (newData) {
-            Object.assign(coverData.beatmap.stats, newData.beatmap.stats)
-            coverData.beatmap.difficulty.star = newData.beatmap.difficulty!.star
-        }
-    }
-)
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -327,7 +311,23 @@ onMounted(async () => {
     coverPreview.draw(coverData, coverAssets)
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
-watchEffect(() => refreshPreview(coverData, coverAssets, coverOptions.render))
+watchEffect(()=>{
+    // refersh preview when any option changes
+    const previewOptions = coverPreview.renderOptions
+    previewOptions.ratio = coverOptions.render.ratio
+    previewOptions.show = coverOptions.render.show
+    coverPreview.draw(coverData, coverAssets)
+})
+watchEffect(
+    // refresh beatmap star and stats when mod changes
+    async () => {
+        const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
+        if (newData) {
+            Object.assign(coverData.beatmap.stats, newData.beatmap.stats)
+            coverData.beatmap.difficulty.star = newData.beatmap.difficulty!.star
+        }
+    }
+)
 </script>
 <template>
     <div class="cover-generator">
