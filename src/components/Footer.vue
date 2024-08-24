@@ -1,15 +1,21 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
 <template>
     <footer>
         <span class="footer-info">
-            <p>Made with ❤️ by alivemaster</p>
-            <p style="color: hsl(0 0 65)">aka <a href="https://osu.ppy.sh/users/10324621" target="_blank">sb233asdf</a>
+            <p>{{ t("footer.credit1") }}</p>
+            <p style="color: hsl(0 0 65)">{{ t("footer.credit2") }} <a href="https://osu.ppy.sh/users/10324621"
+                    target="_blank">sb233asdf</a>
             </p>
         </span>
         <span class="footer-disclaimer">
-            <p>This webpage is not affiliated with "osu!" or "ppy".</p>
-            <p>Flag icons are taken from Twemoji. Twemoji by Twitter is licenced under <a
-                    href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank">CC-BY 4.0</a>.</p>
-            <p style="color: hsl(95 100 65)">Data Fetching API provided by <a href="https://bot.365246692.xyz" target="_blank"><b>YumuBot</b></a>!</p>
+            <p>{{ t("footer.disclaimer1") }}</p>
+            <p>{{ t("footer.disclaimer2a") }}<a href="https://creativecommons.org/licenses/by/4.0/deed.en"
+                    target="_blank">CC-BY 4.0</a>{{ t("footer.disclaimer2b") }}</p>
+            <p style="color: hsl(95 100 65)">Data Fetching API provided by <a href="https://bot.365246692.xyz"
+                    target="_blank"><b>YumuBot</b></a>!</p>
         </span>
     </footer>
 </template>
