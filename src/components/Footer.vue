@@ -19,7 +19,7 @@ footer {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 2rem 3rem;
 }
@@ -50,7 +50,7 @@ footer {
         /* box */
         flex-direction: column;
         gap: 1rem;
-        justify-content: center;
+        align-items: center;
         padding: 1.5rem 1rem;
     }
 
