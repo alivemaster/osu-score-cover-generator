@@ -4,6 +4,7 @@ Generate cover for osu score videos. [a.yasunaori.be/osu-score-cover-generator](
 
 ## TODOS
 
-- [x]  Polish UI with web frameworks
-- [ ]  i18n
-- [ ]  Fetch data from osu api?
+- [X] Polish UI with web frameworks
+- [ ] i18n
+- [X] Fetch data from ~~osu api?~~ [YumuBot API](https://bot.365246692.xyz/)
+- [ ] cover V2

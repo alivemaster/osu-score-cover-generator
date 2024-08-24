@@ -8,7 +8,8 @@
         <span class="footer-disclaimer">
             <p>This webpage is not affiliated with "osu!" or "ppy".</p>
             <p>Flag icons are taken from Twemoji. Twemoji by Twitter is licenced under <a
-                    href="https://creativecommons.org/licenses/by/4.0/deed.en">CC-BY 4.0</a>.</p>
+                    href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank">CC-BY 4.0</a>.</p>
+            <p style="color: hsl(95 100 65)">Data Fetching API provided by <a href="https://bot.365246692.xyz" target="_blank"><b>YumuBot</b></a>!</p>
         </span>
     </footer>
 </template>
