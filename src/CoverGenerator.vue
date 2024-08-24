@@ -281,22 +281,41 @@ const refreshPreview = (data: CoverData, assets: CoverAssets, options: RenderOpt
     coverPreview.draw(data, assets)
 }
 // Data fetching
-watchEffect(async () => {
-    console.log('loading beatmap data...')
-    const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
-    if (newData) {
-        Object.assign(coverData.beatmap, newData.beatmap)
-        coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
+const dataFetchingArgs = reactive({
+    user: {
+        id: 0
+    },
+    beatmap: {
+        id: 0,
+        unicode: false
     }
 })
-watchEffect(async () => {
-    console.log('loading user data...')
-    const newData = await loadUserData(coverData.user.id)
+const setUserData = async () => {
+    const newData = await loadUserData(dataFetchingArgs.user.id)
     if (newData) {
         Object.assign(coverData.user, newData.user)
         coverAssets.user.avatar = await loadImgUrl(newData.avatarUrl)
+        coverData.user.id = dataFetchingArgs.user.id
     }
-})
+}
+const setBeatmapData = async () => {
+    const newData = await loadBeatmapData(dataFetchingArgs.beatmap.id, coverData.beatmap.mods, dataFetchingArgs.beatmap.unicode)
+    if (newData) {
+        Object.assign(coverData.beatmap, newData.beatmap)
+        coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
+        coverData.beatmap.id = dataFetchingArgs.beatmap.id
+    }
+}
+watchEffect(
+    // refresh beatmap star and stats when mod changes
+    async () => {
+        const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
+        if (newData) {
+            Object.assign(coverData.beatmap.stats, newData.beatmap.stats)
+            coverData.beatmap.difficulty.star = newData.beatmap.difficulty!.star
+        }
+    }
+)
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -319,11 +338,26 @@ watchEffect(() => refreshPreview(coverData, coverAssets, coverOptions.render))
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
                             <PropTitle>User ID</PropTitle>
-                            <TextInput :number="true" placeholder="0" v-model:value="coverData.user.id"></TextInput>
+                            <Flex>
+                                <TextInput :number="true" placeholder="0" v-model:value="dataFetchingArgs.user.id">
+                                </TextInput>
+                                <Button @click="setUserData">OK</Button>
+                            </Flex>
                         </Flex>
-                        <Flex :column="true">
-                            <PropTitle>Beatmap ID</PropTitle>
-                            <TextInput :number="true" placeholder="0" v-model:value="coverData.beatmap.id"></TextInput>
+                        <Flex gap=".75rem">
+                            <Flex width="fit-content" :column="true">
+                                <PropTitle>Unicode</PropTitle>
+                                <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>Beatmap ID</PropTitle>
+                                <Flex>
+                                    <TextInput :number="true" placeholder="0"
+                                        v-model:value="dataFetchingArgs.beatmap.id">
+                                    </TextInput>
+                                    <Button @click="setBeatmapData">OK</Button>
+                                </Flex>
+                            </Flex>
                         </Flex>
                     </Flex>
                 </Collapsible>
