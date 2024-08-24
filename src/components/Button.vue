@@ -23,6 +23,7 @@ const clickHandler = () => {
 <style scoped>
 .button {
     /* box */
+    flex-shrink: 0;
     padding: 0;
     overflow: hidden;
 
