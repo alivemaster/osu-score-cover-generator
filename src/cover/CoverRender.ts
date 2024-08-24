@@ -18,7 +18,19 @@ export default class CoverRender {
         this._size = { width: 1920, height: 1200 }
         this._renderOptions = {
             ratio: '16by10',
-            scale: '1'
+            scale: '1',
+            show: {
+                pp: true,
+                rank: true,
+                beatmapStats: {
+                    time: true,
+                    bpm: true,
+                    ar: true,
+                    cs: true,
+                    od: true,
+                    hp: true
+                }
+            }
         }
         this._layout = {} as CoverLayout
         this.arrange()
@@ -29,8 +41,8 @@ export default class CoverRender {
     get renderOptions() {
         const arrange = () => this.arrange()
         const renderOptionsProxy = new Proxy(this._renderOptions, {
-            set: (target: RenderOptions, prop: keyof RenderOptions, value: string) => {
-                target[prop] = value
+            set: (target: RenderOptions, prop: keyof RenderOptions, receiver: string | any) => {
+                target[prop] = receiver
                 arrange()
                 return true
             }
@@ -182,7 +194,8 @@ export default class CoverRender {
     public draw(data: CoverData, assets: CoverAssets) {
         const ctx = this._ctx
         const size = this._size
-        const scale = Number(this._renderOptions.scale)
+        const options = this._renderOptions
+        const scale = Number(options.scale)
         const layout = this._layout
         const cursor = {
             x: 0,
@@ -263,12 +276,12 @@ export default class CoverRender {
         ctx.shadowColor = 'hsl(0 0% 0% / 35%)'
         ctx.textBaseline = 'middle'
         // pp & status
-        const ppStr = data.score.pp.value + 'PP'
+        const ppStr = data.score.pp + 'PP'
         const scoreStatusStr = data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value + 'X' : data.score.status.type === 'fail' ? 'F' : data.score.status.type.toUpperCase()
         ctx.save()
         ctx.font = "700 192px 'Montserrat Variable'"
         cursor.y = layout.scoreDetails.y + layout.scoreDetails.height / 4 + 12
-        if (data.score.pp.enabled) {
+        if (options.show.pp) {
             cursor.x = layout.scoreDetails.x
             ctx.textAlign = 'left'
             ctx.fillStyle = 'hsl(48 100% 60%)'
@@ -295,17 +308,17 @@ export default class CoverRender {
         ctx.fillText(scoreStatusStr, cursor.x, cursor.y)
         ctx.restore()
         // rank & acc & cb
-        const rankStr = data.score.rank.enabled ? '#' + data.score.rank.value : ''
+        const rankStr = '#' + data.score.rank
         const accStr = data.score.accuracy + '%'
         const comboStr = data.score.maxCombo.value + 'x'
         ctx.save()
         ctx.font = "700 108px 'Montserrat Variable'"
         ctx.textAlign = 'left'
         ctx.fillStyle = 'hsl(0 0% 100%)'
-        layout.scoreDetails.gap = data.score.rank.enabled ? (layout.scoreDetails.width - ctx.measureText(rankStr + accStr + comboStr).width) / 2 : layout.scoreDetails.width - ctx.measureText(accStr + comboStr).width
+        layout.scoreDetails.gap = options.show.rank ? (layout.scoreDetails.width - ctx.measureText(rankStr + accStr + comboStr).width) / 2 : layout.scoreDetails.width - ctx.measureText(accStr + comboStr).width
         cursor.x = layout.scoreDetails.x
         cursor.y = layout.scoreDetails.y + layout.scoreDetails.height * 3 / 4 + 8
-        if (data.score.rank.enabled) {
+        if (options.show.rank) {
             ctx.fillText(rankStr, cursor.x, cursor.y)
             cursor.x += ctx.measureText(rankStr).width + layout.scoreDetails.gap
         }
@@ -317,8 +330,8 @@ export default class CoverRender {
         ctx.restore()
         //
         ctx.restore()
-        // beatmap state
-        const beatmapStateIcon = assets.beatmap.statusIcons[data.beatmap.status]
+        // beatmap status
+        const beatmapStatusIcon = assets.beatmap.statusIcons[data.beatmap.status]
         ctx.save()
         cursor.x = layout.beatmapState.x + layout.beatmapState.width / 2
         cursor.y = layout.beatmapState.y + layout.beatmapState.height / 2
@@ -344,7 +357,7 @@ export default class CoverRender {
         ctx.restore()
         cursor.x = layout.beatmapState.x
         cursor.y = layout.beatmapState.y
-        fillImg(ctx, beatmapStateIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
+        fillImg(ctx, beatmapStatusIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
         // beatmap stats
         ctx.save()
         ctx.font = "700 48px 'Quicksand Variable'"
@@ -354,11 +367,11 @@ export default class CoverRender {
         const beatmapStatsEnabled: { type: string, value: string }[] = []
         const beatmapStatsKeys = Object.keys(data.beatmap.stats)
         beatmapStatsKeys.forEach((key) => {
-            const item = data.beatmap.stats[key as keyof typeof data.beatmap.stats]
-            if (item.enabled)
+            const value = data.beatmap.stats[key as keyof CoverData["beatmap"]["stats"]]
+            if (options.show.beatmapStats[key as keyof CoverData["beatmap"]["stats"]])
                 beatmapStatsEnabled.push({
                     type: key,
-                    value: item.value
+                    value: value.toString()
                 })
         })
         beatmapStatsEnabled.reverse().forEach((item) => {
@@ -457,7 +470,7 @@ export default class CoverRender {
         const modsEnabled: string[] = []
         const modsKeys = Object.keys(data.beatmap.mods)
         modsKeys.forEach((key) => {
-            const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
+            const item = data.beatmap.mods[key as keyof CoverData["beatmap"]["mods"]]
             if (item.enabled)
                 modsEnabled.push(key)
         })
