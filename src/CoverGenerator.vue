@@ -240,10 +240,10 @@ const coverOptions: { render: RenderOptions, exportType: string } = reactive({
 })
 const coverPreview = new CoverRender()
 // Cover methods
-const changeAvatar = async (file: File) => {
+const setAvatar = async (file: File) => {
     coverAssets.user.avatar = await loadImgFile(file)
 }
-const changeBeatmapBackground = async (file: File) => {
+const setBackground = async (file: File) => {
     coverAssets.beatmap.background = await loadImgFile(file)
 }
 const downloadCover = async () => {
@@ -365,7 +365,7 @@ watchEffect(
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
                             <PropTitle>Avatar</PropTitle>
-                            <DragDrop width="6.375rem" height="6.375rem" @change="changeAvatar"></DragDrop>
+                            <DragDrop width="6.375rem" height="6.375rem" @change="setAvatar"></DragDrop>
                         </Flex>
                         <Flex :column="true" gap=".75rem">
                             <Flex :column="true">
@@ -443,7 +443,7 @@ watchEffect(
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Background</PropTitle>
-                            <DragDrop width="100%" @change="changeBeatmapBackground"></DragDrop>
+                            <DragDrop width="100%" @change="setBackground"></DragDrop>
                         </Flex>
                         <Flex :column="true">
                             <PropTitle>Beatmap Status</PropTitle>
