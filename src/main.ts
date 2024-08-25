@@ -11,16 +11,13 @@ import '@fontsource-variable/noto-sans-tc'
 import '@fontsource-variable/noto-sans-jp'
 import '@fontsource-variable/noto-sans-kr'
 
-const messages = {
-    en,
-    zh
-}
 const i18n = createI18n({
     legacy: false,
-    messages,
+    messages:{
+        en,
+        zh
+    },
     locale: navigator.language
 })
 
-const app = createApp(App);
-app.use(i18n);
-app.mount('#app')
+createApp(App).use(i18n).mount('#app')

@@ -13,7 +13,6 @@ import loadUserData from './cover/utils/loadUserData'
 import loadBeatmapData from './cover/utils/loadBeatmapData'
 import loadImgFile from './utils/loadImgFile'
 import loadImgUrl from './utils/loadImgUrl'
-import countryList from './assets/countries.json'
 import Flex from './components/Flex.vue'
 import Collapsible from './components/Collapsible.vue'
 import PropTitle from './components/PropTitle.vue'
@@ -24,6 +23,7 @@ import TextArea from './components/TextArea.vue'
 import DragDrop from './components/DragDrop.vue'
 import Dropdown from './components/Dropdown.vue'
 import ModSelect from './components/ModSelect.vue'
+import countryList from './assets/countries.json'
 
 // i18n
 const { t } = useI18n()
