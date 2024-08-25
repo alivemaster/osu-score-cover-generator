@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, onMounted, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 import CoverData from './cover/CoverData'
 import CoverAssets from './cover/CoverAssets'
 import RenderOptions from './cover/RenderOptions'
@@ -24,11 +25,13 @@ import DragDrop from './components/DragDrop.vue'
 import Dropdown from './components/Dropdown.vue'
 import ModSelect from './components/ModSelect.vue'
 
+// i18n
+const { t } = useI18n()
 // Dropdown Options
 const dropDownOptions = {
     countryCode: [
         {
-            name: "None",
+            name: t('dropDown.countryCode.none'),
             value: ""
         }
     ],
@@ -38,37 +41,37 @@ const dropDownOptions = {
             value: 'ss'
         },
         {
-            name: 'FC',
+            name: t('dropDown.scoreStatus.fc'),
             value: 'fc'
         },
         {
-            name: 'Failed',
+            name: t('dropDown.scoreStatus.fail'),
             value: 'fail'
         },
         {
-            name: 'Miss',
+            name: t('dropDown.scoreStatus.miss'),
             value: 'miss'
         },
         {
-            name: 'SliderBreak',
+            name: t('dropDown.scoreStatus.sb'),
             value: 'sb'
         },
     ],
     beatmapStatus: [
         {
-            name: 'Ranked',
+            name: t('dropDown.beatmapStatus.ranked'),
             value: 'ranked'
         },
         {
-            name: 'Approved / Qualified',
+            name: t('dropDown.beatmapStatus.approved'),
             value: 'approved'
         },
         {
-            name: 'Loved',
+            name: t('dropDown.beatmapStatus.loved'),
             value: 'loved'
         },
         {
-            name: 'Pending / WIP / Graveyard / Not Submitted',
+            name: t('dropDown.beatmapStatus.unranked'),
             value: 'unranked'
         }
     ],
@@ -311,7 +314,7 @@ onMounted(async () => {
     coverPreview.draw(coverData, coverAssets)
 })
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
-watchEffect(()=>{
+watchEffect(() => {
     // refersh preview when any option changes
     const previewOptions = coverPreview.renderOptions
     previewOptions.ratio = coverOptions.render.ratio
@@ -334,14 +337,14 @@ watchEffect(
         <div class="cover-preview" id="cover-preview"></div>
         <div class="cover-settings">
             <div class="cover-settings-half">
-                <Collapsible title="Data Fetching" id="cover-settings-data-fetching">
+                <Collapsible :title="t('collapsibleHeader.dataFetching')" id="cover-settings-data-fetching">
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
-                            <PropTitle>User ID</PropTitle>
+                            <PropTitle>{{ t('propTitle.userId') }}</PropTitle>
                             <Flex>
                                 <TextInput :number="true" placeholder="0" v-model:value="dataFetchingArgs.user.id">
                                 </TextInput>
-                                <Button @click="setUserData">OK</Button>
+                                <Button @click="setUserData">{{ t('button.ok') }}</Button>
                             </Flex>
                         </Flex>
                         <Flex gap=".75rem">
@@ -350,38 +353,38 @@ watchEffect(
                                 <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
                             </Flex>
                             <Flex :column="true">
-                                <PropTitle>Beatmap ID</PropTitle>
+                                <PropTitle>{{ t('propTitle.beatmapId') }}</PropTitle>
                                 <Flex>
                                     <TextInput :number="true" placeholder="0"
                                         v-model:value="dataFetchingArgs.beatmap.id">
                                     </TextInput>
-                                    <Button @click="setBeatmapData">OK</Button>
+                                    <Button @click="setBeatmapData">{{ t('button.ok') }}</Button>
                                 </Flex>
                             </Flex>
                         </Flex>
                     </Flex>
                 </Collapsible>
-                <Collapsible title="Player" id="cover-settings-user">
+                <Collapsible :title="t('collapsibleHeader.player')" id="cover-settings-user">
                     <Flex gap=".75rem">
                         <Flex width="fit-content" :column="true">
-                            <PropTitle>Avatar</PropTitle>
+                            <PropTitle>{{ t('propTitle.userAvatar') }}</PropTitle>
                             <DragDrop width="6.375rem" height="6.375rem" @change="setAvatar"></DragDrop>
                         </Flex>
                         <Flex :column="true" gap=".75rem">
                             <Flex :column="true">
-                                <PropTitle>Username</PropTitle>
+                                <PropTitle>{{ t('propTitle.userName') }}</PropTitle>
                                 <TextInput placeholder="alivemaster" v-model:value="coverData.user.userName">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
-                                <PropTitle>Flag</PropTitle>
+                                <PropTitle>{{ t('propTitle.userFlag') }}</PropTitle>
                                 <Dropdown :options="dropDownOptions.countryCode" v-model:selected="coverData.user.code">
                                 </Dropdown>
                             </Flex>
                         </Flex>
                     </Flex>
                 </Collapsible>
-                <Collapsible title="Score" id="cover-settings-score">
+                <Collapsible :title="t('collapsibleHeader.score')" id="cover-settings-score">
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
                             <Flex gap="auto">
@@ -393,7 +396,7 @@ watchEffect(
                             </TextInput>
                         </Flex>
                         <Flex :column="true">
-                            <PropTitle>Score Status</PropTitle>
+                            <PropTitle>{{ t('propTitle.scoreStatus') }}</PropTitle>
                             <Flex>
                                 <Dropdown :options="dropDownOptions.scoreStatus"
                                     v-model:selected="coverData.score.status.type">
@@ -407,7 +410,7 @@ watchEffect(
                         <Flex gap=".75rem">
                             <Flex :column="true">
                                 <Flex gap="auto">
-                                    <PropTitle>Rank</PropTitle>
+                                    <PropTitle>{{ t('propTitle.scoreRank') }}</PropTitle>
                                     <Switch v-model:checked="coverOptions.render.show.rank"></Switch>
                                 </Flex>
                                 <TextInput :enabled="coverOptions.render.show.rank" :number="true" placeholder="0"
@@ -415,18 +418,18 @@ watchEffect(
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
-                                <PropTitle>Accuracy</PropTitle>
+                                <PropTitle>{{ t('propTitle.scoreAccuracy') }}</PropTitle>
                                 <TextInput :number="true" placeholder="0" v-model:value="coverData.score.accuracy">
                                 </TextInput>
                             </Flex>
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex width="fit-content" :column="true">
-                                <PropTitle>Perfect</PropTitle>
+                                <PropTitle>{{ t('propTitle.scorePerfect') }}</PropTitle>
                                 <Switch size="large" v-model:checked="coverData.score.maxCombo.perfect"></Switch>
                             </Flex>
                             <Flex :column="true">
-                                <PropTitle>Max Combo</PropTitle>
+                                <PropTitle>{{ t('propTitle.scoreMaxCombo') }}</PropTitle>
                                 <TextInput :number="true" placeholder="0"
                                     v-model:value="coverData.score.maxCombo.value">
                                 </TextInput>
@@ -434,19 +437,19 @@ watchEffect(
                         </Flex>
                     </Flex>
                 </Collapsible>
-                <Collapsible title="Beatmap" id="cover-settings-beatmap">
+                <Collapsible :title="t('collapsibleHeader.beatmap')" id="cover-settings-beatmap">
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
-                            <PropTitle>Title</PropTitle>
+                            <PropTitle>{{ t('propTitle.beatmapTitle') }}</PropTitle>
                             <TextInput placeholder="No Title" v-model:value="coverData.beatmap.title">
                             </TextInput>
                         </Flex>
                         <Flex :column="true">
-                            <PropTitle>Background</PropTitle>
+                            <PropTitle>{{ t('propTitle.beatmapBg') }}</PropTitle>
                             <DragDrop width="100%" @change="setBackground"></DragDrop>
                         </Flex>
                         <Flex :column="true">
-                            <PropTitle>Beatmap Status</PropTitle>
+                            <PropTitle>{{ t('propTitle.beatmapStatus') }}</PropTitle>
                             <Dropdown :options="dropDownOptions.beatmapStatus"
                                 v-model:selected="coverData.beatmap.status">
                             </Dropdown>
@@ -455,12 +458,12 @@ watchEffect(
                 </Collapsible>
             </div>
             <div class="cover-settings-half">
-                <Collapsible title="Difficulty" id="cover-settings-difficulty">
+                <Collapsible :title="t('collapsibleHeader.difficulty')" id="cover-settings-difficulty">
                     <Flex :column="true" gap=".75rem">
                         <Flex gap=".75rem">
                             <Flex :column="true">
                                 <Flex gap="auto">
-                                    <PropTitle>Time</PropTitle>
+                                    <PropTitle>{{ t('propTitle.beatmapTime') }}</PropTitle>
                                     <Switch v-model:checked="coverOptions.render.show.beatmapStats.time"></Switch>
                                 </Flex>
                                 <TextInput :enabled="coverOptions.render.show.beatmapStats.time" placeholder="00:00"
@@ -517,19 +520,19 @@ watchEffect(
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex :column="true">
-                                <PropTitle>Star</PropTitle>
+                                <PropTitle>{{ t('propTitle.beatmapStar') }}</PropTitle>
                                 <TextInput :number="true" v-model:value="coverData.beatmap.difficulty.star"
                                     placeholder="0">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true">
-                                <PropTitle>Diff Name</PropTitle>
+                                <PropTitle>{{ t('propTitle.beatmapDiffName') }}</PropTitle>
                                 <TextInput v-model:value="coverData.beatmap.difficulty.name" placeholder="Easy">
                                 </TextInput>
                             </Flex>
                         </Flex>
                         <Flex :column="true">
-                            <PropTitle>Mods</PropTitle>
+                            <PropTitle>{{ t('propTitle.beatmapMods') }}</PropTitle>
                             <Flex :wrap="true">
                                 <ModSelect v-for="(item, key) in coverData.beatmap.mods" :type="key" :key="key"
                                     v-model:checked="item.enabled">
@@ -538,33 +541,33 @@ watchEffect(
                         </Flex>
                     </Flex>
                 </Collapsible>
-                <Collapsible title="Comment" id="cover-settings-comment">
+                <Collapsible :title="t('collapsibleHeader.comment')" id="cover-settings-comment">
                     <TextArea v-model:value="coverData.comment" placeholder="WYSI"></TextArea>
                 </Collapsible>
-                <Collapsible title="Export" id="cover-settings-export">
+                <Collapsible :title="t('collapsibleHeader.export')" id="cover-settings-export">
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true">
-                            <PropTitle>Aspect Ratio</PropTitle>
+                            <PropTitle>{{ t('propTitle.aspectRatio') }}</PropTitle>
                             <Dropdown :options="dropDownOptions.aspectRatio"
                                 v-model:selected="coverOptions.render.ratio">
                             </Dropdown>
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex :column="true">
-                                <PropTitle>Scale</PropTitle>
+                                <PropTitle>{{ t('propTitle.exportScale') }}</PropTitle>
                                 <TextInput :number="true" v-model:value="coverOptions.render.scale" placeholder="1">
                                 </TextInput>
                             </Flex>
                             <Flex :column="true" width="fit-content">
-                                <PropTitle>Type</PropTitle>
+                                <PropTitle>{{ t('propTitle.exportType') }}</PropTitle>
                                 <Dropdown :options="dropDownOptions.exportType"
                                     v-model:selected="coverOptions.exportType">
                                 </Dropdown>
                             </Flex>
                         </Flex>
                         <Flex>
-                            <Button @click="downloadCover">Download</Button>
-                            <Button @click="copyCover">Copy</Button>
+                            <Button @click="downloadCover">{{ t('button.download') }}</Button>
+                            <Button @click="copyCover">{{ t('button.copy') }}</Button>
                         </Flex>
                     </Flex>
                 </Collapsible>
