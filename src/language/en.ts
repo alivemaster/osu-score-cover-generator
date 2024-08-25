@@ -1,6 +1,6 @@
 export default {
   header: {
-    projectName: "osu! score cover generator",
+    projectName: "osu! score cover generator"
   },
   collapsibleHeader: {
     dataFetching: 'Data Fetching',
@@ -31,28 +31,28 @@ export default {
     beatmapMods: "Mods",
     aspectRatio: "Aspect Ratio",
     exportScale: "Scale",
-    exportType: "Type",
+    exportType: "Type"
   },
   button: {
     ok: 'OK',
     download: "Download",
-    copy: "Copy",
+    copy: "Copy"
   },
   dropDown: {
     countryCode: {
-      none: "None",
+      none: "None"
     },
     scoreStatus: {
       fc: "Full Combo",
       fail: "Failed",
       miss: "Miss",
-      sb: "SliderBreak",
+      sb: "SliderBreak"
     },
     beatmapStatus: {
       ranked: "Ranked",
       approved: "Approved / Qualified",
       loved: "Loved",
-      unranked: "Pending / WIP / Graveyard / Not Submitted",
+      unranked: "Pending / WIP / Graveyard / Not Submitted"
     }
   },
   footer: {
@@ -62,5 +62,5 @@ export default {
     disclaimer2b: ".",
     disclaimer3a: 'Data Fetching API provided by ',
     disclaimer3b: '!'
-  },
-};
+  }
+}

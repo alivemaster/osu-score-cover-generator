@@ -20,7 +20,7 @@ export default {
     scoreStatus: "成绩状态",
     scoreRank: "排名",
     scoreAccuracy: "准确率",
-    scorePerfect: "完美",
+    scorePerfect: "完美连击",
     scoreMaxCombo: "最大连击",
     beatmapTitle: "标题",
     beatmapBg: "背景图片",
@@ -36,17 +36,17 @@ export default {
   button: {
     ok: '确定',
     download: "下载",
-    copy: "复制",
+    copy: "复制"
   },
   dropDown: {
     countryCode: {
-      none: "无",
+      none: "无"
     },
     scoreStatus: {
       fc: "全连",
       fail: "失败",
       miss: "断连",
-      sb: "断滑条",
+      sb: "断滑条"
     },
     beatmapStatus: {
       ranked: "上架",
@@ -62,5 +62,5 @@ export default {
     disclaimer2b: "许可证发布。",
     disclaimer3a: '数据接口由',
     disclaimer3b: '提供!'
-  },
-};
+  }
+}
