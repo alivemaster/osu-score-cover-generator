@@ -5,8 +5,8 @@ const { t } = useI18n()
 <template>
     <footer>
         <span class="footer-info">
-            <p>{{ t("footer.credit1") }}</p>
-            <p style="color: hsl(0 0 65)">{{ t("footer.credit2") }} <a href="https://osu.ppy.sh/users/10324621"
+            <p>Made with ❤️ by alivemaster</p>
+            <p style="color: hsl(0 0 65)">aka <a href="https://osu.ppy.sh/users/10324621"
                     target="_blank">sb233asdf</a>
             </p>
         </span>
@@ -14,8 +14,8 @@ const { t } = useI18n()
             <p>{{ t("footer.disclaimer1") }}</p>
             <p>{{ t("footer.disclaimer2a") }}<a href="https://creativecommons.org/licenses/by/4.0/deed.en"
                     target="_blank">CC-BY 4.0</a>{{ t("footer.disclaimer2b") }}</p>
-            <p style="color: hsl(95 100 65)">Data Fetching API provided by <a href="https://bot.365246692.xyz"
-                    target="_blank"><b>YumuBot</b></a>!</p>
+            <p style="color: hsl(95 100 65)">{{ t("footer.disclaimer3a") }}<a href="https://bot.365246692.xyz"
+                    target="_blank"><b>YumuBot</b></a>{{ t("footer.disclaimer3b") }}</p>
         </span>
     </footer>
 </template>

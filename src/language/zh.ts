@@ -1,57 +1,66 @@
 export default {
   header: {
-    projectName: "osu! 分数封面生成器"
+    projectName: "osu! 成绩封面生成器"
   },
-  countryCode: {
-    none: "无",
+  collapsibleHeader: {
+    dataFetching: '数据获取',
+    player: '玩家',
+    score: '成绩',
+    beatmap: '谱面',
+    difficulty: '难度',
+    comment: '注释',
+    export: '导出'
   },
-  scoreStatus: {
-    FC: "全连 (FC)",
-    failed: "失败",
-    miss: "断连",
-    sliderBreak: "断滑条",
-  },
-  beatmapState: {
-    ranked: "上架 (Ranked)",
-    approved: "过审 (Approved / Qualified)",
-    loved: "社区喜爱 (Loved)",
-    unranked: "制作中/待定/入坟/未提交",
-  },
-  coverData: {
-    defaultUserName: "玩家",
-    defaultTitle: "标题",
-    defaultArtist: "艺术家",
-    defaultCreator: "谱师",
-    defaultComment: "注释",
-  },
-  strings: {
-    avatar: "头像",
+  propTitle: {
+    userId: '用户ID',
+    beatmapId: '谱面ID',
+    userAvatar: "头像",
     userName: "用户名",
-    flag: "国家/地区旗",
-    scoreStatus: "分数状态",
-    rank: "排名",
-    accuracy: "准确率",
-    perfect: "完美连击",
-    maxCombo: "最长连击数",
-    mapTitle: "标题",
-    mapBkg: "背景",
-    mapState: "状态",
-    mapTime: "时长",
-    mapStar: "星数",
-    diffName: "难度名",
-    mods: "模组",
+    userFlag: "国家/地区旗",
+    scoreStatus: "成绩状态",
+    scoreRank: "排名",
+    scoreAccuracy: "准确率",
+    scorePerfect: "完美",
+    scoreMaxCombo: "最大连击",
+    beatmapTitle: "标题",
+    beatmapBg: "背景图片",
+    beatmapStatus: "谱面状态",
+    beatmapTime: "时长",
+    beatmapStar: "星数",
+    beatmapDiffName: "难度名",
+    beatmapMods: "模组",
     aspectRatio: "宽高比",
-    exportScale: "大小",
-    exportFormat: "格式",
-    buttonDownload: "下载",
-    buttonCopy: "复制",
+    exportScale: "缩放",
+    exportType: "格式"
+  },
+  button: {
+    ok: '确定',
+    download: "下载",
+    copy: "复制",
+  },
+  dropDown: {
+    countryCode: {
+      none: "无",
+    },
+    scoreStatus: {
+      fc: "全连",
+      fail: "失败",
+      miss: "断连",
+      sb: "断滑条",
+    },
+    beatmapStatus: {
+      ranked: "上架",
+      approved: "过审",
+      loved: "社区喜爱",
+      unranked: "制作中 / 待定 / 入坟 / 未提交"
+    }
   },
   footer: {
-    credit1: "alivemaster 用❤️制作",
-    credit2: "即",
-    disclaimer1: "本网站与 osu! 与 ppy 无关。",
+    disclaimer1: "本网页与osu!或ppy无关。",
     disclaimer2a:
-      "国家/地区旗图标来自 Twemoji，由 Twitter 以 ",
-    disclaimer2b: " 许可证发布。",
+      "国家/地区旗图标来自Twemoji。由Twitter以",
+    disclaimer2b: "许可证发布。",
+    disclaimer3a: '数据接口由',
+    disclaimer3b: '提供!'
   },
 };
