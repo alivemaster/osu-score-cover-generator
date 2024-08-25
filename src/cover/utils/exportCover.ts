@@ -5,9 +5,7 @@ import CoverRender from '../CoverRender'
 
 export default async (data: CoverData, assets: CoverAssets, options: RenderOptions, type: string) => {
     const coverRender = new CoverRender()
-    const renderOptions = coverRender.renderOptions
-    renderOptions.ratio = options.ratio
-    renderOptions.scale = options.scale
+    Object.assign(coverRender.renderOptions, options)
     coverRender.draw(data, assets)
     return new Promise<Blob>((resolve, reject) => {
         coverRender.canvas.toBlob((blob) => {
