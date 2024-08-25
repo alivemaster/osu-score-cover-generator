@@ -43,7 +43,7 @@ export default {
       none: "None"
     },
     scoreStatus: {
-      fc: "Full Combo",
+      fc: "FC",
       fail: "Failed",
       miss: "Miss",
       sb: "SliderBreak"
