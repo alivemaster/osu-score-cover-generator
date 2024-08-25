@@ -6,6 +6,7 @@
 <style scoped>
 .prop-title {
     /* box */
+    height: 1.5rem;
     margin: 0;
     
     /* typo */
