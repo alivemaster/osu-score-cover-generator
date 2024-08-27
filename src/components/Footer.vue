@@ -4,7 +4,7 @@ const { t } = useI18n()
 </script>
 <template>
     <footer>
-        <span class="footer-info">
+        <span class="footer-about">
             <p>Made with ❤️ by alivemaster</p>
             <p style="color: hsl(0 0 65)">aka <a href="https://osu.ppy.sh/users/10324621"
                     target="_blank">sb233asdf</a>
@@ -30,13 +30,14 @@ footer {
     padding: 2rem 3rem;
 }
 
-.footer-info {
+.footer-about {
     /* box */
     text-align: start;
 }
 
-.footer-info>p {
+.footer-about>p {
     /* typo */
+    font-size: 1.25rem;
     font-weight: 500;
 }
 
@@ -45,7 +46,7 @@ footer {
     text-align: end;
 }
 
-.footer-info>*,
+.footer-about>*,
 .footer-disclaimer>* {
     /* box */
     margin: 0;
@@ -60,7 +61,7 @@ footer {
         padding: 1.5rem 1rem;
     }
 
-    .footer-info,
+    .footer-about,
     .footer-disclaimer {
         /* box */
         text-align: center;

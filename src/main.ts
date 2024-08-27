@@ -13,7 +13,7 @@ import '@fontsource-variable/noto-sans-kr'
 
 const i18n = createI18n({
     legacy: false,
-    messages:{
+    messages: {
         en,
         zh
     },
