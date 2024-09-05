@@ -1,10 +1,10 @@
-import CoverData from "./CoverData.ts"
-import CoverAssets from "./CoverAssets.ts"
-import RenderOptions from "./RenderOptions.ts"
-import CoverLayout from "./CoverLayout.ts"
-import diffSpectrum from "./utils/diffSpectrum.ts"
-import fillImg from "./utils/fillImg.ts"
-import shrinkText from "./utils/shrinkText.ts"
+import CoverData from "./CoverData"
+import CoverAssets from "./CoverAssets"
+import RenderOptions from "./RenderOptions"
+import CoverLayout from "./CoverLayout"
+import diffSpectrum from "./utils/diffSpectrum"
+import fillImg from "./utils/fillImg"
+import shrinkText from "./utils/shrinkText"
 
 export default class CoverRender {
     private _canvas: HTMLCanvasElement
