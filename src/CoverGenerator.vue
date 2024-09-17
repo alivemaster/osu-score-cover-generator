@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import CoverData from './cover/CoverData'
 import CoverAssets from './cover/CoverAssets'
 import RenderOptions from './cover/RenderOptions'
-import CoverRender from './cover/CoverRender'
+import RenderV1 from './cover/styles/V1'
 import initAssets from './cover/utils/initAssets'
 import flagIcon from './cover/utils/flagIcon'
 import fileName from './cover/utils/fileName'
@@ -241,7 +241,7 @@ const coverOptions: { render: RenderOptions, exportType: string } = reactive({
     },
     exportType: 'png'
 })
-const coverPreview = new CoverRender()
+const coverPreview = new RenderV1()
 // Cover methods
 const setAvatar = async (file: File) => {
     coverAssets.user.avatar = await loadImgFile(file)
@@ -316,7 +316,7 @@ onMounted(async () => {
 watchEffect(async () => coverAssets.user.flag = await flagIcon(coverData.user.code))
 watchEffect(() => {
     // refersh preview when any option changes
-    const previewOptions = coverPreview.renderOptions
+    const previewOptions = coverPreview.options
     previewOptions.ratio = coverOptions.render.ratio
     previewOptions.show = coverOptions.render.show
     coverPreview.draw(coverData, coverAssets)

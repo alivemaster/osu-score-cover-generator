@@ -1,14 +1,14 @@
 import CoverData from '../CoverData'
 import CoverAssets from '../CoverAssets'
 import RenderOptions from '../RenderOptions'
-import CoverRender from '../CoverRender'
+import RenderV1 from '../styles/V1'
 
 export default async (data: CoverData, assets: CoverAssets, options: RenderOptions, type: string) => {
-    const coverRender = new CoverRender()
-    Object.assign(coverRender.renderOptions, options)
-    coverRender.draw(data, assets)
+    const render = new RenderV1()
+    Object.assign(render.options, options)
+    render.draw(data, assets)
     return new Promise<Blob>((resolve, reject) => {
-        coverRender.canvas.toBlob((blob) => {
+        render.canvas.toBlob((blob) => {
             if (blob) {
                 resolve(blob)
             } else {
