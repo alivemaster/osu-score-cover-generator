@@ -22,7 +22,7 @@ export default class V1 implements CoverRender {
         scoreDetails: Box
         beatmap: Box
         beatmapDetails: Box
-        beatmapState: Box
+        beatmapStatus: Box
         beatmapStatsList: Box
         beatmapStatsItem: Box
         title: Box
@@ -35,7 +35,7 @@ export default class V1 implements CoverRender {
     constructor() {
         this._canvas = document.createElement("canvas")
         this._ctx = this.canvas.getContext("2d")!
-        this._size = { 
+        this._size = {
             width: 1920,
             height: 1200
         }
@@ -137,6 +137,7 @@ export default class V1 implements CoverRender {
             y: 0,
             width: layout.topBar.width - layout.playerCard.width - layout.topBar.paddingH! * 2 - layout.topBar.gap!,
             height: layout.topBar.height,
+            paddingV: 60,
             gap: 0
         }
         layout.beatmap = {
@@ -154,16 +155,16 @@ export default class V1 implements CoverRender {
             width: layout.beatmap.width - layout.beatmap.paddingH! * 2,
             height: 108
         }
-        layout.beatmapState = {
+        layout.beatmapStatus = {
             x: layout.beatmapDetails.x,
             y: layout.beatmapDetails.y,
             width: 108,
             height: 108
         }
         layout.beatmapStatsList = {
-            x: layout.beatmapState.x + layout.beatmapState.width,
+            x: layout.beatmapStatus.x + layout.beatmapStatus.width,
             get y() { return layout.beatmapDetails.y + (layout.beatmapDetails.height - this.height) / 2 },
-            width: layout.beatmapDetails.width - layout.beatmapState.width,
+            width: layout.beatmapDetails.width - layout.beatmapStatus.width,
             height: 80,
             gap: 12
         }
@@ -303,7 +304,7 @@ export default class V1 implements CoverRender {
         const scoreStatusStr = data.score.status.type === 'miss' || data.score.status.type === 'sb' ? data.score.status.value + 'X' : data.score.status.type === 'fail' ? 'F' : data.score.status.type.toUpperCase()
         ctx.save()
         ctx.font = "700 192px 'Montserrat Variable'"
-        cursor.y = layout.scoreDetails.y + layout.scoreDetails.height / 4 + 12
+        cursor.y = layout.scoreDetails.y + layout.scoreDetails.paddingV! + (layout.scoreDetails.height - layout.scoreDetails.paddingV! * 2) / 4 + 12
         if (options.show.pp) {
             cursor.x = layout.scoreDetails.x
             ctx.textAlign = 'left'
@@ -340,7 +341,7 @@ export default class V1 implements CoverRender {
         ctx.fillStyle = 'hsl(0 0% 100%)'
         layout.scoreDetails.gap = options.show.rank ? (layout.scoreDetails.width - ctx.measureText(rankStr + accStr + comboStr).width) / 2 : layout.scoreDetails.width - ctx.measureText(accStr + comboStr).width
         cursor.x = layout.scoreDetails.x
-        cursor.y = layout.scoreDetails.y + layout.scoreDetails.height * 3 / 4 + 8
+        cursor.y = layout.scoreDetails.y + layout.scoreDetails.paddingV! + (layout.scoreDetails.height - layout.scoreDetails.paddingV! * 2) * 3 / 4 + 8
         if (options.show.rank) {
             ctx.fillText(rankStr, cursor.x, cursor.y)
             cursor.x += ctx.measureText(rankStr).width + layout.scoreDetails.gap
@@ -356,10 +357,10 @@ export default class V1 implements CoverRender {
         // beatmap status
         const beatmapStatusIcon = assets.beatmap.statusIcons[data.beatmap.status]
         ctx.save()
-        cursor.x = layout.beatmapState.x + layout.beatmapState.width / 2
-        cursor.y = layout.beatmapState.y + layout.beatmapState.height / 2
+        cursor.x = layout.beatmapStatus.x + layout.beatmapStatus.width / 2
+        cursor.y = layout.beatmapStatus.y + layout.beatmapStatus.height / 2
         ctx.beginPath()
-        ctx.ellipse(cursor.x, cursor.y, layout.beatmapState.width / 2, layout.beatmapState.height / 2, 0, 0, 360)
+        ctx.ellipse(cursor.x, cursor.y, layout.beatmapStatus.width / 2, layout.beatmapStatus.height / 2, 0, 0, 360)
         switch (data.beatmap.status) {
             case 'ranked':
                 ctx.fillStyle = 'hsl(190 85% 50%)'
@@ -378,9 +379,9 @@ export default class V1 implements CoverRender {
         }
         ctx.fill()
         ctx.restore()
-        cursor.x = layout.beatmapState.x
-        cursor.y = layout.beatmapState.y
-        fillImg(ctx, beatmapStatusIcon, cursor.x, cursor.y, layout.beatmapState.width, layout.beatmapState.height)
+        cursor.x = layout.beatmapStatus.x
+        cursor.y = layout.beatmapStatus.y
+        fillImg(ctx, beatmapStatusIcon, cursor.x, cursor.y, layout.beatmapStatus.width, layout.beatmapStatus.height)
         // beatmap stats
         ctx.save()
         ctx.font = "700 48px 'Quicksand Variable'"
@@ -568,10 +569,10 @@ export default class V1 implements CoverRender {
         // comment
         ctx.save()
         ctx.font = "400 72px 'Noto Sans SC Variable', 'Noto Sans TC Variable', 'Noto Sans JP Variable', 'Noto Sans KR Variable'"
-        ctx.textBaseline = 'middle'
+        ctx.textBaseline = 'top'
         ctx.textAlign = 'center'
         cursor.x = layout.comment.width / 2
-        cursor.y = layout.comment.y + layout.comment.height / 2
+        cursor.y = layout.comment.y
         ctx.fillStyle = 'hsl(0 0% 100%)'
         ctx.fillText(shrinkText(ctx, data.comment, size.width), cursor.x, cursor.y)
         ctx.restore()
