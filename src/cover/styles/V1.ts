@@ -162,6 +162,12 @@ export default class V1 implements CoverRender {
             width: 108,
             height: 108
         }
+        layout.beatmapMode = {
+            x: layout.beatmapDetails.x + layout.beatmapStatus.width,
+            y: layout.beatmapDetails.y,
+            width: 108,
+            height: 108
+        }
         layout.beatmapStatsList = {
             x: layout.beatmapStatus.x + layout.beatmapStatus.width,
             get y() { return layout.beatmapDetails.y + (layout.beatmapDetails.height - this.height) / 2 },
@@ -355,6 +361,15 @@ export default class V1 implements CoverRender {
         ctx.restore()
         //
         ctx.restore()
+        // beatmap details top left base
+        ctx.save()
+        cursor.x = layout.beatmapDetails.x
+        cursor.y = layout.beatmapDetails.y
+        ctx.beginPath()
+        ctx.roundRect(cursor.x, cursor.y, layout.beatmapStatus.width + layout.beatmapMode.width, layout.beatmapStatus.height, layout.beatmapStatus.height / 2)
+        ctx.fillStyle = 'hsl(0 0% 0% / 35%)'
+        ctx.fill()
+        ctx.restore()
         // beatmap status
         const beatmapStatusIcon = assets.beatmap.statusIcons[data.beatmap.status]
         ctx.save()
@@ -383,6 +398,23 @@ export default class V1 implements CoverRender {
         cursor.x = layout.beatmapStatus.x
         cursor.y = layout.beatmapStatus.y
         fillImg(ctx, beatmapStatusIcon, cursor.x, cursor.y, layout.beatmapStatus.width, layout.beatmapStatus.height)
+        // beatmap mode
+        cursor.x = layout.beatmapMode.x
+        cursor.y = layout.beatmapMode.y
+        switch (data.beatmap.mode) {
+            case 'osu':
+                fillImg(ctx, assets.beatmap.modeIcons.osu, cursor.x, cursor.y, layout.beatmapMode.width, layout.beatmapMode.height)
+                break
+            case 'fruits':
+                fillImg(ctx, assets.beatmap.modeIcons.fruits, cursor.x, cursor.y, layout.beatmapMode.width, layout.beatmapMode.height)
+                break
+            case 'taiko':
+                fillImg(ctx, assets.beatmap.modeIcons.taiko, cursor.x, cursor.y, layout.beatmapMode.width, layout.beatmapMode.height)
+                break
+            case 'mania':
+                fillImg(ctx, assets.beatmap.modeIcons.mania, cursor.x, cursor.y, layout.beatmapMode.width, layout.beatmapMode.height)
+                break
+        }
         // beatmap stats
         ctx.save()
         ctx.font = "700 48px 'Quicksand Variable'"
