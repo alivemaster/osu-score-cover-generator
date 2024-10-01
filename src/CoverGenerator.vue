@@ -217,6 +217,12 @@ const coverAssets: CoverAssets = reactive({
             loved: new Image(),
             unranked: new Image()
         },
+        modeIcons: {
+            osu: new Image(),
+            fruits: new Image(),
+            taiko: new Image(),
+            mania: new Image()
+        },
         defaults: {
             background: new Image()
         }

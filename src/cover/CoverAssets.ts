@@ -15,6 +15,12 @@ export default interface CoverAssets {
             loved: HTMLImageElement
             unranked: HTMLImageElement
         }
+        modeIcons: {
+            osu: HTMLImageElement
+            fruits: HTMLImageElement
+            taiko: HTMLImageElement
+            mania: HTMLImageElement
+        }
         defaults: {
             background: HTMLImageElement
         }

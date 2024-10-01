@@ -23,6 +23,7 @@ export default class V1 implements CoverRender {
         beatmap: Box
         beatmapDetails: Box
         beatmapStatus: Box
+        beatmapMode: Box
         beatmapStatsList: Box
         beatmapStatsItem: Box
         title: Box
