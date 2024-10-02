@@ -579,6 +579,15 @@ export default class V1 implements CoverRender {
                 case 'so':
                     ctx.fillStyle = 'hsl(330 100% 60%)'
                     break
+                case 'cp':
+                    ctx.fillStyle = 'hsl(0 40% 50%)'
+                    break
+                case 'mr':
+                    ctx.fillStyle = 'hsl(126 100% 35%)'
+                    break
+                case 'rd':
+                    ctx.fillStyle = 'hsl(146 100% 40%)'
+                    break
                 case 'v2':
                     ctx.fillStyle = 'hsl(0 0% 100%)'
                     break

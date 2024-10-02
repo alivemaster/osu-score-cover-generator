@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import CoverData from '../cover/CoverData'
 const props = defineProps<{
-    type: string
+    type: keyof CoverData['beatmap']['mods']
 }>()
 const checked = defineModel<boolean>('checked')
 </script>
@@ -237,6 +238,54 @@ const checked = defineModel<boolean>('checked')
 
     /* visual */
     background-color: hsl(330 50 20);
+}
+
+.mod-select.cp {
+    /* typo */
+    color: hsl(0 20 35);
+
+    /* visual */
+    background-color: hsl(0 20 15);
+}
+
+.mod-select.cp.checked {
+    /* typo */
+    color: hsl(0 45 75);
+
+    /* visual */
+    background-color: hsl(0 45 20);
+}
+
+.mod-select.mr {
+    /* typo */
+    color: hsl(126 20 35);
+
+    /* visual */
+    background-color: hsl(126 20 15);
+}
+
+.mod-select.mr.checked {
+    /* typo */
+    color: hsl(126 50 75);
+
+    /* visual */
+    background-color: hsl(126 50 20);
+}
+
+.mod-select.rd {
+    /* typo */
+    color: hsl(146 20 35);
+
+    /* visual */
+    background-color: hsl(146 20 15);
+}
+
+.mod-select.rd.checked {
+    /* typo */
+    color: hsl(146 45 75);
+
+    /* visual */
+    background-color: hsl(146 45 20);
 }
 
 .mod-select.v2 {

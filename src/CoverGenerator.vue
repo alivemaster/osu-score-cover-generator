@@ -242,6 +242,18 @@ const coverData: CoverData = reactive({
                 mode: ['osu'],
                 enabled: false
             },
+            cp: {
+                mode: ['mania'],
+                enabled: false
+            },
+            mr: {
+                mode: ['mania'],
+                enabled: false
+            },
+            rd: {
+                mode: ['mania'],
+                enabled: false
+            },
             v2: {
                 mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
