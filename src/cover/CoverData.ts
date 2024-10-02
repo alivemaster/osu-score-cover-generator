@@ -31,7 +31,10 @@ export default interface CoverData {
             star: number
             name: string
         }
-        mods: Record<'ez' | 'nf' | 'ht' | 'hd' | 'hr' | 'dt' | 'nc' | 'fl' | 'sd' | 'pf' | 'rx' | 'ap' | 'so' | 'v2', { enabled: boolean }>
+        mods: Record<'ez' | 'nf' | 'ht' | 'hd' | 'hr' | 'dt' | 'nc' | 'fl' | 'sd' | 'pf' | 'rx' | 'ap' | 'so' | 'v2', {
+            mode: ('osu' | 'taiko' | 'fruits' | 'mania')[]
+            enabled: boolean
+        }>
     }
     comment: string
 }

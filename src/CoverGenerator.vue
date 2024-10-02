@@ -190,46 +190,60 @@ const coverData: CoverData = reactive({
         },
         mods: {
             ez: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             nf: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             ht: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             hd: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             hr: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             dt: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             nc: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             fl: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             sd: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             pf: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             },
             rx: {
+                mode: ['osu', 'taiko', 'fruits'],
                 enabled: false
             },
             ap:
             {
+                mode: ['osu'],
                 enabled: false
             },
             so: {
+                mode: ['osu'],
                 enabled: false
             },
             v2: {
+                mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             }
         }
@@ -346,6 +360,19 @@ const setBeatmapData = async () => {
         coverData.beatmap.id = dataFetchingArgs.beatmap.id
     }
 }
+// Misc
+const checkModAvailability = (mod: CoverData['beatmap']['mods'][keyof CoverData['beatmap']['mods']], mode: CoverData['beatmap']['mode']) => {
+    let available = false
+    mod.mode.forEach((value) => {
+        if (value === mode) {
+            available = true
+            return
+        }
+    })
+    if (available === false)
+        mod.enabled = false
+    return available
+}
 // vue methods
 onMounted(async () => {
     const previewCv = coverPreview.canvas
@@ -382,7 +409,7 @@ watchEffect(
             <div class="cover-settings-half">
                 <Collapsible :title="t('collapsibleHeader.dataFetching')" id="cover-settings-data-fetching">
                     <Flex :column="true" gap=".75rem">
-                        <Flex  :column="true" gap=".75rem">
+                        <Flex :column="true" gap=".75rem">
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.userId') }}</PropTitle>
                                 <Flex>
@@ -593,9 +620,11 @@ watchEffect(
                         <Flex :column="true">
                             <PropTitle>{{ t('propTitle.beatmapMods') }}</PropTitle>
                             <Flex :wrap="true">
-                                <ModSelect v-for="(item, key) in coverData.beatmap.mods" :type="key" :key="key"
-                                    v-model:checked="item.enabled">
-                                </ModSelect>
+                                <template v-for="(item, key) in coverData.beatmap.mods" :key="key">
+                                    <ModSelect v-show="checkModAvailability(item, coverData.beatmap.mode)" :type="key"
+                                        v-model:checked="item.enabled">
+                                    </ModSelect>
+                                </template>
                             </Flex>
                         </Flex>
                     </Flex>
