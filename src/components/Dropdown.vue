@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Button from './Button.vue'
-const props = defineProps<{
+interface Props {
+    enabled: boolean
     options: {
         name: string
         value: string
     }[],
     selected: string
-}>()
+}
+const props = withDefaults(defineProps<Props>(), {
+    enabled: true,
+    options() {
+        return [
+            {
+                name:'',
+                value:''
+            }
+        ]
+    },
+    selected: ''
+})
 const emit = defineEmits<{
     (e: 'update:selected', value: string): void
 }>()
@@ -39,7 +52,7 @@ onUnmounted(() => {
 </script>
 <template>
     <div class="dropdown">
-        <Button @click="toggleOpen">
+        <Button :enabled="props.enabled" @click="toggleOpen">
             <span class="dropdown-selected">
                 {{ selectedOptionName }}
             </span>
