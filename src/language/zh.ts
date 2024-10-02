@@ -14,6 +14,8 @@ export default {
   propTitle: {
     userId: '用户ID',
     beatmapId: '谱面ID',
+    unicode: '原语言',
+    convertedBeatmap: '转谱',
     userAvatar: "头像",
     userName: "用户名",
     userFlag: "国家/地区旗",
@@ -25,6 +27,7 @@ export default {
     beatmapTitle: "标题",
     beatmapBg: "背景图片",
     beatmapStatus: "谱面状态",
+    beatmapMode: "模式",
     beatmapTime: "时长",
     beatmapStar: "星数",
     beatmapDiffName: "难度名",
@@ -39,6 +42,7 @@ export default {
     copy: "复制"
   },
   dropDown: {
+    beatmapNoConvert: '不转换',
     countryCode: {
       none: "无"
     },

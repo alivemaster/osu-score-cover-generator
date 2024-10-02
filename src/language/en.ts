@@ -14,6 +14,8 @@ export default {
   propTitle: {
     userId: 'User ID',
     beatmapId: 'Beatmap ID',
+    unicode: 'Original Language',
+    convertedBeatmap: 'Converted Beatmap',
     userAvatar: "Avatar",
     userName: "Username",
     userFlag: "Flag",
@@ -24,7 +26,8 @@ export default {
     scoreMaxCombo: "Maximum Combo",
     beatmapTitle: "Title",
     beatmapBg: "Background",
-    beatmapStatus: "Map State",
+    beatmapStatus: "Beatmap Status",
+    beatmapMode: "Mode",
     beatmapTime: "Time",
     beatmapStar: "Star Rating",
     beatmapDiffName: "Diff Name",
@@ -39,6 +42,7 @@ export default {
     copy: "Copy"
   },
   dropDown: {
+    beatmapNoConvert: 'No Convert',
     countryCode: {
       none: "None"
     },

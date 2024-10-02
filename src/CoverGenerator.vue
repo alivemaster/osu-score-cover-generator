@@ -29,10 +29,28 @@ import countryList from './assets/countries.json'
 const { t } = useI18n()
 // Dropdown Options
 const dropDownOptions = {
+    convertedBeatmap: [
+        {
+            name: t('dropDown.beatmapNoConvert'),
+            value: ''
+        },
+        {
+            name: 'osu!catch',
+            value: 'fruits'
+        },
+        {
+            name: 'osu!taiko',
+            value: 'taiko'
+        },
+        {
+            name: 'osu!mania',
+            value: 'mania'
+        }
+    ],
     countryCode: [
         {
             name: t('dropDown.countryCode.none'),
-            value: ""
+            value: ''
         }
     ],
     scoreStatus: [
@@ -73,6 +91,24 @@ const dropDownOptions = {
         {
             name: t('dropDown.beatmapStatus.unranked'),
             value: 'unranked'
+        }
+    ],
+    beatmapMode: [
+        {
+            name: 'osu!',
+            value: 'osu'
+        },
+        {
+            name: 'osu!catch',
+            value: 'fruits'
+        },
+        {
+            name: 'osu!taiko',
+            value: 'taiko'
+        },
+        {
+            name: 'osu!mania',
+            value: 'mania'
         }
     ],
     aspectRatio: [
@@ -290,7 +326,8 @@ const dataFetchingArgs = reactive({
     },
     beatmap: {
         id: 0,
-        unicode: false
+        unicode: false,
+        converted: ''
     }
 })
 const setUserData = async () => {
@@ -345,18 +382,14 @@ watchEffect(
             <div class="cover-settings-half">
                 <Collapsible :title="t('collapsibleHeader.dataFetching')" id="cover-settings-data-fetching">
                     <Flex :column="true" gap=".75rem">
-                        <Flex :column="true">
-                            <PropTitle>{{ t('propTitle.userId') }}</PropTitle>
-                            <Flex>
-                                <TextInput :number="true" placeholder="0" v-model:value="dataFetchingArgs.user.id">
-                                </TextInput>
-                                <Button @click="setUserData">{{ t('button.ok') }}</Button>
-                            </Flex>
-                        </Flex>
-                        <Flex gap=".75rem">
-                            <Flex width="fit-content" :column="true">
-                                <PropTitle>Unicode</PropTitle>
-                                <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
+                        <Flex  :column="true" gap=".75rem">
+                            <Flex :column="true">
+                                <PropTitle>{{ t('propTitle.userId') }}</PropTitle>
+                                <Flex>
+                                    <TextInput :number="true" placeholder="0" v-model:value="dataFetchingArgs.user.id">
+                                    </TextInput>
+                                    <Button @click="setUserData">{{ t('button.ok') }}</Button>
+                                </Flex>
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.beatmapId') }}</PropTitle>
@@ -366,6 +399,18 @@ watchEffect(
                                     </TextInput>
                                     <Button @click="setBeatmapData">{{ t('button.ok') }}</Button>
                                 </Flex>
+                            </Flex>
+                        </Flex>
+                        <Flex gap=".75rem">
+                            <Flex width="fit-content" :column="true">
+                                <PropTitle>{{ t('propTitle.unicode') }}</PropTitle>
+                                <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
+                            </Flex>
+                            <Flex :column="true">
+                                <PropTitle>{{ t('propTitle.convertedBeatmap') }}</PropTitle>
+                                <Dropdown :options="dropDownOptions.convertedBeatmap"
+                                    v-model:selected="dataFetchingArgs.beatmap.converted">
+                                </Dropdown>
                             </Flex>
                         </Flex>
                     </Flex>
@@ -454,11 +499,19 @@ watchEffect(
                             <PropTitle>{{ t('propTitle.beatmapBg') }}</PropTitle>
                             <DragDrop width="100%" @change="setBackground"></DragDrop>
                         </Flex>
-                        <Flex :column="true">
-                            <PropTitle>{{ t('propTitle.beatmapStatus') }}</PropTitle>
-                            <Dropdown :options="dropDownOptions.beatmapStatus"
-                                v-model:selected="coverData.beatmap.status">
-                            </Dropdown>
+                        <Flex gap=".75rem">
+                            <Flex width="fit-content" :column="true">
+                                <PropTitle>{{ t('propTitle.beatmapStatus') }}</PropTitle>
+                                <Dropdown :options="dropDownOptions.beatmapStatus"
+                                    v-model:selected="coverData.beatmap.status">
+                                </Dropdown>
+                            </Flex>
+                            <Flex width="fit-content" :column="true">
+                                <PropTitle>{{ t('propTitle.beatmapMode') }}</PropTitle>
+                                <Dropdown :options="dropDownOptions.beatmapMode"
+                                    v-model:selected="coverData.beatmap.mode">
+                                </Dropdown>
+                            </Flex>
                         </Flex>
                     </Flex>
                 </Collapsible>
