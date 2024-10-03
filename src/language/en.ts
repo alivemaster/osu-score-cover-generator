@@ -32,6 +32,7 @@ export default {
     beatmapStar: "Star Rating",
     beatmapDiffName: "Diff Name",
     beatmapMods: "Mods",
+    beatmapManiaKeys: 'Mania Keys',
     aspectRatio: "Aspect Ratio",
     exportScale: "Scale",
     exportType: "Type"
@@ -57,6 +58,9 @@ export default {
       approved: "Approved / Qualified",
       loved: "Loved",
       unranked: "Pending / WIP / Graveyard / Not Submitted"
+    },
+    maniaKeys: {
+      noChange: 'No Change'
     }
   },
   footer: {

@@ -32,6 +32,7 @@ export default {
     beatmapStar: "星数",
     beatmapDiffName: "难度名",
     beatmapMods: "模组",
+    beatmapManiaKeys: 'Mania键数',
     aspectRatio: "宽高比",
     exportScale: "缩放",
     exportType: "格式"
@@ -57,6 +58,9 @@ export default {
       approved: "过审",
       loved: "社区喜爱",
       unranked: "制作中 / 待定 / 入坟 / 未提交"
+    },
+    maniaKeys: {
+      noChange: '不改变'
     }
   },
   footer: {

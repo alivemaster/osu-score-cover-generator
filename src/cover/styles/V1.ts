@@ -531,6 +531,15 @@ export default class V1 implements CoverRender {
             if (item.enabled)
                 modsEnabled.push(key)
         })
+        if (data.beatmap.mode === 'mania' && data.beatmap.keys !== 0) {
+            const xk = data.beatmap.keys.toString() + 'k'
+            const v2Index = modsEnabled.indexOf('v2')
+            if (v2Index !== -1)
+                modsEnabled.splice(v2Index, 0, xk)
+            else
+            modsEnabled.push(xk)
+        }
+
         layout.modList.gap = modsEnabled.length > 7 ? (layout.modList.width - layout.modItem.width * modsEnabled.length) / (modsEnabled.length - 1) : 12
         cursor.x = layout.modList.x + layout.modList.width
         const drawModIcon = (mod: string) => {
@@ -587,6 +596,17 @@ export default class V1 implements CoverRender {
                     break
                 case 'rd':
                     ctx.fillStyle = 'hsl(146 100% 40%)'
+                    break
+                case '1k':
+                case '2k':
+                case '3k':
+                case '4k':
+                case '5k':
+                case '6k':
+                case '7k':
+                case '8k':
+                case '9k':
+                    ctx.fillStyle = 'hsl(0 20% 35%)'
                     break
                 case 'v2':
                     ctx.fillStyle = 'hsl(0 0% 100%)'

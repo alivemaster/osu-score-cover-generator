@@ -111,6 +111,48 @@ const dropDownOptions = {
             value: 'mania'
         }
     ],
+    maniaKeys: [
+        {
+            name: t('dropDown.maniaKeys.noChange'),
+            value: 0
+        },
+        {
+            name: '1K',
+            value: 1
+        },
+        {
+            name: '2K',
+            value: 2
+        },
+        {
+            name: '3K',
+            value: 3
+        },
+        {
+            name: '4K',
+            value: 4
+        },
+        {
+            name: '5K',
+            value: 5
+        },
+        {
+            name: '6K',
+            value: 6
+        },
+        {
+            name: '7K',
+            value: 7
+        },
+        {
+            name: '8K',
+            value: 8
+        },
+        {
+            name: '9K',
+            value: 9
+        },
+    ],
     aspectRatio: [
         {
             name: '16:9',
@@ -258,7 +300,8 @@ const coverData: CoverData = reactive({
                 mode: ['osu', 'taiko', 'fruits', 'mania'],
                 enabled: false
             }
-        }
+        },
+        keys: 0
     },
     comment: 'Comment'
 })
@@ -638,6 +681,11 @@ watchEffect(
                                     </ModSelect>
                                 </template>
                             </Flex>
+                        </Flex>
+                        <Flex v-show="coverData.beatmap.mode === 'mania'" width="fit-content" :column="true">
+                            <PropTitle>{{ t('propTitle.beatmapManiaKeys') }}</PropTitle>
+                            <Dropdown :options="dropDownOptions.maniaKeys" v-model:selected="coverData.beatmap.keys">
+                            </Dropdown>
                         </Flex>
                     </Flex>
                 </Collapsible>
