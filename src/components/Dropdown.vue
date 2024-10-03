@@ -5,9 +5,9 @@ interface Props {
     enabled: boolean
     options: {
         name: string
-        value: string
+        value: string | number
     }[],
-    selected: string
+    selected: string | number
 }
 const props = withDefaults(defineProps<Props>(), {
     enabled: true,
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     selected: ''
 })
 const emit = defineEmits<{
-    (e: 'update:selected', value: string): void
+    (e: 'update:selected', value: string | number): void
 }>()
 const selectedOptionName = computed(() => {
     let name = '--'
@@ -61,7 +61,7 @@ onUnmounted(() => {
         <Transition name="dropdown-list">
             <ul class="dropdown-list" v-if="isOpen">
                 <li class="dropdown-item" v-for="option in props.options"
-                    :key="'dropdown-item-' + option.value.toLowerCase()" @click="() => {
+                    :key="'dropdown-item-' + option.value.toString().toLowerCase()" @click="() => {
                         emit('update:selected', option.value)
                         isOpen = false
                     }">
