@@ -289,7 +289,7 @@ export default class V1 implements CoverRender {
         ctx.save()
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'left'
-        ctx.font = "700 72px 'Quicksand Variable'"
+        ctx.font = data.user.userName.length < 8 ? "700 72px 'Quicksand Variable'" : "700 60px 'Quicksand Variable'"
         ctx.fillStyle = 'hsl(0 0% 100%)'
         cursor.x = layout.userName.x
         cursor.y = layout.userName.y + layout.userName.height / 2 + 4
