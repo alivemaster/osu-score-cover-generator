@@ -511,7 +511,7 @@ watchEffect(
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.player.flag') }}</PropTitle>
-                                <Dropdown :options="dropDownOptions.countryCode" v-model:selected="coverData.user.code">
+                                <Dropdown :filter="true" :options="dropDownOptions.countryCode" v-model:selected="coverData.user.code">
                                 </Dropdown>
                             </Flex>
                         </Flex>

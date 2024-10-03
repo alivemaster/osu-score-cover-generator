@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Button from './Button.vue'
+import TextInput from './TextInput.vue'
 interface Props {
     enabled: boolean
+    filter: boolean
     options: {
         name: string
         value: string | number
@@ -11,11 +13,12 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
     enabled: true,
+    filter: false,
     options() {
         return [
             {
-                name:'',
-                value:''
+                name: '',
+                value: ''
             }
         ]
     },
@@ -34,8 +37,14 @@ const selectedOptionName = computed(() => {
     })
     return name
 })
+const key = ref<string>('')
+const regex = computed<RegExp>(() => new RegExp(`^${key.value}`, "i"))
 const isOpen = ref<boolean>(false)
 const toggleOpen = () => {
+    // clear filter when close
+    if (isOpen.value && props.filter)
+        key.value = ''
+    // toggle
     isOpen.value = !isOpen.value
 }
 const outsideClickHandler = (event: MouseEvent) => {
@@ -58,16 +67,22 @@ onUnmounted(() => {
             </span>
             <span class="dropdown-icon" :class="{ rotated: isOpen }"></span>
         </Button>
-        <Transition name="dropdown-list">
-            <ul class="dropdown-list" v-if="isOpen">
-                <li class="dropdown-item" v-for="option in props.options"
-                    :key="'dropdown-item-' + option.value.toString().toLowerCase()" @click="() => {
-                        emit('update:selected', option.value)
-                        isOpen = false
-                    }">
-                    {{ option.name }}
-                </li>
-            </ul>
+        <Transition name="dropdown-menu">
+            <div v-if="isOpen" class="dropdown-menu">
+                <TextInput v-if="props.filter" v-model:value="key" placeholder="Filter..."></TextInput>
+                <ul class="dropdown-list">
+                    <template v-for="option in props.options"
+                        :key="'dropdown-item-' + option.value.toString().toLowerCase()">
+                        <li v-show="!props.filter || (regex.test(option.name) || regex.test(option.value.toString()))"
+                            class="dropdown-item" @click="() => {
+                                emit('update:selected', option.value)
+                                toggleOpen()
+                            }">
+                            {{ option.name }}
+                        </li>
+                    </template>
+                </ul>
+            </div>
         </Transition>
     </div>
 </template>
@@ -102,23 +117,16 @@ onUnmounted(() => {
     rotate: 180deg;
 }
 
-.dropdown-list {
+.dropdown-menu {
     /* box */
     position: absolute;
     z-index: 1;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: .375rem;
-    max-width: 18rem;
-    max-height: 15rem;
+    gap: .75rem;
     padding: .375rem;
-    margin-top: .375rem;
-    overflow-y: auto;
-
-    /* scrollbar */
-    scrollbar-color: hsl(0 0 60) hsl(0 0 0 / 0);
-    scrollbar-width: thin;
+    margin: .375rem 0 0;
 
     /* visual */
     background-color: var(--bg3);
@@ -127,6 +135,22 @@ onUnmounted(() => {
     border-style: solid;
     border-width: .03125rem;
     border-radius: .75rem;
+}
+
+.dropdown-list {
+    /* box */
+    display: flex;
+    flex-direction: column;
+    gap: .375rem;
+    max-width: 15rem;
+    max-height: 15rem;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+
+    /* scrollbar */
+    scrollbar-color: hsl(0 0 60) hsl(0 0 0 / 0);
+    scrollbar-width: thin;
 }
 
 .dropdown-item {
@@ -156,17 +180,17 @@ onUnmounted(() => {
     }
 }
 
-.dropdown-list-enter-from,
-.dropdown-list-leave-to {
+.dropdown-menu-enter-from,
+.dropdown-menu-leave-to {
     opacity: 0;
     transform: translateY(-.25rem);
 }
 
-.dropdown-list-enter-active {
+.dropdown-menu-enter-active {
     transition: all .2s ease-out;
 }
 
-.dropdown-list-leave-active {
+.dropdown-menu-leave-active {
     transition: all .2s ease-in;
 }
 </style>
