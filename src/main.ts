@@ -17,7 +17,8 @@ const i18n = createI18n({
         en,
         zh
     },
-    locale: navigator.language
+    locale: navigator.language,
+    fallbackLocale: 'en'
 })
 
 createApp(App).use(i18n).mount('#app')
