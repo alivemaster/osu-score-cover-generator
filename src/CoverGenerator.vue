@@ -11,6 +11,7 @@ import fileName from './cover/utils/fileName'
 import exportCover from './cover/utils/exportCover'
 import loadUserData from './cover/utils/loadUserData'
 import loadBeatmapData from './cover/utils/loadBeatmapData'
+import loadScoreData from './cover/utils/loadScoreData'
 import loadImgFile from './utils/loadImgFile'
 import loadImgUrl from './utils/loadImgUrl'
 import Flex from './components/Flex.vue'
@@ -394,11 +395,22 @@ const dataFetchingArgs = reactive({
         id: 0
     },
     beatmap: {
-        id: 0,
-        unicode: false,
-        converted: ''
-    }
+        id: 0
+    },
+    score: {
+        id: '865991545'
+    },
+    unicode: false,
+    converted: ''
 })
+const setScoreData = async () => {
+    const newData = await loadScoreData(dataFetchingArgs.score.id, dataFetchingArgs.unicode)
+    if (newData) {
+        Object.assign(coverData, { ...coverData, ...newData })
+        coverAssets.user.avatar = await loadImgUrl(newData.avatarUrl,)
+        coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
+    }
+}
 const setUserData = async () => {
     const newData = await loadUserData(dataFetchingArgs.user.id)
     if (newData) {
@@ -408,7 +420,7 @@ const setUserData = async () => {
     }
 }
 const setBeatmapData = async () => {
-    const newData = await loadBeatmapData(dataFetchingArgs.beatmap.id, coverData.beatmap.mods, dataFetchingArgs.beatmap.unicode)
+    const newData = await loadBeatmapData(dataFetchingArgs.beatmap.id, coverData.beatmap.mods, dataFetchingArgs.unicode)
     if (newData) {
         Object.assign(coverData.beatmap, newData.beatmap)
         coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
@@ -482,16 +494,25 @@ watchEffect(
                                     <Button @click="setBeatmapData">{{ t('button.ok') }}</Button>
                                 </Flex>
                             </Flex>
+                            <Flex :column="true">
+                                <PropTitle>{{ t('propTitle.dataFetching.scoreId') }}</PropTitle>
+                                <Flex>
+                                    <TextInput placeholder="865991545"
+                                        v-model:value="dataFetchingArgs.score.id">
+                                    </TextInput>
+                                    <Button @click="setScoreData">{{ t('button.ok') }}</Button>
+                                </Flex>
+                            </Flex>
                         </Flex>
                         <Flex gap=".75rem">
                             <Flex width="fit-content" :column="true">
                                 <PropTitle>{{ t('propTitle.dataFetching.unicode') }}</PropTitle>
-                                <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
+                                <Switch size="large" v-model:checked="dataFetchingArgs.unicode"></Switch>
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.dataFetching.convertedBeatmap') }}</PropTitle>
                                 <Dropdown :options="dropDownOptions.convertedBeatmap"
-                                    v-model:selected="dataFetchingArgs.beatmap.converted">
+                                    v-model:selected="dataFetchingArgs.converted">
                                 </Dropdown>
                             </Flex>
                         </Flex>
