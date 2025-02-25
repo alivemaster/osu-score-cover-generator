@@ -1,4 +1,4 @@
-import CoverData from "../CoverData"
+import type CoverData from "../CoverData"
 
 export default async (bid: number, mods: CoverData["beatmap"]["mods"], unicode: boolean) => {
     if (!bid || bid === 0) return

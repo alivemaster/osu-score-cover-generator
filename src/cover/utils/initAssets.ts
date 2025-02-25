@@ -1,4 +1,4 @@
-import CoverAssets from "../CoverAssets"
+import type CoverAssets from "../CoverAssets"
 import loadImgUrl from "../../utils/loadImgUrl"
 import beatmapStatusIconRanked from "../../assets/cover/beatmap-status-icons/ranked.svg"
 import beatmapStatusIconApproved from "../../assets/cover/beatmap-status-icons/approved.svg"

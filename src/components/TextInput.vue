@@ -54,9 +54,9 @@ const inputType = computed(() => {
 
 .text-input:focus {
     /* visual */
+    outline: none;
     background-color: var(--glass-dark);
     border-color: var(--stroke-lighter);
-    outline: none;
 }
 
 .text-input:disabled {

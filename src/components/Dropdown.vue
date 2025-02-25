@@ -3,8 +3,8 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Button from './Button.vue'
 import TextInput from './TextInput.vue'
 interface Props {
-    enabled: boolean
-    filter: boolean
+    enabled?: boolean
+    filter?: boolean
     options: {
         name: string
         value: string | number
@@ -130,11 +130,11 @@ onUnmounted(() => {
 
     /* visual */
     background-color: var(--bg3);
-    filter: var(--drop-shadow);
     border-color: var(--stroke);
     border-style: solid;
     border-width: .03125rem;
     border-radius: .75rem;
+    filter: var(--drop-shadow);
 }
 
 .dropdown-list {

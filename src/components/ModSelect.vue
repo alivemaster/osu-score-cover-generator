@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CoverData from '../cover/CoverData'
+import type CoverData from '../cover/CoverData'
 const props = defineProps<{
     type: keyof CoverData['beatmap']['mods']
 }>()

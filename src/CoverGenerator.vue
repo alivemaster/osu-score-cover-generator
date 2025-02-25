@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive, onMounted, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
-import CoverData from './cover/CoverData'
-import CoverAssets from './cover/CoverAssets'
-import RenderOptions from './cover/RenderOptions'
+import type CoverData from './cover/CoverData'
+import type CoverAssets from './cover/CoverAssets'
+import type RenderOptions from './cover/RenderOptions'
 import RenderV1 from './cover/styles/V1'
 import initAssets from './cover/utils/initAssets'
 import flagIcon from './cover/utils/flagIcon'
@@ -747,8 +747,8 @@ watchEffect(
     /* box */
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     flex-shrink: 0;
+    flex-direction: column;
     gap: 1rem;
     width: 27rem;
     height: fit-content;

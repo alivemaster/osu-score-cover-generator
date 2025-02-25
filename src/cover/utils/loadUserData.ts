@@ -1,4 +1,4 @@
-import CoverData from "../CoverData"
+import type CoverData from "../CoverData"
 
 export default async (uid: number) => {
     if (!uid || uid === 0) return

@@ -1,6 +1,6 @@
-import CoverData from '../CoverData'
-import CoverAssets from '../CoverAssets'
-import RenderOptions from '../RenderOptions'
+import type CoverData from '../CoverData'
+import type CoverAssets from '../CoverAssets'
+import type RenderOptions from '../RenderOptions'
 import RenderV1 from '../styles/V1'
 
 export default async (data: CoverData, assets: CoverAssets, options: RenderOptions, type: string) => {

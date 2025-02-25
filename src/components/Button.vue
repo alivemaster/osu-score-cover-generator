@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-    enabled: boolean
+    enabled?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
     enabled: true
@@ -29,9 +29,9 @@ const clickHandler = () => {
 
     /* visual */
     background-color: var(--button);
-    filter: var(--drop-shadow);
     border: none;
     border-radius: .75rem;
+    filter: var(--drop-shadow);
     transition: filter .15s ease-out;
 }
 

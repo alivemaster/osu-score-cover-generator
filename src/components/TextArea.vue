@@ -44,9 +44,9 @@ const value = defineModel<string>('value')
 
 .text-area:focus {
     /* visual */
+    outline: none;
     background-color: var(--glass-dark);
     border-color: var(--stroke-lighter);
-    outline: none;
 }
 
 .text-area:disabled {
