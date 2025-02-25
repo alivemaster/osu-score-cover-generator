@@ -7,10 +7,8 @@ export default async (bid: number, mods: CoverData["beatmap"]["mods"], unicode: 
     let modOption = '?mods='
     const modsKeys = Object.keys(mods)
     modsKeys.forEach((key) => {
-        // const item = data.beatmap.mods[key as keyof typeof data.beatmap.mods]
-        const item = mods[key as keyof CoverData["beatmap"]["mods"]]
+        const item = mods[key as keyof typeof mods]
         if (item.enabled) {
-            // data.beatmap.mods[key as keyof typeof mods].enabled = true
             modOption += key
         }
     })
