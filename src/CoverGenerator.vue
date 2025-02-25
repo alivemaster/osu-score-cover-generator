@@ -73,7 +73,7 @@ const dropDownOptions = {
         {
             name: t('dropDown.scoreStatus.sb'),
             value: 'sb'
-        },
+        }
     ],
     beatmapStatus: [
         {
@@ -151,7 +151,7 @@ const dropDownOptions = {
         {
             name: '9K',
             value: 9
-        },
+        }
     ],
     aspectRatio: [
         {
@@ -209,7 +209,7 @@ const coverData: CoverData = reactive({
         maxCombo: {
             value: 0,
             perfect: false
-        },
+        }
     },
     beatmap: {
         id: 0,
@@ -367,7 +367,7 @@ const downloadCover = async () => {
     try {
         const blob = await exportCover(data, assets, options.render, options.exportType)
         const url = URL.createObjectURL(blob)
-        const a = document.createElement("a")
+        const a = document.createElement('a')
         a.href = url
         a.download = fileName(data, options.render, options.exportType)
         a.click()
@@ -433,7 +433,7 @@ onMounted(async () => {
     const previewCv = coverPreview.canvas
     previewCv.style.width = '100%'
     previewCv.style.height = '100%'
-    const previewDiv = document.getElementById("cover-preview") as HTMLDivElement
+    const previewDiv = document.getElementById('cover-preview') as HTMLDivElement
     previewDiv.append(previewCv)
     await initAssets(coverAssets)
     coverPreview.draw(coverData, coverAssets)

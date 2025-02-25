@@ -1,4 +1,4 @@
-import loadImgUrl from "../../utils/loadImgUrl"
+import loadImgUrl from '../../utils/loadImgUrl'
 
 export default async (code: string) => {
     if (code === '')

@@ -1,6 +1,6 @@
-import type CoverData from "../CoverData"
+import type CoverData from '../CoverData'
 
-export default async (bid: number, mods: CoverData["beatmap"]["mods"], unicode: boolean) => {
+export default async (bid: number, mods: CoverData['beatmap']['mods'], unicode: boolean) => {
     if (!bid || bid === 0) return
     const url = 'https://sp.365246692.xyz/api/yasunaori/beatmap/'
     // const url = 'api/yasunaori/beatmap/' // dev proxy
@@ -26,11 +26,11 @@ export default async (bid: number, mods: CoverData["beatmap"]["mods"], unicode: 
             if (json.error)
                 throw new Error(json.error)
             else {
-                const beatmap: Partial<CoverData["beatmap"]> = {
+                const beatmap: Partial<CoverData['beatmap']> = {
                     title: unicode ? json.title_unicode : json.title,
                     artist: unicode ? json.artist_unicode : json.artist,
                     creator: json.creator,
-                    mode: json.mode as CoverData["beatmap"]["mode"],
+                    mode: json.mode as CoverData['beatmap']['mode'],
                     status: json.status === 'graveyard' || json.status === 'wip' || json.status === 'pending' ? 'unranked' :
                         json.status === 'approved' || json.status === 'qualified' ? 'approved' :
                             json.status,

@@ -1,16 +1,16 @@
-import type CoverAssets from "../CoverAssets"
-import loadImgUrl from "../../utils/loadImgUrl"
-import beatmapStatusIconRanked from "../../assets/cover/beatmap-status-icons/ranked.svg"
-import beatmapStatusIconApproved from "../../assets/cover/beatmap-status-icons/approved.svg"
-import beatmapStatusIconLoved from "../../assets/cover/beatmap-status-icons/loved.svg"
-import beatmapStatusIconUnranked from "../../assets/cover/beatmap-status-icons/unranked.svg"
-import beatmapModeIconOsu from "../../assets/cover/beatmap-mode-icons/osu.svg"
-import beatmapModeIconFruits from "../../assets/cover/beatmap-mode-icons/fruits.svg"
-import beatmapModeIconTaiko from "../../assets/cover/beatmap-mode-icons/taiko.svg"
-import beatmapModeIconMania from "../../assets/cover/beatmap-mode-icons/mania.svg"
-import defaultBackground from "../../assets/cover/defaults/background.png"
-import defaultAvatar from "../../assets/cover/defaults/avatar.png"
-import defaultFlag from "../../assets/cover/defaults/flag.svg"
+import type CoverAssets from '../CoverAssets'
+import loadImgUrl from '../../utils/loadImgUrl'
+import beatmapStatusIconRanked from '../../assets/cover/beatmap-status-icons/ranked.svg'
+import beatmapStatusIconApproved from '../../assets/cover/beatmap-status-icons/approved.svg'
+import beatmapStatusIconLoved from '../../assets/cover/beatmap-status-icons/loved.svg'
+import beatmapStatusIconUnranked from '../../assets/cover/beatmap-status-icons/unranked.svg'
+import beatmapModeIconOsu from '../../assets/cover/beatmap-mode-icons/osu.svg'
+import beatmapModeIconFruits from '../../assets/cover/beatmap-mode-icons/fruits.svg'
+import beatmapModeIconTaiko from '../../assets/cover/beatmap-mode-icons/taiko.svg'
+import beatmapModeIconMania from '../../assets/cover/beatmap-mode-icons/mania.svg'
+import defaultBackground from '../../assets/cover/defaults/background.png'
+import defaultAvatar from '../../assets/cover/defaults/avatar.png'
+import defaultFlag from '../../assets/cover/defaults/flag.svg'
 
 export default async (assets: CoverAssets) => {
     // fonts

@@ -3,7 +3,7 @@ import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import en from './language/en'
 import zh from './language/zh'
-import "./style.css"
+import './style.css'
 import '@fontsource-variable/quicksand'
 import '@fontsource-variable/montserrat'
 import '@fontsource-variable/noto-sans-sc'

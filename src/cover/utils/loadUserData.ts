@@ -1,4 +1,4 @@
-import type CoverData from "../CoverData"
+import type CoverData from '../CoverData'
 
 export default async (uid: number) => {
     if (!uid || uid === 0) return
@@ -13,7 +13,7 @@ export default async (uid: number) => {
         if (json.error)
             throw new Error(json.error)
         else {
-            const user: Partial<CoverData["user"]> = {
+            const user: Partial<CoverData['user']> = {
                 userName: json.username,
                 code: json.country_code,
                 globalRank: json.global_rank,

@@ -5,7 +5,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
     enabled: true,
-    size: 'small',
+    size: 'small'
 })
 const checked = defineModel<boolean>('checked')
 </script>

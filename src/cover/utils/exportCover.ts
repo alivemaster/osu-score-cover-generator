@@ -15,8 +15,8 @@ export default async (data: CoverData, assets: CoverAssets, options: RenderOptio
                 reject()
             }
         },
-            'image/' + type,
-            1
+        'image/' + type,
+        1
         )
     })
 }

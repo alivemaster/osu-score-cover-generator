@@ -1,4 +1,4 @@
-import Color from "color"
+import Color from 'color'
 
 export default (sr: number) => {
     const bgColor = (sr: number, min: number, max: number, c1: string, c2: string) => {

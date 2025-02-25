@@ -38,7 +38,7 @@ const selectedOptionName = computed(() => {
     return name
 })
 const key = ref<string>('')
-const regex = computed<RegExp>(() => new RegExp(`^${key.value}`, "i"))
+const regex = computed<RegExp>(() => new RegExp(`^${key.value}`, 'i'))
 const isOpen = ref<boolean>(false)
 const toggleOpen = () => {
     // clear filter when close
@@ -53,10 +53,10 @@ const outsideClickHandler = (event: MouseEvent) => {
         toggleOpen()
 }
 onMounted(() => {
-    document.addEventListener("click", outsideClickHandler)
+    document.addEventListener('click', outsideClickHandler)
 })
 onUnmounted(() => {
-    document.removeEventListener("click", outsideClickHandler)
+    document.removeEventListener('click', outsideClickHandler)
 })
 </script>
 <template>

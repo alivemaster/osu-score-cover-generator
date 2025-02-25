@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<Props>(), {
     enabled: true,
     width: '100%',
     height: '8rem',
-    placeholder: '',
+    placeholder: ''
 })
 const value = defineModel<string>('value')
 </script>

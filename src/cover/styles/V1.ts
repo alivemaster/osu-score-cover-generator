@@ -1,17 +1,21 @@
-import type CoverRender from "../CoverRender"
-import type CoverData from "../CoverData"
-import type CoverAssets from "../CoverAssets"
-import type RenderOptions from "../RenderOptions"
-import type Box from "../Box"
-import diffSpectrum from "../utils/diffSpectrum"
-import fillImg from "../utils/fillImg"
-import shrinkText from "../utils/shrinkText"
+import type CoverRender from '../CoverRender'
+import type CoverData from '../CoverData'
+import type CoverAssets from '../CoverAssets'
+import type RenderOptions from '../RenderOptions'
+import type Box from '../Box'
+import diffSpectrum from '../utils/diffSpectrum'
+import fillImg from '../utils/fillImg'
+import shrinkText from '../utils/shrinkText'
 
 export default class V1 implements CoverRender {
     private _canvas: HTMLCanvasElement
+
     private _ctx: CanvasRenderingContext2D
+
     private _size: Pick<Box, 'width' | 'height'>
+
     private _options: RenderOptions
+
     private _layout: {
         topBar: Box
         playerCard: Box
@@ -33,9 +37,10 @@ export default class V1 implements CoverRender {
         modItem: Box
         comment: Box
     }
+
     constructor() {
-        this._canvas = document.createElement("canvas")
-        this._ctx = this.canvas.getContext("2d")!
+        this._canvas = document.createElement('canvas')
+        this._ctx = this.canvas.getContext('2d')!
         this._size = {
             width: 1920,
             height: 1200
@@ -59,9 +64,11 @@ export default class V1 implements CoverRender {
         this._layout = {} as typeof this._layout
         this.arrange()
     }
+
     get canvas() {
         return this._canvas
     }
+
     get options() {
         const arrange = () => this.arrange()
         const optionsProxy = new Proxy(this._options, {
@@ -70,9 +77,10 @@ export default class V1 implements CoverRender {
                 arrange()
                 return true
             }
-        });
+        })
         return optionsProxy
     }
+
     private arrange() {
         const canvas = this._canvas
         const ctx = this._ctx
@@ -100,7 +108,9 @@ export default class V1 implements CoverRender {
         }
         layout.playerCard = {
             x: layout.topBar.paddingH!,
-            get y() { return (layout.topBar.height - this.height) / 2 },
+            get y() {
+                return (layout.topBar.height - this.height) / 2 
+            },
             width: 640,
             height: 240,
             paddingH: 24,
@@ -148,7 +158,9 @@ export default class V1 implements CoverRender {
             height: (size.height - 200) / 2,
             paddingH: 96,
             paddingV: 48,
-            get gap() { return (this.height - this.paddingV! * 2 - 336) / 2 }
+            get gap() {
+                return (this.height - this.paddingV! * 2 - 336) / 2 
+            }
         }
         layout.beatmapDetails = {
             x: layout.beatmap.paddingH!,
@@ -170,7 +182,9 @@ export default class V1 implements CoverRender {
         }
         layout.beatmapStatsList = {
             x: layout.beatmapStatus.x + layout.beatmapStatus.width,
-            get y() { return layout.beatmapDetails.y + (layout.beatmapDetails.height - this.height) / 2 },
+            get y() {
+                return layout.beatmapDetails.y + (layout.beatmapDetails.height - this.height) / 2 
+            },
             width: layout.beatmapDetails.width - layout.beatmapStatus.width,
             height: 80,
             gap: 12
@@ -203,8 +217,12 @@ export default class V1 implements CoverRender {
             gap: 18
         }
         layout.modList = {
-            get x() { return layout.difficultyDetails.x + layout.difficultyDetails.width - layout.modList.width },
-            get y() { return layout.difficultyDetails.y + (layout.difficultyDetails.height - this.height) / 2 },
+            get x() {
+                return layout.difficultyDetails.x + layout.difficultyDetails.width - layout.modList.width 
+            },
+            get y() {
+                return layout.difficultyDetails.y + (layout.difficultyDetails.height - this.height) / 2 
+            },
             width: 1080,
             height: 80,
             gap: 0
@@ -213,7 +231,7 @@ export default class V1 implements CoverRender {
             x: 0,
             y: layout.modList.y,
             width: 144,
-            height: 80,
+            height: 80
         }
         layout.comment = {
             x: 0,
@@ -222,6 +240,7 @@ export default class V1 implements CoverRender {
             height: 200
         }
     }
+
     public draw(data: CoverData, assets: CoverAssets) {
         const ctx = this._ctx
         const size = this._size
@@ -424,8 +443,8 @@ export default class V1 implements CoverRender {
         const beatmapStatsEnabled: { type: string, value: string }[] = []
         const beatmapStatsKeys = Object.keys(data.beatmap.stats)
         beatmapStatsKeys.forEach((key) => {
-            const value = data.beatmap.stats[key as keyof CoverData["beatmap"]["stats"]]
-            if (options.show.beatmapStats[key as keyof CoverData["beatmap"]["stats"]])
+            const value = data.beatmap.stats[key as keyof CoverData['beatmap']['stats']]
+            if (options.show.beatmapStats[key as keyof CoverData['beatmap']['stats']])
                 beatmapStatsEnabled.push({
                     type: key,
                     value: value.toString()
@@ -527,7 +546,7 @@ export default class V1 implements CoverRender {
         const modsEnabled: string[] = []
         const modsKeys = Object.keys(data.beatmap.mods)
         modsKeys.forEach((key) => {
-            const item = data.beatmap.mods[key as keyof CoverData["beatmap"]["mods"]]
+            const item = data.beatmap.mods[key as keyof CoverData['beatmap']['mods']]
             if (item.enabled)
                 modsEnabled.push(key)
         })
@@ -537,7 +556,7 @@ export default class V1 implements CoverRender {
             if (v2Index !== -1)
                 modsEnabled.splice(v2Index, 0, xk)
             else
-            modsEnabled.push(xk)
+                modsEnabled.push(xk)
         }
 
         layout.modList.gap = modsEnabled.length > 7 ? (layout.modList.width - layout.modItem.width * modsEnabled.length) / (modsEnabled.length - 1) : 12
