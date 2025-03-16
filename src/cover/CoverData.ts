@@ -25,6 +25,7 @@ export default interface CoverData {
         artist: string
         creator: string
         mode: 'osu' | 'taiko' | 'fruits' | 'mania'
+        converted: boolean,
         status: 'ranked' | 'approved' | 'loved' | 'unranked'
         stats: Record<'time' | 'bpm' | 'ar' | 'cs' | 'od' | 'hp', string | number>
         difficulty: {

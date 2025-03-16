@@ -81,8 +81,6 @@ export default {
         disclaimer1: 'This webpage is not affiliated with "osu!" or "ppy".',
         disclaimer2a:
       'Flag icons are taken from Twemoji. Twemoji by Twitter is licenced under ',
-        disclaimer2b: '.',
-        disclaimer3a: 'Data Fetching API provided by ',
-        disclaimer3b: '!'
+        disclaimer2b: '.'
     }
 }

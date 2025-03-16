@@ -6,5 +6,5 @@ Generate cover for osu score videos. [a.yasunaori.be/osu-score-cover-generator](
 
 - [X] Polish UI with web frameworks
 - [X] i18n
-- [X] Fetch data from ~~osu api?~~ [YumuBot API](https://bot.365246692.xyz/)
+- [X] Fetch data from osu api (Also use [Mino](https://catboy.best/) for beatmap background images)
 - [ ] cover V2

@@ -2,10 +2,11 @@ import type CoverData from '../CoverData'
 
 export default async (uid: number) => {
     if (!uid || uid === 0) return
-    const url = 'https://sp.365246692.xyz/api/yasunaori/user?uid='
-    // const url = 'api/yasunaori/user?uid=' // dev proxy
+    const api = 'https://api.alivem.top/osu'
+    // const api = 'http://localhost:7271/osu' 
+    const path = '/users/' + uid
     try {
-        const res = await fetch(url + uid)
+        const res = await fetch(api + path)
         if (!res.ok) {
             throw new Error('Response status: ' + res.status)
         }
@@ -13,7 +14,8 @@ export default async (uid: number) => {
         if (json.error)
             throw new Error(json.error)
         else {
-            const user: Partial<CoverData['user']> = {
+            const user: CoverData['user'] = {
+                id: json.id,
                 userName: json.username,
                 code: json.country_code,
                 globalRank: json.global_rank,
@@ -21,7 +23,7 @@ export default async (uid: number) => {
             }
             return {
                 user,
-                avatarUrl: json.avatar_url as string
+                avatarUrl: api + json.avatar_url
             }
         }
     } catch (err) {

@@ -11,6 +11,7 @@ import fileName from './cover/utils/fileName'
 import exportCover from './cover/utils/exportCover'
 import loadUserData from './cover/utils/loadUserData'
 import loadBeatmapData from './cover/utils/loadBeatmapData'
+import loadScoreData from './cover/utils/loadScoreData'
 import loadImgFile from './utils/loadImgFile'
 import loadImgUrl from './utils/loadImgUrl'
 import Flex from './components/Flex.vue'
@@ -32,19 +33,19 @@ const dropDownOptions = {
     convertedBeatmap: [
         {
             name: t('dropDown.convertedBeatmap.noConvert'),
-            value: ''
-        },
-        {
-            name: 'osu!catch',
-            value: 'fruits'
+            value: 0
         },
         {
             name: 'osu!taiko',
-            value: 'taiko'
+            value: 1
+        },
+        {
+            name: 'osu!catch',
+            value: 2
         },
         {
             name: 'osu!mania',
-            value: 'mania'
+            value: 3
         }
     ],
     countryCode: [
@@ -217,6 +218,7 @@ const coverData: CoverData = reactive({
         artist: 'Artist',
         creator: 'Mapper',
         mode: 'osu',
+        converted: false,
         status: 'ranked',
         stats: {
             time: '0:00',
@@ -395,24 +397,39 @@ const dataFetchingArgs = reactive({
     },
     beatmap: {
         id: 0,
-        unicode: false,
-        converted: ''
-    }
+        converted: 0
+    },
+    score: {
+        id: 0
+    },
+    unicode: false
 })
+const setScoreData = async () => {
+    const newData = await loadScoreData(dataFetchingArgs.score.id, dataFetchingArgs.unicode)
+    if (newData) {
+        Object.assign(coverData, {...coverData, ...newData.data})
+        coverAssets.user.avatar = await loadImgUrl(newData.avatarUrl)
+        coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
+        coverData.user.id = dataFetchingArgs.user.id
+        coverData.beatmap.id = dataFetchingArgs.beatmap.id
+
+        dataFetchingArgs.beatmap.converted = !newData.data.beatmap.converted ? 0 : 
+            newData.data.beatmap.mode === 'taiko' ? 1 : 
+                newData.data.beatmap.mode === 'fruits' ? 2 : 3
+    }
+}
 const setUserData = async () => {
     const newData = await loadUserData(dataFetchingArgs.user.id)
     if (newData) {
-        Object.assign(coverData.user, newData.user)
+        Object.assign(coverData.user, {...coverData.user, ...newData.user})
         coverAssets.user.avatar = await loadImgUrl(newData.avatarUrl)
-        coverData.user.id = dataFetchingArgs.user.id
     }
 }
 const setBeatmapData = async () => {
-    const newData = await loadBeatmapData(dataFetchingArgs.beatmap.id, coverData.beatmap.mods, dataFetchingArgs.beatmap.unicode)
+    const newData = await loadBeatmapData(dataFetchingArgs.beatmap.id, dataFetchingArgs.beatmap.converted, coverData.beatmap.mods, dataFetchingArgs.unicode)
     if (newData) {
-        Object.assign(coverData.beatmap, newData.beatmap)
+        Object.assign(coverData.beatmap, {...coverData.beatmap, ...newData.beatmap})
         coverAssets.beatmap.background = await loadImgUrl(newData.backgroundUrl)
-        coverData.beatmap.id = dataFetchingArgs.beatmap.id
     }
 }
 // Misc
@@ -449,7 +466,7 @@ watchEffect(() => {
 watchEffect(
     // refresh beatmap star and stats when mod changes
     async () => {
-        const newData = await loadBeatmapData(coverData.beatmap.id, coverData.beatmap.mods, false)
+        const newData = await loadBeatmapData(coverData.beatmap.id, dataFetchingArgs.beatmap.converted, coverData.beatmap.mods, false)
         if (newData) {
             Object.assign(coverData.beatmap.stats, newData.beatmap.stats)
             coverData.beatmap.difficulty.star = newData.beatmap.difficulty!.star
@@ -465,6 +482,14 @@ watchEffect(
                 <Collapsible :title="t('collapsibleHeader.dataFetching')" id="cover-settings-data-fetching">
                     <Flex :column="true" gap=".75rem">
                         <Flex :column="true" gap=".75rem">
+                            <Flex :column="true">
+                                <PropTitle>Score ID</PropTitle>
+                                <Flex>
+                                    <TextInput :number="true" placeholder="0" v-model:value="dataFetchingArgs.score.id">
+                                    </TextInput>
+                                    <Button @click="setScoreData">{{ t('button.ok') }}</Button>
+                                </Flex>
+                            </Flex>
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.dataFetching.userId') }}</PropTitle>
                                 <Flex>
@@ -486,7 +511,7 @@ watchEffect(
                         <Flex gap=".75rem">
                             <Flex width="fit-content" :column="true">
                                 <PropTitle>{{ t('propTitle.dataFetching.unicode') }}</PropTitle>
-                                <Switch size="large" v-model:checked="dataFetchingArgs.beatmap.unicode"></Switch>
+                                <Switch size="large" v-model:checked="dataFetchingArgs.unicode"></Switch>
                             </Flex>
                             <Flex :column="true">
                                 <PropTitle>{{ t('propTitle.dataFetching.convertedBeatmap') }}</PropTitle>

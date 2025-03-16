@@ -81,8 +81,6 @@ export default {
         disclaimer1: '本网页与"osu!"或"ppy"无关。',
         disclaimer2a:
       '国家/地区旗图标来自Twemoji。由Twitter以',
-        disclaimer2b: '许可证发布。',
-        disclaimer3a: '数据接口由',
-        disclaimer3b: '提供!'
+        disclaimer2b: '许可证发布。'
     }
 }

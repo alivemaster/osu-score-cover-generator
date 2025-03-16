@@ -1,24 +1,32 @@
 import type CoverData from '../CoverData'
 
-export default async (bid: number, mods: CoverData['beatmap']['mods'], unicode: boolean) => {
+const time = (length: number) => {
+    const min = Math.floor(length / 60)
+    const sec = length % 60
+    return min + ':' + (sec < 10 ? '0' + sec : sec)
+}
+
+export default async (bid: number, converted: number, mods: CoverData['beatmap']['mods'], unicode: boolean) => {
     if (!bid || bid === 0) return
-    const url = 'https://sp.365246692.xyz/api/yasunaori/beatmap/'
-    // const url = 'api/yasunaori/beatmap/' // dev proxy
-    let modOption = '?mods='
+    const api = 'https://api.alivem.top/osu'
+    // const api = 'http://localhost:7271/osu'
+    const path = '/beatmaps/' + bid
+    let query = ''
+    if (converted > 0) {
+        query = `?mode=${converted}&mods=`
+    } else {
+        query = '?mods='
+    }
     const modsKeys = Object.keys(mods)
     modsKeys.forEach((key) => {
         const item = mods[key as keyof typeof mods]
         if (item.enabled) {
-            modOption += key
+            query += key
         }
     })
-    const time = (length: number) => {
-        const min = Math.floor(length / 60)
-        const sec = length % 60
-        return min + ':' + (sec < 10 ? '0' + sec : sec)
-    }
+
     try {
-        const res = await fetch(url + bid + modOption)
+        const res = await fetch(api + path + query)
         if (!res.ok)
             throw new Error('Response status: ' + res.status)
         else {
@@ -27,29 +35,29 @@ export default async (bid: number, mods: CoverData['beatmap']['mods'], unicode: 
                 throw new Error(json.error)
             else {
                 const beatmap: Partial<CoverData['beatmap']> = {
-                    title: unicode ? json.title_unicode : json.title,
-                    artist: unicode ? json.artist_unicode : json.artist,
+                    id: json.id,
+                    title: unicode ? json.beatmapset.title_unicode : json.beatmapset.title,
+                    artist: unicode ? json.beatmapset.artist_unicode : json.beatmapset.artist,
                     creator: json.creator,
-                    mode: json.mode as CoverData['beatmap']['mode'],
-                    status: json.status === 'graveyard' || json.status === 'wip' || json.status === 'pending' ? 'unranked' :
-                        json.status === 'approved' || json.status === 'qualified' ? 'approved' :
-                            json.status,
+                    mode: json.mode === 0 ? 'osu' : json.mode === 1 ? 'taiko' : json.mode === 2 ? 'fruits' : 'mania',
+                    converted: json.convert,
+                    status: json.status === 4 ? 'loved' : json.status > 1 ? 'approved' : json.status < 1 ? 'unranked' : 'ranked',
                     stats: {
-                        time: time(json.stats.length),
-                        bpm: json.stats.bpm,
-                        ar: json.stats.ar,
-                        cs: json.stats.cs,
-                        od: json.stats.od,
-                        hp: json.stats.hp
+                        time: time(json.hit_length),
+                        bpm: parseFloat(json.bpm.toFixed(2)),
+                        ar: parseFloat(json.ar.toFixed(2)),
+                        cs: parseFloat(json.cs.toFixed(2)),
+                        od: parseFloat(json.accuracy.toFixed(2)),
+                        hp: parseFloat(json.drain.toFixed(2))
                     },
                     difficulty: {
-                        star: json.difficulty.star.toFixed(2),
-                        name: json.difficulty.name
+                        star: json.difficulty_rating.toFixed(2),
+                        name: json.version
                     }
                 }
                 return {
                     beatmap,
-                    backgroundUrl: json.cover_url as string
+                    backgroundUrl: 'https://catboy.best/preview/background/' + bid
                 }
             }
         }
