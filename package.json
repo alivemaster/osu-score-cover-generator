@@ -15,7 +15,7 @@
     "@fontsource-variable/montserrat": "^5.1.1",
     "@fontsource-variable/noto-sans-jp": "^5.1.1",
     "@fontsource-variable/noto-sans-kr": "^5.1.1",
-    "@fontsource-variable/noto-sans-sc": "^5.1.1",
+    "@fontsource-variable/noto-sans-sc": "^5.2.6",
     "@fontsource-variable/noto-sans-tc": "^5.1.1",
     "@fontsource-variable/quicksand": "^5.1.1",
     "@types/color": "^4.2.0",
