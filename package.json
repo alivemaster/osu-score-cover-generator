@@ -20,7 +20,7 @@
     "@fontsource-variable/quicksand": "^5.1.1",
     "@types/color": "^4.2.0",
     "color": "^5.0.0",
-    "vue": "^3.5.13",
+    "vue": "^3.5.17",
     "vue-i18n": "^11.1.1"
   },
   "devDependencies": {
