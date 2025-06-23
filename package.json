@@ -12,7 +12,7 @@
     "lint": "eslint --fix --ignore-pattern .gitignore ."
   },
   "dependencies": {
-    "@fontsource-variable/montserrat": "^5.1.1",
+    "@fontsource-variable/montserrat": "^5.2.6",
     "@fontsource-variable/noto-sans-jp": "^5.2.6",
     "@fontsource-variable/noto-sans-kr": "^5.2.6",
     "@fontsource-variable/noto-sans-sc": "^5.2.6",
