@@ -27,7 +27,7 @@
     "@stylistic/eslint-plugin": "^5.2.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^24.1.0",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "^10.4.20",
