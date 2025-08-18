@@ -29,7 +29,7 @@
     "@types/node": "^24.1.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "@vue/tsconfig": "^0.7.0",
+    "@vue/tsconfig": "^0.8.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.33.0",
     "eslint-plugin-vue": "^10.3.0",
