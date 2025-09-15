@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.2.6",
-    "@fontsource-variable/noto-sans-jp": "^5.2.6",
+    "@fontsource-variable/noto-sans-jp": "^5.2.7",
     "@fontsource-variable/noto-sans-kr": "^5.2.6",
     "@fontsource-variable/noto-sans-sc": "^5.2.6",
     "@fontsource-variable/noto-sans-tc": "^5.1.1",
