@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fontsource-variable/montserrat':
-        specifier: ^5.2.6
-        version: 5.2.6
+        specifier: ^5.2.7
+        version: 5.2.7
       '@fontsource-variable/noto-sans-jp':
         specifier: ^5.2.6
         version: 5.2.6
@@ -469,8 +469,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource-variable/montserrat@5.2.6':
-    resolution: {integrity: sha512-1eHefcz9ZXSMjZPckKCWSYd8rLjUpmzQIsNO8DuyU0IdPvsqletPvSIJmztr0sCU6sX4EFKsSHxJWawjmROp2A==}
+  '@fontsource-variable/montserrat@5.2.7':
+    resolution: {integrity: sha512-uBjVHAAlEux6bBUFnjrRQmONbuzSXPD1RlTKtWcXfG1qCx4sNgAGN0KUNYAWk+Pf/+WONCwuOpU2kOVloXQODA==}
 
   '@fontsource-variable/noto-sans-jp@5.2.6':
     resolution: {integrity: sha512-YjN8UF1hX8ZFkYx95NMz8XeojsCIF5dGPu1htoWkbXyTZj3Z29cxDT8glaT/cOg1BstyOlmtvNC8crPF5Csj/w==}
@@ -2399,7 +2399,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@fontsource-variable/montserrat@5.2.6': {}
+  '@fontsource-variable/montserrat@5.2.7': {}
 
   '@fontsource-variable/noto-sans-jp@5.2.6': {}
 
