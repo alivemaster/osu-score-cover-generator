@@ -12,8 +12,8 @@ importers:
         specifier: ^5.2.6
         version: 5.2.6
       '@fontsource-variable/noto-sans-jp':
-        specifier: ^5.2.6
-        version: 5.2.6
+        specifier: ^5.2.9
+        version: 5.2.9
       '@fontsource-variable/noto-sans-kr':
         specifier: ^5.2.6
         version: 5.2.6
@@ -485,8 +485,8 @@ packages:
   '@fontsource-variable/montserrat@5.2.6':
     resolution: {integrity: sha512-1eHefcz9ZXSMjZPckKCWSYd8rLjUpmzQIsNO8DuyU0IdPvsqletPvSIJmztr0sCU6sX4EFKsSHxJWawjmROp2A==}
 
-  '@fontsource-variable/noto-sans-jp@5.2.6':
-    resolution: {integrity: sha512-YjN8UF1hX8ZFkYx95NMz8XeojsCIF5dGPu1htoWkbXyTZj3Z29cxDT8glaT/cOg1BstyOlmtvNC8crPF5Csj/w==}
+  '@fontsource-variable/noto-sans-jp@5.2.9':
+    resolution: {integrity: sha512-osPL5f7dvGDjuMuFwDTGPLG37030D8X5zk+3BWea6txAVDFeE/ZIrKW0DY0uSDfRn9+NiKbiFn/2QvZveKXTog==}
 
   '@fontsource-variable/noto-sans-kr@5.2.6':
     resolution: {integrity: sha512-TxQjtsKPfyWv1Y2MmMlvURrHi0zDCix7XdCkvWiZD9YV03lDx0nW87wbCfuygLzJmvrNj0LplVjnnbyvtBUgog==}
@@ -2515,7 +2515,7 @@ snapshots:
 
   '@fontsource-variable/montserrat@5.2.6': {}
 
-  '@fontsource-variable/noto-sans-jp@5.2.6': {}
+  '@fontsource-variable/noto-sans-jp@5.2.9': {}
 
   '@fontsource-variable/noto-sans-kr@5.2.6': {}
 
