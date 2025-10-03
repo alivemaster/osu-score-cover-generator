@@ -18,8 +18,8 @@ importers:
         specifier: ^5.2.6
         version: 5.2.6
       '@fontsource-variable/noto-sans-sc':
-        specifier: ^5.2.6
-        version: 5.2.6
+        specifier: ^5.2.9
+        version: 5.2.9
       '@fontsource-variable/noto-sans-tc':
         specifier: ^5.1.1
         version: 5.2.6
@@ -491,8 +491,8 @@ packages:
   '@fontsource-variable/noto-sans-kr@5.2.6':
     resolution: {integrity: sha512-TxQjtsKPfyWv1Y2MmMlvURrHi0zDCix7XdCkvWiZD9YV03lDx0nW87wbCfuygLzJmvrNj0LplVjnnbyvtBUgog==}
 
-  '@fontsource-variable/noto-sans-sc@5.2.6':
-    resolution: {integrity: sha512-PbDg8YG05A/8mFiII8lqK0Nvn5gDbCcvDctwNQjIFaBptLFNXDofmnocvki+A4ss3VxdYCyG4xznauMPQi+/RA==}
+  '@fontsource-variable/noto-sans-sc@5.2.9':
+    resolution: {integrity: sha512-ZEEpZlxjYEIVdg85K38mqaoeBcorrN3Z6MaIkwK5w5Dqn/e9v5uVIYr0ukoLsFxaVyEXSi/c3caOeMHjbOMtfA==}
 
   '@fontsource-variable/noto-sans-tc@5.2.6':
     resolution: {integrity: sha512-wxihjg46OEh/ncEwYUyUXmhc02ooctSaxBcdZVL1x3AQrrIbPeqC1HUihk3msJqkqfH+XSbYkTUwlGPhpGqQTQ==}
@@ -2519,7 +2519,7 @@ snapshots:
 
   '@fontsource-variable/noto-sans-kr@5.2.6': {}
 
-  '@fontsource-variable/noto-sans-sc@5.2.6': {}
+  '@fontsource-variable/noto-sans-sc@5.2.9': {}
 
   '@fontsource-variable/noto-sans-tc@5.2.6': {}
 
