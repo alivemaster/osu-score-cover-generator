@@ -20,7 +20,7 @@
     "@fontsource-variable/quicksand": "^5.1.1",
     "@pixi/layout": "^3.1.0",
     "@types/color": "^4.2.0",
-    "color": "^5.0.0",
+    "color": "^5.0.2",
     "pixi-filters": "^6.1.4",
     "pixi.js": "^8.13.2",
     "vue": "^3.5.21",
