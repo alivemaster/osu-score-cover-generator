@@ -1,7 +1,7 @@
 import { type Beatmap, newBeatmap } from './Beatmap'
 import { type User, newUser } from './User'
 
-export enum Grade {
+export enum ScoreGrade {
     F = -1,
     D,
     C,
@@ -16,7 +16,7 @@ export enum Grade {
 export interface Score {
     user: User
     beatmap: Beatmap
-    grade: Grade
+    grade: ScoreGrade
     pp: number
     rank: number | null
     missCount: number

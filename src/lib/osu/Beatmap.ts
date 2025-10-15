@@ -1,4 +1,4 @@
-export enum Status {
+export enum BeatmapStatus {
     Graveyard = -2,
     Wip,
     Pending,
@@ -13,46 +13,46 @@ export interface Difficulty {
     name: string
 }
 
-export enum Mode {
+export enum GameMode {
     Osu = 0,
     Taiko,
     Fruits,
     Mania
 }
 
-export interface Mod<
-    M extends ReadonlyArray<Mode>
+export interface GameMod<
+    M extends ReadonlyArray<GameMode>
 > {
     modes: M
     enabled: boolean
 }
 
-export interface Mods {
-    ez: Mod<readonly [0, 1, 2, 3]>,
-    nf: Mod<readonly [0, 1, 2, 3]>,
-    ht: Mod<readonly [0, 1, 2, 3]>,
-    hd: Mod<readonly [0, 1, 2, 3]>,
-    hr: Mod<readonly [0, 1, 2, 3]>,
-    dt: Mod<readonly [0, 1, 2, 3]>,
-    nc: Mod<readonly [0, 1, 2, 3]>,
-    fl: Mod<readonly [0, 1, 2, 3]>,
-    sd: Mod<readonly [0, 1, 2, 3]>,
-    pf: Mod<readonly [0, 1, 2, 3]>,
-    rx: Mod<readonly [0, 1, 2]>,
-    ap: Mod<readonly [0]>,
-    so: Mod<readonly [0]>,
-    fi: Mod<readonly [3]>,
-    cp: Mod<readonly [3]>,
-    mr: Mod<readonly [3]>,
-    rd: Mod<readonly [3]>,
-    xk: Mod<readonly [3]> & {
+export interface GameMods {
+    ez: GameMod<readonly [0, 1, 2, 3]>,
+    nf: GameMod<readonly [0, 1, 2, 3]>,
+    ht: GameMod<readonly [0, 1, 2, 3]>,
+    hd: GameMod<readonly [0, 1, 2, 3]>,
+    hr: GameMod<readonly [0, 1, 2, 3]>,
+    dt: GameMod<readonly [0, 1, 2, 3]>,
+    nc: GameMod<readonly [0, 1, 2, 3]>,
+    fl: GameMod<readonly [0, 1, 2, 3]>,
+    sd: GameMod<readonly [0, 1, 2, 3]>,
+    pf: GameMod<readonly [0, 1, 2, 3]>,
+    rx: GameMod<readonly [0, 1, 2]>,
+    ap: GameMod<readonly [0]>,
+    so: GameMod<readonly [0]>,
+    fi: GameMod<readonly [3]>,
+    cp: GameMod<readonly [3]>,
+    mr: GameMod<readonly [3]>,
+    rd: GameMod<readonly [3]>,
+    xk: GameMod<readonly [3]> & {
         keys: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
     },
-    v2: Mod<readonly [0, 1, 2, 3]>
+    v2: GameMod<readonly [0, 1, 2, 3]>
 }
 
 export interface DifficultyAttribute<
-    M extends ReadonlyArray<Mode>
+    M extends ReadonlyArray<GameMode>
 > {
     modes: M
     value: number
@@ -67,13 +67,13 @@ export interface DifficultyAttributes {
 
 export interface Beatmap {
     title: string
-    status: Status
+    status: BeatmapStatus
     difficulty: Difficulty
-    mode: Mode
+    mode: GameMode
     bpm: number
     length: number
     attrs: DifficultyAttributes
-    mods: Mods
+    mods: GameMods
 }
 
 export function newBeatmap(): Beatmap {
