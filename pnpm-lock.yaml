@@ -35,12 +35,18 @@ importers:
       color:
         specifier: ^5.0.0
         version: 5.0.0
+      colord:
+        specifier: ^2.9.3
+        version: 2.9.3
       pixi-filters:
         specifier: ^6.1.4
         version: 6.1.4(pixi.js@8.13.2)
       pixi.js:
         specifier: ^8.13.2
         version: 8.13.2
+      pretty-ms:
+        specifier: ^9.3.0
+        version: 9.3.0
       vue:
         specifier: ^3.5.21
         version: 3.5.21(typescript@5.8.3)
@@ -1779,8 +1785,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  pretty-ms@9.2.0:
-    resolution: {integrity: sha512-4yf0QO/sllf/1zbZWYnvWw3NxCQwLXKzIj0G849LSufP15BXKM0rbD2Z3wVnkMfjdn/CB0Dpp444gYAACdsplg==}
+  pretty-ms@9.3.0:
+    resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
     engines: {node: '>=18'}
 
   punycode@2.3.1:
@@ -3328,7 +3334,7 @@ snapshots:
       is-plain-obj: 4.1.0
       is-stream: 4.0.1
       npm-run-path: 6.0.0
-      pretty-ms: 9.2.0
+      pretty-ms: 9.3.0
       signal-exit: 4.1.0
       strip-final-newline: 4.0.0
       yoctocolors: 2.1.1
@@ -3788,7 +3794,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  pretty-ms@9.2.0:
+  pretty-ms@9.3.0:
     dependencies:
       parse-ms: 4.0.0
 
