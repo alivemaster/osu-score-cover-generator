@@ -1,4 +1,4 @@
-export enum BeatmapStatus {
+export enum BeatmapRankStatus {
     Graveyard = -2,
     Wip,
     Pending,
@@ -8,7 +8,7 @@ export enum BeatmapStatus {
     Loved
 }
 
-export interface Difficulty {
+export interface BeatmapDifficulty {
     rating: number
     name: string
 }
@@ -66,10 +66,17 @@ export interface DifficultyAttributes {
 }
 
 export interface Beatmap {
+    mapId: number,
+    setId: number,
+    creatorId: number,
+    artist: string,
+    artistUnicode: string,
     title: string
-    status: BeatmapStatus
-    difficulty: Difficulty
+    titleUnicode: string
+    status: BeatmapRankStatus
+    difficulty: BeatmapDifficulty
     mode: GameMode
+    convert: boolean,
     bpm: number
     length: number
     attrs: DifficultyAttributes
@@ -78,13 +85,20 @@ export interface Beatmap {
 
 export function newBeatmap(): Beatmap {
     return {
+        mapId: 0,
+        setId: 0,
+        creatorId: 0,
+        artist: 'Artist',
+        artistUnicode: 'Artist',
         title: 'Song Title',
+        titleUnicode: 'Song Title',
         status: 1,
         difficulty: {
             rating: 0,
             name: 'Easy'
         },
         mode: 0,
+        convert: false,
         bpm: 0,
         length: 0,
         attrs: {

@@ -18,6 +18,7 @@ export interface Score {
     beatmap: Beatmap
     grade: ScoreGrade
     pp: number
+    bestId: number | null
     rank: number | null
     missCount: number
     sliderBreakCount: number
@@ -34,7 +35,8 @@ export function newScore(): Score {
         beatmap: newBeatmap(),
         grade: 3,
         pp: 0,
-        rank: 0,
+        bestId: null,
+        rank: null,
         missCount: 0,
         sliderBreakCount: 0,
         accuracy: 0,

@@ -1,9 +1,10 @@
-import { type Score, newScore } from '@/lib/osu'
+import { type DifficultyAttributes, type Score, newScore } from '@/lib/osu'
 
 export enum CoverTheme {
-    Alpha = 0
-    // Ambient
-    // Laser
+    Classic = 0,
+    Ambient,
+    Laser,
+    Sweet
 }
 
 export enum AspectRatio {
@@ -21,7 +22,7 @@ export interface CoverDisplayOptions {
     beatmap: {
         time: boolean
         bpm: boolean
-        difficultyAttrs: Record<'ar' | 'cs' | 'od' | 'hp', boolean>
+        difficultyAttrs: Record<keyof DifficultyAttributes, boolean>
     }
     score: {
         pp: boolean
@@ -30,7 +31,9 @@ export interface CoverDisplayOptions {
     user: {
         countryFlag: boolean
         teamFlag: boolean
-        pp: boolean
+        pp: boolean,
+        rank: boolean,
+        cover: boolean
     }
 }
 
@@ -69,7 +72,9 @@ export function newCoverConfig(): CoverConfig {
                 user: {
                     countryFlag: true,
                     teamFlag: true,
-                    pp: true
+                    pp: true,
+                    rank: true,
+                    cover: false
                 }
             }
         },
