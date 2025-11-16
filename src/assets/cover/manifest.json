@@ -1,0 +1,180 @@
+{
+    "bundles": [
+        {
+            "name": "fonts",
+            "assets": [
+                {
+                    "alias": "font-quicksand-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/quicksand:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Quicksand Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700"
+                        ]
+                    }
+                },
+                {
+                    "alias": "font-montserrat-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/montserrat:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Montserrat Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900"
+                        ]
+                    }
+                },
+                {
+                    "alias": "font-noto-sans-sc-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Noto Sans SC Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900"
+                        ]
+                    }
+                },
+                {
+                    "alias": "font-noto-sans-tc-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-tc:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Noto Sans TC Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900"
+                        ]
+                    }
+                },
+                {
+                    "alias": "font-noto-sans-jp-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Noto Sans JP Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900"
+                        ]
+                    }
+                },
+                {
+                    "alias": "font-noto-sans-kr-variable",
+                    "src": "https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-kr:vf@latest/latin-wght-normal.woff2",
+                    "data": {
+                        "family": "Noto Sans KR Variable",
+                        "display": "swap",
+                        "style": "normal",
+                        "weights": [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "builtin-cover-assets",
+            "assets": [
+                {
+                    "alias": "icon-gamemode-fruits",
+                    "src": "icons/game-mode/fruits.svg"
+                },
+                {
+                    "alias": "icon-gamemode-mania",
+                    "src": "icons/game-mode/mania.svg"
+                },
+                {
+                    "alias": "icon-gamemode-osu",
+                    "src": "icons/game-mode/osu.svg"
+                },
+                {
+                    "alias": "icon-gamemode-taiko",
+                    "src": "icons/game-mode/taiko.svg"
+                },
+                {
+                    "alias": "icon-beatmapstatus-approved",
+                    "src": "icons/beatmap-status/approved.svg"
+                },
+                {
+                    "alias": "icon-beatmapstatus-loved",
+                    "src": "icons/beatmap-status/loved.svg"
+                },
+                {
+                    "alias": "icon-beatmapstatus-ranked",
+                    "src": "icons/beatmap-status/ranked.svg"
+                },
+                {
+                    "alias": "icon-beatmapstatus-unranked",
+                    "src": "icons/beatmap-status/unranked.svg"
+                },
+                {
+                    "alias": "fallback-beatmap-background",
+                    "src": "fallbacks/beatmap/background.png"
+                },
+                {
+                    "alias": "fallback-user-avatar",
+                    "src": "fallbacks/user/avatar.png"
+                },
+                {
+                    "alias": "fallback-user-countryflag",
+                    "src": "fallbacks/user/country-flag.svg"
+                },
+                {
+                    "alias": "fallback-user-teamflag",
+                    "src": "fallbacks/user/team-flag.svg"
+                }
+            ]
+        }
+    ]
+}
