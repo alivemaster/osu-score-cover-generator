@@ -27,8 +27,8 @@ importers:
         specifier: ^5.1.1
         version: 5.2.8
       '@pixi/layout':
-        specifier: ^3.1.0
-        version: 3.1.0(@types/react@19.1.13)(pixi.js@8.13.2)(react@19.1.1)(yoga-layout@3.2.1)
+        specifier: ^3.2.0
+        version: 3.2.0(@types/react@19.1.13)(pixi.js@8.13.2)(react@19.1.1)(yoga-layout@3.2.1)
       '@types/color':
         specifier: ^4.2.0
         version: 4.2.0
@@ -572,8 +572,8 @@ packages:
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
 
-  '@pixi/layout@3.1.0':
-    resolution: {integrity: sha512-bP52gz3YneZk8Ll8aAPWUixWLm68HFNSUPOncoLxd0lBdDCnzB93zkcWSUBkQm1Uls62Xukiw6jVIAOnrfZMdQ==}
+  '@pixi/layout@3.2.0':
+    resolution: {integrity: sha512-7TtDLHfaF65sTnYjrvRNqNJSQHMH109b04RtNgoy//BjR+pKWFUCgDMnUhs13fdNM0AkGccQW3UqCdylHuGvbA==}
     peerDependencies:
       pixi.js: ^8
       yoga-layout: ^3
@@ -2588,7 +2588,7 @@ snapshots:
 
   '@pixi/colord@2.9.6': {}
 
-  '@pixi/layout@3.1.0(@types/react@19.1.13)(pixi.js@8.13.2)(react@19.1.1)(yoga-layout@3.2.1)':
+  '@pixi/layout@3.2.0(@types/react@19.1.13)(pixi.js@8.13.2)(react@19.1.1)(yoga-layout@3.2.1)':
     dependencies:
       pixi.js: 8.13.2
       yoga-layout: 3.2.1
