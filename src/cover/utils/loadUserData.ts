@@ -2,8 +2,8 @@ import type CoverData from '../CoverData'
 
 export default async (uid: number) => {
     if (!uid || uid === 0) return
-    const api = 'https://api.alivem.top/osu'
-    // const api = 'http://localhost:7271/osu' 
+    const api = 'https://osuapi.sbsb.sbs'
+    // const api = 'http://localhost:7271/osu'
     const path = '/users/' + uid
     try {
         const res = await fetch(api + path)

@@ -8,8 +8,8 @@ const time = (length: number) => {
 
 export default async (sid: number, unicode: boolean) => {
     if (!sid || sid === 0) return
-    const api = 'https://api.alivem.top/osu'
-    // const api = 'http://localhost:7271/osu' 
+    const api = 'https://osuapi.sbsb.sbs'
+    // const api = 'http://localhost:7271/osu'
     const path = '/scores/' + sid
 
     try {
